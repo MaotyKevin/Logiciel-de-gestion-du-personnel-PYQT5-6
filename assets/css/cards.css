@@ -1,0 +1,50 @@
+/* Style for the Card */
+#card {
+    background-color: #ffffff; /* Background color of the card */
+    border: 1px solid black; /* Border style */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px; /* Spacing inside the card */
+    margin: 10px; /* Margin between cards */
+    width: 200px; /* Set a fixed width for each card */
+    text-align: center; /* Center-align card content */
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); /* Add a subtle box shadow */
+}
+
+/* Style for the labels within the Card */
+#Labels-cards-infos {
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Style for the Personnal_Card widget (the container) */
+Personnal_Card {
+    background-color: #f0f0f0; /* Background color of the container */
+    padding: 20px; /* Spacing inside the container */
+}
+
+/* Style for the scroll area (optional) */
+QScrollArea {
+    border: none; /* Remove border from the scroll area */
+}
+
+/* Style for the scroll bar (optional) */
+QScrollBar {
+    width: 10px; /* Set the width of the scroll bar */
+    background-color: #f0f0f0; /* Background color of the scroll bar */
+}
+
+/* Style for the handle of the scroll bar (optional) */
+QScrollBar::handle {
+    background-color: #ccc; /* Background color of the scroll bar handle */
+    border-radius: 5px; /* Rounded corners for the handle */
+}
+
+/* Style for the scroll bar arrows (optional) */
+QScrollBar::add-line, QScrollBar::sub-line {
+    background: none; /* Remove the default arrow background */
+}
+
+/* Style for the scroll bar arrows when hovered (optional) */
+QScrollBar::add-line:hover, QScrollBar::sub-line:hover {
+    background-color: #ddd; /* Background color on hover */
+}

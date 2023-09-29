@@ -1,0 +1,14 @@
+{
+    "python.analysis.extraPaths": [
+        "./model"
+    ],
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "my_database",
+            "database": "${workspaceFolder:Stage---gestion-de-personnel-main}/data/my_database.sqlite"
+        }
+    ],
+    "sqltools.useNodeRuntime": true
+}
