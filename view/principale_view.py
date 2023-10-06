@@ -12,7 +12,8 @@ from controller.inscription_personnel_controller import InscriptionPersonnelCont
 class CustomHeader(QWidget):
     def __init__(self):
         super().__init__()
-        self.setFixedHeight(80)    
+        self.setFixedHeight(80)  
+        self.setStyleSheet("background-color: #6495ED;")  
         self.header_label = QLabel("LOGO HERE")
         self.header_label.setStyleSheet("color: white ; font-weight: bolder")
         header_layout = QHBoxLayout()
@@ -48,8 +49,6 @@ class MainWindow(QMainWindow):
         super().__init__()
 
         self.setWindowTitle("RH MANAGEMENT - Kevin Copyright")
-        
-        
         self.db_path = db_path
         self.last_displayed_page = None
 

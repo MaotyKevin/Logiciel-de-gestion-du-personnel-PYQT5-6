@@ -3,7 +3,6 @@ from model.database import Databases
 from view.inscription_personnel_view import InscriptionPersonnelForm
 
 
-
 class InscriptionPersonnelController:
     def __init__(self ):
         self.view = None 

@@ -16,7 +16,6 @@ class StepOne(QScrollArea):
         content_widget = QWidget()
         layout = QVBoxLayout()
         content_widget.setLayout(layout)
-
         self.badge_edit = QLineEdit(self)
 
 
