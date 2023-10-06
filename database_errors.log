@@ -1,0 +1,6 @@
+2023-09-29 21:21:01,971 - ERROR - Erreur lors de l'exécution de la requête SQL : Incorrect number of bindings supplied. The current statement uses 1, and there are 13 supplied.
+2023-09-29 21:23:41,304 - ERROR - Erreur lors de l'exécution de la requête SQL : no such column: SAKURA
+2023-09-29 21:27:12,471 - ERROR - Erreur lors de l'exécution de la requête SQL : no such column: SAKURA
+2023-09-29 21:29:45,322 - ERROR - Erreur lors de l'exécution de la requête SQL : Incorrect number of bindings supplied. The current statement uses 0, and there are 1 supplied.
+2023-09-29 21:29:50,090 - ERROR - Erreur lors de l'exécution de la requête SQL : Incorrect number of bindings supplied. The current statement uses 0, and there are 1 supplied.
+2023-09-29 21:34:46,813 - ERROR - Erreur lors de l'exécution de la requête SQL : Incorrect number of bindings supplied. The current statement uses 0, and there are 1 supplied.
