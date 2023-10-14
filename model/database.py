@@ -6,7 +6,8 @@ import io
 
 class Databases:
     def __init__(self , db_path):
-        self.connection = sqlite3.connect(db_path)
+        self.db_path = str(db_path)
+        self.connection = sqlite3.connect(self.db_path)
         self.cursor = self.connection.cursor()
 
     def recuperer_id_equipe(self,equipe):
@@ -87,13 +88,13 @@ class Databases:
         self.connection.commit()
         return self.cursor.lastrowid
 
-    def inserer_personnel(self, badge, nom, prenom, cin, date_cin, lieu_cin, contact, date_naissance, lieu_naissance, adresse, photo_data, affectation_id, id_equipe, id_equipement, id_visite):
+    def inserer_personnel(self, badge, nom, prenom, sexe , cin, date_cin, lieu_cin, contact, date_naissance, lieu_naissance, adresse, photo_data, affectation_id, id_equipe, id_equipement, id_visite):
         # Insérer les données dans la table "Personnel"
         insert_querys = """
-            INSERT INTO Personnel (Badge, Nom, Prenom, CIN, Date_CIN, Lieu_CIN, Contact, Date_Naissance, Lieu_Naissance, Adresse, Photo, id_affectation, id_equipe, id_equipement, id_visite)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO Personnel (Badge, Nom, Prenom, Sexe , CIN, Date_CIN, Lieu_CIN, Contact, Date_Naissance, Lieu_Naissance, Adresse, Photo, id_affectation, id_equipe, id_equipement, id_visite)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """
-        self.cursor.execute(insert_querys, (badge, nom, prenom, cin, date_cin, lieu_cin, contact, date_naissance, lieu_naissance, adresse, photo_data, affectation_id, id_equipe, id_equipement, id_visite))
+        self.cursor.execute(insert_querys, (badge, nom, prenom, sexe , cin, date_cin, lieu_cin, contact, date_naissance, lieu_naissance, adresse, photo_data, affectation_id, id_equipe, id_equipement, id_visite))
         self.connection.commit()
 
     def recuperer_personnel(self):
@@ -279,6 +280,7 @@ class Databases:
                 Badge TEXT PRIMARY KEY,
                 Nom TEXT,
                 Prenom TEXT,
+                Sexe TEXT (10),
                 CIN TEXT,
                 Date_CIN DATE,
                 Lieu_CIN DATE,

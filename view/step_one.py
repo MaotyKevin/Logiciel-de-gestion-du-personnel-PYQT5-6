@@ -2,7 +2,7 @@
 
 import sys
 import os
-from PyQt5.QtWidgets import QApplication, QDialog, QVBoxLayout,QHBoxLayout, QWidget, QLabel, QLineEdit, QPushButton, QComboBox, QFileDialog, QStackedWidget, QDateEdit, QMessageBox , QScrollArea
+from PyQt5.QtWidgets import QApplication, QDialog, QRadioButton, QVBoxLayout,QHBoxLayout, QWidget, QLabel, QLineEdit, QPushButton, QComboBox, QFileDialog, QStackedWidget, QDateEdit, QMessageBox , QScrollArea
 from PyQt5.QtGui import QImage, QPixmap, QFont, QPainter
 from PyQt5.QtCore import Qt, QDate 
 
@@ -11,11 +11,24 @@ class StepOne(QScrollArea):
     def __init__(self):
         super().__init__()
         self.initUI()
+        self.selectedSexe = None
 
     def initUI(self):
         content_widget = QWidget()
         layout = QVBoxLayout()
         content_widget.setLayout(layout)
+
+        sexe_values = ["Homme", "Femme"]
+        self.sexe_radios = []
+        sexe_layout = QHBoxLayout()
+        sexe_layout.addWidget(QLabel("Sexe:"))
+        for sexe_value in sexe_values:
+            radio = QRadioButton(sexe_value)
+            radio.clicked.connect(self.capture_sexe)
+            sexe_layout.addWidget(radio)
+            self.sexe_radios.append(radio)
+
+
         self.badge_edit = QLineEdit(self)
 
 
@@ -25,7 +38,11 @@ class StepOne(QScrollArea):
 
         self.nom_edit = QLineEdit()
         self.prenom_edit = QLineEdit()
+
+        
+
         self.cin_edit = QLineEdit()
+
 
         self.date_cin_edit = QDateEdit(QDate.currentDate())
         #self.date_cin_edit.setDisplayFormat("dd/MM/yyyy")
@@ -76,6 +93,8 @@ class StepOne(QScrollArea):
         layout.addWidget(self.badge_edit)
 
         layout.addLayout(Nom_prenom_layout)
+
+        layout.addLayout(sexe_layout)
         
 
         layout.addWidget(QLabel("Contact:"))
@@ -96,6 +115,13 @@ class StepOne(QScrollArea):
 
         self.setWidget(content_widget)
         self.setWidgetResizable(True)
+
+    def capture_sexe(self):
+        # Check which radio button is checked and capture the selected "sexe" value
+        for radio in self.sexe_radios:
+            if radio.isChecked():
+                self.selectedSexe = radio.text()
+                return self.selectedSexe
 
     def importer_photo(self):
         if self.photo_data is not None:

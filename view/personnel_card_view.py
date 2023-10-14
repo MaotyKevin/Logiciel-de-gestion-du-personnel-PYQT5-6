@@ -1,5 +1,8 @@
 # page2_view.py
-
+import sys , os
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+sys.path.append(parent_dir)
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QScrollArea, QGridLayout ,QFrame
 from view.card_view import Card
 from controller.personnel_card_controller import PersonnelController
@@ -42,16 +45,23 @@ class Personnal_Card(QWidget):
             if widget is not None:
                 widget.deleteLater()
 
-        # Utilisez les résultats filtrés ou les données complètes du personnel
-        data = personnel_data or self.controller.get_personnel_data()
-        
-        for row_idx, row in enumerate(data):
-            badge, nom, categorie, fonction, sous_categorie = row
-            card_container = QFrame()
-            card_container = Card( badge, nom, categorie, fonction, sous_categorie)
-            self.page2_layout.addWidget(card_container, row_idx // 3, row_idx % 3)
+            # Utilisez les résultats filtrés ou les données complètes du personnel
+        if personnel_data is not None:
 
-            card_container.setStyleSheet(" border-radius: 2px; padding: 5px ; margin :5px")
+                data = personnel_data 
+        else: 
+                data = self.controller.get_personnel_data()
+    
+        #data = self.controller.get_personnel_data or personnel_data
+        if data is not None:
+            print(f"DATA = {data}")
+            for row_idx, row in enumerate(data):
+                badge, nom, categorie, fonction, sous_categorie = row
+                card_container = QFrame()
+                card_container = Card( badge, nom, categorie, fonction, sous_categorie)
+                self.page2_layout.addWidget(card_container, row_idx // 3, row_idx % 3)
 
-        # Actualisez l'affichage
-        self.update()
+                card_container.setStyleSheet(" border-radius: 2px; padding: 5px ; margin :5px")
+
+                # Actualisez l'affichage
+            self.update()

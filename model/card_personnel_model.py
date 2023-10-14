@@ -4,7 +4,7 @@ import sqlite3 , logging
 
 class PersonnelCardModel:
     def __init__(self, db_path):
-        self.db_path = db_path
+        self.db_path = str(db_path)
 
     def connect(self):
         try:
@@ -13,10 +13,7 @@ class PersonnelCardModel:
         except sqlite3.Error as e:
             print("Error connecting to the database:", e)
 
-    def close(self):
-        if self.conn:
-            self.conn.close()
-            print("Database connection closed.")
+
 
     def delete_card(self, Badge):
         # Configuration de la journalisation
@@ -40,8 +37,27 @@ class PersonnelCardModel:
         except sqlite3.Error as e:
             print("Error executing the query:", e)
             logging.error("Erreur lors de l'exécution de la requête SQL : %s", e)
-        finally:
-            self.close()
+       
+
+    def get_employee_details(self, Badge ):
+        try:
+            self.connect()  # Connect to the database
+            cursor = self.conn.cursor()
+            query = """
+            SELECT 
+                P.Badge, P.Nom, P.Sexe 
+            FROM Personnel P WHERE Badge = ? """
+            print(f"Badge : {Badge}")
+            
+            cursor.execute(query, (Badge,))
+            employeeDetails = cursor.fetchone()  # Use fetchone() to retrieve a single row
+            print(f"Employee details = {employeeDetails}")
+            return employeeDetails
+
+        except sqlite3.Error as e:
+            print("Error executing the query:", e)
+     
+       
  
 
     def get_personnel_data(self):
@@ -72,11 +88,10 @@ class PersonnelCardModel:
             
         except sqlite3.Error as e:
             print("Error executing the query:", e)
-        finally:
-            self.close()  # Close the database connection
+         # Close the database connection
 
 # Test the model by creating an instance and calling the method
 if __name__ == "__main__":
     db_path = 'data/my_database.sqlite'
     Databasess = PersonnelCardModel(db_path)
-    Databasess.get_personnel_data()
+    Databasess.get_employee_details("543454")

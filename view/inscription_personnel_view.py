@@ -88,6 +88,7 @@ class InscriptionPersonnelForm(QWidget):
 
         self.stepOne.photo_label.clear()
         self.stepOne.photo_data = None 
+        self.stepOne.selectedSexe = None
 
 
 
@@ -165,6 +166,7 @@ class InscriptionPersonnelForm(QWidget):
         badge = self.stepOne.badge_edit.text()
         nom = self.stepOne.nom_edit.text()
         prenom = self.stepOne.prenom_edit.text()
+        sexe = self.stepOne.capture_sexe()
         cin = self.stepOne.cin_edit.text()
         date_cin = self.stepOne.date_cin_edit.date().toString()
         lieu_cin = self.stepOne.lieu_cin_edit.text()
@@ -210,7 +212,7 @@ class InscriptionPersonnelForm(QWidget):
 
             
 
-        self.controller.add_employee(badge , nom , prenom , cin , date_cin , lieu_cin , contact , date_naissance , lieu_naissance , adresse , photo_data , affectation_id , equipe_id , equipement_id , visite_id) 
+        self.controller.add_employee(badge , nom , prenom , sexe , cin , date_cin , lieu_cin , contact , date_naissance , lieu_naissance , adresse , photo_data , affectation_id , equipe_id , equipement_id , visite_id) 
 
         print(f"Badge = {badge}")
 

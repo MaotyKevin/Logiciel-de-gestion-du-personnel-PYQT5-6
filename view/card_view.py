@@ -5,9 +5,11 @@ from PyQt5 import QtGui
 from PyQt5.QtGui import QImage, QPixmap, QFont, QPainter 
 from PyQt5.QtCore import Qt
 from controller.personnel_card_controller import PersonnelController
+from view.employee_detail_view import EmployeeDetailsForm
+
 
 class Card(QWidget):
-    def __init__(self, badge, nom, categorie,fonction, sous_categorie):
+    def __init__(self, badge=None, nom=None, categorie=None,fonction=None, sous_categorie=None ):
         super().__init__()
 
         # Conteneur principal pour la carte
@@ -30,10 +32,17 @@ class Card(QWidget):
         self.delete_button.setStyleSheet("#delete-button { background-color: red; color: white; }")
         self.delete_button.clicked.connect(self.confirm_delete)  # Connectez le signal clicked au slot confirm_delete
 
+        self.detail_utton = QPushButton("Details")
+        self.detail_utton.setObjectName("details-button")
+        self.detail_utton.setStyleSheet("#details-button { background-color: #007BFF; color: white; }")
+        self.detail_utton.clicked.connect(self.show_details)
+
         # Créez un layout horizontal pour le coin supérieur droit
         top_right_layout = QHBoxLayout()
         top_right_layout.addStretch(1)  # Pour pousser le bouton à droite
+        top_right_layout.addWidget(self.detail_utton)
         top_right_layout.addWidget(self.delete_button)
+
 
         # Ajoutez les étiquettes au conteneur de la carte
         card_layout = QVBoxLayout()
@@ -49,6 +58,25 @@ class Card(QWidget):
         layout = QVBoxLayout()
         layout.addWidget(self.container)
         self.setLayout(layout)
+
+        self.open_employee_details = None
+
+    def show_details(self):
+        print("coucou")
+        """from view.principale_view import MainWindow
+        db_path = 'data/my_database.sqlite'
+        self.principal = MainWindow(db_path)
+        self.stacked_widget = self.principal.stacked_widget
+        self.employee_view = EmployeeDetailsForm(self.badge)
+        self.stacked_widget.addWidget(self.employee_view)
+        self.stacked_widget.setCurrentWidget(self.employee_view)"""
+
+        if self.open_employee_details:
+            self.open_employee_details.close()
+        self.employee_view = EmployeeDetailsForm(self.badge)
+        self.employee_view.show()
+        self.open_employee_details = self.employee_view
+        
 
     def confirm_delete(self):
         badge_str = str(self.badge)

@@ -26,7 +26,8 @@ class CustomNavigationBar(QWidget):
         super().__init__()
         self.main_window = main_window  # Référence à la fenêtre principale
         self.setFixedWidth(150)  
-        self.navigation_layout = QVBoxLayout()
+        self.navigation_container = QWidget()
+        self.navigation_layout = QVBoxLayout(self.navigation_container)
         self.navigation_buttons = []
 
   
@@ -41,7 +42,7 @@ class CustomNavigationBar(QWidget):
    
 
         self.setLayout(self.navigation_layout)
-
+        
 
 
 class MainWindow(QMainWindow):
@@ -63,7 +64,6 @@ class MainWindow(QMainWindow):
 
         # Créez la barre de navigation (1ère partie) en utilisant la classe personnalisée
         self.navigation_bar = CustomNavigationBar(self)  # Passez une référence à MainWindow
-
         # Utilisez la classe de l'en-tête personnalisée
         self.header = CustomHeader()
         self.header.setStyleSheet("background-color: white")
@@ -102,7 +102,6 @@ class MainWindow(QMainWindow):
         self.central_layout.addWidget(self.stacked_widget)
 
 
-        
 
         self.personnal_card_form = Personnal_Card(db_path)
         self.stacked_widget.addWidget(self.personnal_card_form)
@@ -112,15 +111,21 @@ class MainWindow(QMainWindow):
         self.inscri_controller.view = self.inscription_form      
         self.stacked_widget.addWidget(self.inscription_form)
 
-  
+
         self.navigation_bar.navigation_buttons[0].clicked.connect(self.show_personnal_card_form)
         self.navigation_bar.navigation_buttons[1].clicked.connect(self.show_inscription_page)
         self.show_personnal_card_form()
 
+
+
     def perform_search(self):
+        #self.show_personnal_card_form()
         search_text = self.search_field.text().strip().lower()
         print(f"Reception search text: {search_text} , bouton fonctionnel")
         print(f"Données existantes : {self.personnal_card_form.personnel_data}")
+
+        self.personnal_card_form.donnee = self.personnal_card_form.controller.get_personnel_data()
+
         self.donnee = self.personnal_card_form.donnee
         personnel_data = []
         
@@ -144,7 +149,6 @@ class MainWindow(QMainWindow):
                 self.personnal_card_form.refresh_personnel_cards()
         
 
-       
     def show_inscription_page(self):
         self.stacked_widget.setCurrentWidget(self.inscription_form)
         self.inscription_form.updateButtonVisibility()
