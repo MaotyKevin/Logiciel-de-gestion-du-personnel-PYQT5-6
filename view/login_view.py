@@ -1,7 +1,9 @@
 #LoginForm.py
 
-from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QLineEdit, QPushButton, QLabel, QMessageBox
+from PyQt5.QtWidgets import QApplication,QSplitter, QWidget, QHBoxLayout,QVBoxLayout, QLineEdit, QPushButton, QLabel, QMessageBox
 from model.admin_model import DatabaseHandler
+from PyQt5 import QtGui
+from PyQt5.QtCore import QRect
 
 
 class LoginWindow(QWidget):
@@ -11,25 +13,51 @@ class LoginWindow(QWidget):
         self.main_window = main_window
         self.db_handler = DatabaseHandler(db_path)
 
-        layout = QVBoxLayout()
+        main_layout = QHBoxLayout()
+
+        splitter = QSplitter()
+
+        left_widget = QWidget()
+        left_layout = QHBoxLayout()
+        left_label = QLabel()
+        
+        # Load the background image
+        background_image = QtGui.QPixmap("assets\pic\logo.jpg")
+        # Resize the background image to your desired dimensions
+        background_image = background_image.scaled(600, 600)  # Adjust the size as needed
+        left_label.setPixmap(background_image)
+
+        left_layout.addWidget(left_label)
+        left_widget.setLayout(left_layout)
+
+        right_widget = QWidget()
+        right_layout = QHBoxLayout()
 
         self.username_input = QLineEdit()
         self.password_input = QLineEdit()
         self.password_input.setEchoMode(QLineEdit.Password)
         self.password_input.returnPressed.connect(self.login)
+        self.username_input.setGeometry(QRect(100 , 100 , 50 , 50))
 
         self.login_button = QPushButton("Login")
         self.login_button.clicked.connect(self.login)
 
         self.username_input.returnPressed.connect(self.password_input.setFocus)
 
-        layout.addWidget(QLabel("Username:"))
-        layout.addWidget(self.username_input)
-        layout.addWidget(QLabel("Password:"))
-        layout.addWidget(self.password_input)
-        layout.addWidget(self.login_button)
+        right_layout.addWidget(QLabel("Username:"))
+        right_layout.addWidget(self.username_input)
+        right_layout.addWidget(QLabel("Password:"))
+        right_layout.addWidget(self.password_input)
+        right_layout.addWidget(self.login_button)
+        right_widget.setLayout(right_layout)
 
-        self.setLayout(layout)
+        splitter.addWidget(left_widget)
+        splitter.addWidget(right_widget)
+
+        main_layout.addWidget(splitter)
+
+        # Set the main layout for the central widget
+        self.setLayout(main_layout)
 
     def login(self):
         username = self.username_input.text()

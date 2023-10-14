@@ -53,7 +53,7 @@ class CustomNavigationBar(QWidget):
         confirmation = QMessageBox.question(self, "Confirmation" , "Etes-vous sur de vouloir vous deconnecter ?",QMessageBox.Yes | QMessageBox.No)
         if confirmation == QMessageBox.Yes:
             self.main_window.show_login_view()
-            self.login_view.clear()
+            
 
 
 class MainWindow(QMainWindow):
@@ -67,22 +67,22 @@ class MainWindow(QMainWindow):
         
         self.login_view = LoginWindow(db_path , self)
         self.principal_view = None
-
+        self.access = None
         self.show_login_view()
 
-        self.login_view.show()
+        #self.login_view.show()
 
         self.setupUI()
 
     def setupUI(self):    
         # Récupérer la taille de l'écran actuel
-        desktop = QDesktopWidget()
+        """desktop = QDesktopWidget()
         screen_rect = desktop.screenGeometry()
         width, height = screen_rect.width(), screen_rect.height()
         
         # Redimensionner la fenêtre en fonction de la taille de l'écran
         new_size = QSize(int(width*3), int(height*3))
-        self.resize(new_size)
+        self.resize(new_size)"""
 
         # Créez la barre de navigation (1ère partie) en utilisant la classe personnalisée
         self.navigation_bar = CustomNavigationBar(self)  # Passez une référence à MainWindow
@@ -116,7 +116,7 @@ class MainWindow(QMainWindow):
 
         self.container = QWidget()
         self.container.setLayout(main_layout)
-        #self.setCentralWidget(container)
+        #self.setCentralWidget(self.container)
 
 
         # Ajoutez un QStackedWidget pour gérer les pages
@@ -139,7 +139,7 @@ class MainWindow(QMainWindow):
         self.show_personnal_card_form()
 
     def show_principal_view(self):
-        self.login_view.hide()
+        #self.login_view.hide()
         self.setupUI()
         self.setCentralWidget(self.container)
 
