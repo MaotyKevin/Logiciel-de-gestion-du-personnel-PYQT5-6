@@ -7,6 +7,8 @@ from PyQt5.QtCore import Qt, QSize , QFile, QTextStream
 from inscription_personnel_view import InscriptionPersonnelForm
 from view.personnel_card_view import Personnal_Card
 from controller.inscription_personnel_controller import InscriptionPersonnelController
+from view.login_view import LoginWindow
+
 
 
 class CustomHeader(QWidget):
@@ -53,6 +55,14 @@ class MainWindow(QMainWindow):
         self.db_path = db_path
         self.last_displayed_page = None
 
+        
+        self.login_view = LoginWindow(db_path , self)
+        self.principal_view = None
+
+        self.setCentralWidget(self.login_view)
+
+        self.login_view.show()
+
         # Récupérer la taille de l'écran actuel
         desktop = QDesktopWidget()
         screen_rect = desktop.screenGeometry()
@@ -92,9 +102,9 @@ class MainWindow(QMainWindow):
         main_layout.addWidget(self.header)
         main_layout.addLayout(navigation_and_central_layout)
 
-        container = QWidget()
-        container.setLayout(main_layout)
-        self.setCentralWidget(container)
+        self.container = QWidget()
+        self.container.setLayout(main_layout)
+        #self.setCentralWidget(container)
 
 
         # Ajoutez un QStackedWidget pour gérer les pages
@@ -116,7 +126,8 @@ class MainWindow(QMainWindow):
         self.navigation_bar.navigation_buttons[1].clicked.connect(self.show_inscription_page)
         self.show_personnal_card_form()
 
-
+    def show_principal_view(self):
+        self.setCentralWidget(self.container)
 
     def perform_search(self):
         #self.show_personnal_card_form()
