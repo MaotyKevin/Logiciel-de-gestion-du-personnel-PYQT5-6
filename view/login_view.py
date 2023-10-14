@@ -49,8 +49,8 @@ class LoginWindow(QWidget):
         error_dialog.setIcon(QMessageBox.Warning)
         error_dialog.exec_()
 
-    def show(self):
+    def clear(self):
         # Reset the input fields when the window is shown again
         self.username_input.setText("")
         self.password_input.setText("")
-        super().show()
+        #super().show()

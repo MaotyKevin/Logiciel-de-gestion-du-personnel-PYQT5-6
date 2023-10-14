@@ -1,7 +1,7 @@
 #view/principale_view.py
 from pathlib import Path
 import sys
-from PyQt5.QtWidgets import QLineEdit, QApplication,QDesktopWidget,QStackedWidget, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QSplitter
+from PyQt5.QtWidgets import QMessageBox,QLineEdit, QApplication,QDesktopWidget,QStackedWidget, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QSplitter
 from PyQt5.QtGui import QPalette, QColor
 from PyQt5.QtCore import Qt, QSize , QFile, QTextStream
 from inscription_personnel_view import InscriptionPersonnelForm
@@ -41,10 +41,19 @@ class CustomNavigationBar(QWidget):
         self.navigation_buttons.append(button2)
         self.navigation_layout.addWidget(button2)        
 
-   
+        self.logoutButton = QPushButton(F"Logout")
+        self.navigation_layout.addWidget(self.logoutButton)
+
+        self.login_view = LoginWindow(db_path , self)
+        self.logoutButton.clicked.connect(self.logout)
 
         self.setLayout(self.navigation_layout)
-        
+    
+    def logout(self):
+        confirmation = QMessageBox.question(self, "Confirmation" , "Etes-vous sur de vouloir vous deconnecter ?",QMessageBox.Yes | QMessageBox.No)
+        if confirmation == QMessageBox.Yes:
+            self.main_window.show_login_view()
+            self.login_view.clear()
 
 
 class MainWindow(QMainWindow):
@@ -59,10 +68,13 @@ class MainWindow(QMainWindow):
         self.login_view = LoginWindow(db_path , self)
         self.principal_view = None
 
-        self.setCentralWidget(self.login_view)
+        self.show_login_view()
 
         self.login_view.show()
 
+        self.setupUI()
+
+    def setupUI(self):    
         # Récupérer la taille de l'écran actuel
         desktop = QDesktopWidget()
         screen_rect = desktop.screenGeometry()
@@ -127,7 +139,14 @@ class MainWindow(QMainWindow):
         self.show_personnal_card_form()
 
     def show_principal_view(self):
+        self.login_view.hide()
+        self.setupUI()
         self.setCentralWidget(self.container)
+
+    def show_login_view(self):
+        self.login_view = LoginWindow(db_path , self)
+        self.setCentralWidget(self.login_view)
+        self.login_view.show()
 
     def perform_search(self):
         #self.show_personnal_card_form()
