@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QApplication,QSplitter, QWidget, QHBoxLayout,QVBoxLa
 from model.admin_model import DatabaseHandler
 from PyQt5 import QtGui
 from PyQt5.QtCore import QRect
+from PyQt5 import QtCore
 
 
 class LoginWindow(QWidget):
@@ -18,35 +19,40 @@ class LoginWindow(QWidget):
         splitter = QSplitter()
 
         left_widget = QWidget()
+        left_widget.setStyleSheet("background-color:white;")
         left_layout = QHBoxLayout()
         left_label = QLabel()
         
         # Load the background image
-        background_image = QtGui.QPixmap("assets\pic\logo.jpg")
+        background_image = QtGui.QPixmap("assets\pic\Fanahisoa.jpg")
         # Resize the background image to your desired dimensions
-        background_image = background_image.scaled(600, 600)  # Adjust the size as needed
+        background_image = background_image.scaled(700, 300)  # Adjust the size as needed
         left_label.setPixmap(background_image)
 
         left_layout.addWidget(left_label)
         left_widget.setLayout(left_layout)
 
         right_widget = QWidget()
+        #right_widget.setStyleSheet("background-color: black;")
         right_layout = QHBoxLayout()
 
         self.username_input = QLineEdit()
         self.password_input = QLineEdit()
         self.password_input.setEchoMode(QLineEdit.Password)
         self.password_input.returnPressed.connect(self.login)
-        self.username_input.setGeometry(QRect(100 , 100 , 50 , 50))
+        self.username_input.setStyleSheet("width : 200; height: 30;")
+        self.username_input.setPlaceholderText("Username")
+        self.password_input.setPlaceholderText("password")
+        self.password_input.setStyleSheet("width : 200; height: 30;")
 
         self.login_button = QPushButton("Login")
         self.login_button.clicked.connect(self.login)
 
         self.username_input.returnPressed.connect(self.password_input.setFocus)
 
-        right_layout.addWidget(QLabel("Username:"))
+        #right_layout.addWidget(QLabel("Username:"))
         right_layout.addWidget(self.username_input)
-        right_layout.addWidget(QLabel("Password:"))
+        #right_layout.addWidget(QLabel("Password:"))
         right_layout.addWidget(self.password_input)
         right_layout.addWidget(self.login_button)
         right_widget.setLayout(right_layout)

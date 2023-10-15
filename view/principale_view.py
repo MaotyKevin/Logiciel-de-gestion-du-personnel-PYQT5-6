@@ -1,9 +1,9 @@
 #view/principale_view.py
 from pathlib import Path
 import sys
-from PyQt5.QtWidgets import QMessageBox,QLineEdit, QApplication,QDesktopWidget,QStackedWidget, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QSplitter
-from PyQt5.QtGui import QPalette, QColor
-from PyQt5.QtCore import Qt, QSize , QFile, QTextStream
+from PyQt5.QtWidgets import QMessageBox,QLineEdit, QApplication,QDesktopWidget,QStackedWidget, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QSplitter 
+from PyQt5.QtGui import QPalette, QColor 
+from PyQt5.QtCore import Qt, QSize , QFile, QTextStream , QRect
 from inscription_personnel_view import InscriptionPersonnelForm
 from view.personnel_card_view import Personnal_Card
 from controller.inscription_personnel_controller import InscriptionPersonnelController
@@ -101,6 +101,9 @@ class MainWindow(QMainWindow):
         self.search_field.textChanged.connect(self.perform_search)
 
         self.search_field.setStyleSheet("Background-color: #FFFFFF;border: 1px solid #CCCCCC; border-radius: 5px; padding: 5px;font-size: 14px;color: #333333;")
+        #self.search_field.setFixedWidth(300)
+        
+
         
        
 
