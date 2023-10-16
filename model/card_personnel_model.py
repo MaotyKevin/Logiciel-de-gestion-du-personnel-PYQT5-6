@@ -58,7 +58,44 @@ class PersonnelCardModel:
             print("Error executing the query:", e)
      
        
- 
+    def get_team_names(self):
+        try:
+            self.connect()
+            cursor = self.conn.cursor()
+            cursor.execute("SELECT nom_equipe FROM Equipe")
+
+            equipe_data = [row[0] for row in cursor.fetchall()]
+            return equipe_data
+        except sqlite3.Error as e:
+            print(f"Erreur lors de la récupération des données d'équipe : {str(e)}")
+            return []
+        
+    def get_personnel_by_team(self, team_name):
+        try:
+            self.connect()
+            cursor = self.conn.cursor()
+
+
+            query = f'''
+                    SELECT P.Badge, P.Nom, COALESCE(A.Categorie, 'Aucun') AS Categorie, COALESCE(A.Fonction, 'Aucun') AS Fonction, COALESCE(S.sousCategorie, 'Aucun') AS sousCategorie
+                    FROM Personnel P
+                    LEFT JOIN Affectation A ON P.id_affectation = A.id_affectation
+                    LEFT JOIN SousCategorie S ON A.id_sousCategorie = S.id_sousCategorie
+                    LEFT JOIN Equipe E ON P.id_equipe = E.id_equipe
+                    WHERE E.nom_equipe = '{team_name}'  -- Filter by the selected team
+                    ORDER BY E.nom_equipe
+                '''
+
+            cursor.execute(query)
+            result = cursor.fetchall()
+
+            self.conn.close()
+           
+            return result
+
+        except sqlite3.Error as e:
+            print(f"SQLite error: {e}")
+            return None
 
     def get_personnel_data(self):
         try:
@@ -94,4 +131,8 @@ class PersonnelCardModel:
 if __name__ == "__main__":
     db_path = 'data/my_database.sqlite'
     Databasess = PersonnelCardModel(db_path)
-    Databasess.get_employee_details("543454")
+    #Databasess.get_employee_details("543454")
+    tri =  Databasess.get_personnel_by_team("Equipe B")
+    for tris in tri :
+        Badge = tris
+        print(f"Badge : {Badge}\n")

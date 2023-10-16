@@ -20,6 +20,15 @@ class PersonnelController:
     def delete_data(self , Badge):
         print("Controller delete called")
         return self.model.delete_card(Badge)
+    
+    def get_team_names(self):
+        return self.model.get_team_names()
+    
+    def get_personnel_by_team(self , team_name):
+        if team_name == "All Teams":
+            return self.model.get_personnel_data()
+        else:
+           return  self.model.get_personnel_by_team(team_name)
 
 if __name__ == "__main__":
     contro = PersonnelController('data/my_database.sqlite')

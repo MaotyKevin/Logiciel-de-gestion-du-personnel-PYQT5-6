@@ -1,30 +1,28 @@
 import sqlite3
 
-# Connectez-vous à la base de données SQLite
-conn = sqlite3.connect('data/my_database.sqlite')
-cursor = conn.cursor()
+def get_personnel_by_team(self, team_name):
+    try:
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
 
-# Exécutez une requête SQL pour récupérer les personnels triés par équipe
-query = '''
-    SELECT Personnel.badge, Personnel.nom, Equipe.nom_equipe
-    FROM Personnel
-    INNER JOIN Equipe ON Personnel.id_equipe = Equipe.id_equipe
-    ORDER BY Equipe.nom_equipe
-'''
 
-cursor.execute(query)
+        query = f'''
+                SELECT P.Badge, P.Nom, E.nom_equipe, COALESCE(A.Categorie, 'Aucun') AS Categorie, COALESCE(A.Fonction, 'Aucun') AS Fonction, COALESCE(S.sousCategorie, 'Aucun') AS sousCategorie
+                FROM Personnel P
+                LEFT JOIN Affectation A ON P.id_affectation = A.id_affectation
+                LEFT JOIN SousCategorie S ON A.id_sousCategorie = S.id_sousCategorie
+                LEFT JOIN Equipe E ON P.id_equipe = E.id_equipe
+                WHERE E.nom_equipe = '{team_name}'  -- Filter by the selected team
+                ORDER BY E.nom_equipe
+            '''
 
-# Récupérez les résultats de la requête
-result = cursor.fetchall()
+        cursor.execute(query)
+        result = cursor.fetchall()
 
-# Affichez les personnels triés par équipe
-current_equipe = None
-for row in result:
-    badge, nom, nom_equipe = row
-    if nom_equipe != current_equipe:
-        print(f"Équipe : {nom_equipe}")
-        current_equipe = nom_equipe
-    print(f"Badge : {badge}, Nom : {nom}")
+        conn.close()
 
-# Fermez la connexion à la base de données
-conn.close()
+        return result
+
+    except sqlite3.Error as e:
+        print(f"SQLite error: {e}")
+        return None

@@ -3,7 +3,7 @@ import sys , os
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QScrollArea, QGridLayout ,QFrame
+from PyQt5.QtWidgets import QComboBox,QWidget, QVBoxLayout, QLabel, QScrollArea, QGridLayout ,QFrame
 from view.card_view import Card
 from controller.personnel_card_controller import PersonnelController
 from PyQt5 import QtCore
@@ -34,9 +34,23 @@ class Personnal_Card(QWidget):
         # Définissez le widget conteneur comme widget pour la zone défilante
         scroll_area.setWidget(container)
 
+        # Create a combo box for team selection
+        self.team_filter = QComboBox()
+        self.team_filter.addItem("All Teams") 
+         # Initial option
+        self.equipe_name = self.controller.get_team_names()
+        self.team_filter.addItems(self.equipe_name)  # Implement this method to get team names
+        self.team_filter.currentIndexChanged.connect(self.filter_personnel_team)
+
         main_layout = QVBoxLayout()
+        main_layout.addWidget(self.team_filter)
         main_layout.addWidget(scroll_area)
         self.setLayout(main_layout)
+
+    def filter_personnel_team(self, index):
+        selected_team = self.team_filter.currentText()
+        personnel_data = self.controller.get_personnel_by_team(selected_team)
+        self.refresh_personnel_cards(personnel_data)
 
     def refresh_personnel_cards(self, personnel_data=None):
         # Supprimez toutes les cartes actuelles

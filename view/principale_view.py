@@ -199,4 +199,5 @@ if __name__ == "__main__":
     window = MainWindow(db_path)
 
     window.showMaximized() 
+    
     sys.exit(app.exec_())
