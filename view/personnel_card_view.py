@@ -9,9 +9,10 @@ from controller.personnel_card_controller import PersonnelController
 from PyQt5 import QtCore
 
 class Personnal_Card(QWidget):
-    def __init__(self, db_path):
+    def __init__(self, db_path , main_window):
         super().__init__()
         self.db_path = db_path
+        self.main_window = main_window
         self.controller = PersonnelController(db_path)
         self.personnel_data = []
         self.donnee = self.controller.get_personnel_data()
@@ -37,6 +38,7 @@ class Personnal_Card(QWidget):
         # Create a combo box for team selection
         self.team_filter = QComboBox()
         self.team_filter.addItem("All Teams") 
+        
          # Initial option
         self.equipe_name = self.controller.get_team_names()
         self.team_filter.addItems(self.equipe_name)  # Implement this method to get team names
@@ -46,6 +48,8 @@ class Personnal_Card(QWidget):
         main_layout.addWidget(self.team_filter)
         main_layout.addWidget(scroll_area)
         self.setLayout(main_layout)
+
+
 
     def filter_personnel_team(self, index):
         selected_team = self.team_filter.currentText()
@@ -72,7 +76,7 @@ class Personnal_Card(QWidget):
             for row_idx, row in enumerate(data):
                 badge, nom, categorie, fonction, sous_categorie = row
                 card_container = QFrame()
-                card_container = Card( badge, nom, categorie, fonction, sous_categorie)
+                card_container = Card( badge, nom, categorie, fonction, sous_categorie , self.main_window)
                 self.page2_layout.addWidget(card_container, row_idx // 3, row_idx % 3)
 
                 card_container.setStyleSheet(" border-radius: 2px; padding: 5px ; margin :5px")

@@ -8,7 +8,7 @@ from inscription_personnel_view import InscriptionPersonnelForm
 from view.personnel_card_view import Personnal_Card
 from controller.inscription_personnel_controller import InscriptionPersonnelController
 from view.login_view import LoginWindow
-
+from view.employee_detail_view import EmployeeDetailsForm
 
 
 class CustomHeader(QWidget):
@@ -128,7 +128,7 @@ class MainWindow(QMainWindow):
 
 
 
-        self.personnal_card_form = Personnal_Card(db_path)
+        self.personnal_card_form = Personnal_Card(db_path , self)
         self.stacked_widget.addWidget(self.personnal_card_form)
 
         self.inscri_controller = InscriptionPersonnelController()
@@ -140,6 +140,24 @@ class MainWindow(QMainWindow):
         self.navigation_bar.navigation_buttons[0].clicked.connect(self.show_personnal_card_form)
         self.navigation_bar.navigation_buttons[1].clicked.connect(self.show_inscription_page)
         self.show_personnal_card_form()
+
+    """   def return_to_last_displayed_page(self):
+        
+        if self.last_displayed_page:
+            if isinstance(self.last_displayed_page, EmployeeDetailsForm):
+                self.setupUI()
+                # self.show_personnal_card_form()  # Return to the list of cards
+            else:
+                self.stacked_widget.setCurrentWidget(self.last_displayed_page)
+            if self.last_displayed_page == self.personnal_card_form:
+                self.personnal_card_form.refresh_personnel_cards()
+               """ 
+    def show_employee_details_view(self, employee_details_form):
+        # Replace the current view with the EmployeeDetailsForm
+        if self.last_displayed_page:
+            self.last_displayed_page.hide()
+        self.setCentralWidget(employee_details_form)
+        self.last_displayed_page = employee_details_form
 
     def show_principal_view(self):
         #self.login_view.hide()
@@ -173,13 +191,18 @@ class MainWindow(QMainWindow):
         self.personnal_card_form.refresh_personnel_cards(personnel_data)
         #print(personnel_data)
 
-    def return_to_last_displayed_page(self):
+    def return_to_last_displayed_page(self , employee_details_form):
+        print("return last displayed called")
         if self.last_displayed_page:
+            print("last displayed page condition ok")
+            self.show_principal_view()
             self.stacked_widget.setCurrentWidget(self.last_displayed_page)
 
             # Si la dernière page affichée est la page des cartes du personnel, actualisez les cartes
             if self.last_displayed_page == self.personnal_card_form:
                 self.personnal_card_form.refresh_personnel_cards()
+            if self.last_displayed_page == employee_details_form:
+                self.setupUI()
         
 
     def show_inscription_page(self):
@@ -190,6 +213,7 @@ class MainWindow(QMainWindow):
         self.last_displayed_page = self.personnal_card_form
         self.stacked_widget.setCurrentWidget(self.personnal_card_form)
         self.personnal_card_form.refresh_personnel_cards()
+        
 
 
 

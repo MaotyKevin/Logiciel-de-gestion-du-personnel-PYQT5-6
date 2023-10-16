@@ -9,7 +9,7 @@ from view.employee_detail_view import EmployeeDetailsForm
 
 
 class Card(QWidget):
-    def __init__(self, badge=None, nom=None, categorie=None,fonction=None, sous_categorie=None ):
+    def __init__(self, badge=None, nom=None, categorie=None,fonction=None, sous_categorie=None, main_window=None ):
         super().__init__()
 
         # Conteneur principal pour la carte
@@ -18,6 +18,8 @@ class Card(QWidget):
         self.container.setStyleSheet("#card-container { border: 1px solid black; border-radius: 5px; margin: 10px; padding: 10px; }")
 
         self.controller = PersonnelController(db_path='data/my_database.sqlite')
+
+        
 
         # Créez des étiquettes pour les informations de la carte
         badge_label = QLabel(f"Badge: {badge}")
@@ -35,7 +37,7 @@ class Card(QWidget):
         self.detail_utton = QPushButton("Details")
         self.detail_utton.setObjectName("details-button")
         self.detail_utton.setStyleSheet("#details-button { background-color: #007BFF; color: white; }")
-        self.detail_utton.clicked.connect(self.show_details)
+        self.detail_utton.clicked.connect(self.show_employee_details)
 
         # Créez un layout horizontal pour le coin supérieur droit
         top_right_layout = QHBoxLayout()
@@ -60,22 +62,15 @@ class Card(QWidget):
         self.setLayout(layout)
 
         self.open_employee_details = None
+        self.main_window = main_window
+        self.employee_details_form = EmployeeDetailsForm(self.badge , main_window)
 
-    def show_details(self):
-        print("coucou")
-        """from view.principale_view import MainWindow
-        db_path = 'data/my_database.sqlite'
-        self.principal = MainWindow(db_path)
-        self.stacked_widget = self.principal.stacked_widget
-        self.employee_view = EmployeeDetailsForm(self.badge)
-        self.stacked_widget.addWidget(self.employee_view)
-        self.stacked_widget.setCurrentWidget(self.employee_view)"""
-
-        if self.open_employee_details:
-            self.open_employee_details.close()
-        self.employee_view = EmployeeDetailsForm(self.badge)
-        self.employee_view.show()
-        self.open_employee_details = self.employee_view
+    def show_employee_details(self):
+        # Use the reference to the main window to switch views
+        print("detail clicked")
+        if self.main_window:
+            print("entree dans la condition")
+            self.main_window.show_employee_details_view(self.employee_details_form)
         
 
     def confirm_delete(self):
