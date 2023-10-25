@@ -27,3 +27,6 @@ class AdminCrudController:
 
     def update_Username(self, id_user, username):
         return self.model.updateUserName(id_user, username)
+    
+    def update_Password(self , id_user , password):
+        return self.model.updateUserPassword(id_user , password)

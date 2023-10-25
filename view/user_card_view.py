@@ -1,5 +1,5 @@
 import typing
-from PyQt5.QtWidgets import QWidget,QGraphicsDropShadowEffect, QVBoxLayout, QLabel , QFrame , QHBoxLayout,QPushButton , QMessageBox
+from PyQt5.QtWidgets import QWidget,QGraphicsDropShadowEffect, QLineEdit,QVBoxLayout, QLabel , QFrame , QHBoxLayout,QPushButton , QMessageBox
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtGui import QImage, QPixmap, QFont, QPainter 
 from PyQt5.QtCore import Qt
@@ -19,8 +19,30 @@ class UserCard(QWidget):
         self.container.setStyleSheet("#card-container { border: 1px solid black; border-radius: 5px; margin: 10px; padding: 10px; }")
         self.controller = AdminCrudController(db_path='data/my_database.sqlite')
 
-        username_label = QLabel(f"{self.username}")
-        password_label = QLabel(f"{self.password}")
+        self.username_label = QLineEdit(f"{self.username}")
+        self.password_label = QLineEdit(f"{self.password}")
+
+
+        self.edit_button = QPushButton("Modifier")
+        self.edit_button.setObjectName("edit-button")
+        self.edit_button.setStyleSheet("#edit-button { background-color: #007BFF; color: white; }")
+        self.edit_button.clicked.connect(self.toggle_editable)
+
+
+        self.save_button = QPushButton("Enregistrer")
+        self.save_button.setObjectName("save-button")
+        self.save_button.setStyleSheet("#save-button { background-color: green; color: white; }")
+        self.save_button.clicked.connect(self.save_changes)
+        self.save_button.hide()  # Initially hide the "Save" button
+
+        self.cancel_button = QPushButton("Annuler")
+        self.cancel_button.setObjectName("cancel-button")
+        self.cancel_button.setStyleSheet("#cancel-button { background-color: #007BFF; color: white; }")
+        self.cancel_button.clicked.connect(self.cancel_changes)
+        self.cancel_button.hide()  # Initially hide the "Cancel" button
+
+
+
 
         self.delete_button = QPushButton("Supprimer")
         self.delete_button.setObjectName("delete-button")
@@ -29,11 +51,15 @@ class UserCard(QWidget):
 
         top_right_layout = QHBoxLayout()
         top_right_layout.addStretch(1)  # Pour pousser le bouton à droite
+        top_right_layout.addWidget(self.edit_button)
+        top_right_layout.addWidget(self.save_button)
+        top_right_layout.addWidget(self.cancel_button)
         top_right_layout.addWidget(self.delete_button)
+        
 
         card_layout = QVBoxLayout()
-        card_layout.addWidget(username_label)
-        card_layout.addWidget(password_label)
+        card_layout.addWidget(self.username_label)
+        card_layout.addWidget(self.password_label)
         card_layout.addLayout(top_right_layout)
         self.container.setLayout(card_layout)
 
@@ -49,3 +75,39 @@ class UserCard(QWidget):
         if confirmation == QMessageBox.Yes:
             self.controller.delete_User(idUserStr)
             self.deleteLater()
+
+    def toggle_editable(self):
+        self.username_label.setReadOnly(False)
+        self.password_label.setReadOnly(False)
+        self.edit_button.hide()
+        self.save_button.show()
+        self.cancel_button.show()
+
+    def save_changes(self):
+        new_username = self.username_label.text()
+        new_password = self.password_label.text()
+
+        if new_username != self.username:
+            self.controller.update_Username(self.id_user, new_username)
+            self.username = new_username
+
+        if new_password != self.password:
+            self.controller.update_Password(self.id_user, new_password)
+            self.password = new_password
+
+        # Restore the original view
+        self.username_label.setReadOnly(True)
+        self.password_label.setReadOnly(True)
+        self.edit_button.show()
+        self.save_button.hide()
+        self.cancel_button.hide()
+
+    def cancel_changes(self):
+        # Restore the original data and view
+        self.username_label.setText(self.username)
+        self.password_label.setText(self.password)
+        self.username_label.setReadOnly(True)
+        self.password_label.setReadOnly(True)
+        self.edit_button.show()
+        self.save_button.hide()
+        self.cancel_button.hide()
