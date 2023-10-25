@@ -3,7 +3,7 @@ import sqlite3 , logging
 def authenticate_user(username, password):
     logging.basicConfig(filename='database_errors.log', level=logging.ERROR, format='%(asctime)s - %(levelname)s - %(message)s')
     # Initialize the connection to the database
-    connection = sqlite3.connect('data/my_database.sqlite')
+    connection = sqlite3.connect('data\my_database.sqlite')
     cursor = connection.cursor()
 
     user_role = None  # Store the user's role here

@@ -17,7 +17,7 @@ class Card(QWidget):
         self.container.setObjectName("card-container")
         self.container.setStyleSheet("#card-container { border: 1px solid black; border-radius: 5px; margin: 10px; padding: 10px; }")
 
-        self.controller = PersonnelController(db_path='data/my_database.sqlite')
+        self.controller = PersonnelController(db_path='data\my_database.sqlite')
 
         
 

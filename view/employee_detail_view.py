@@ -11,7 +11,7 @@ class EmployeeDetailsForm(QWidget):
         super().__init__()
         self.badge = badge
         self.main_window = main_window
-        self.controller = PersonnelController(db_path='data/my_database.sqlite')
+        self.controller = PersonnelController(db_path='data\my_database.sqlite')
         employee_data = self.controller.get_employee_details(self.badge)
         self.initUI(employee_data)
 

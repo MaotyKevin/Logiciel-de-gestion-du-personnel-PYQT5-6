@@ -89,7 +89,7 @@ class Admin_crud_model:
         
 # Example usage:
 if __name__ == "__main__":
-    db_path = 'data/my_database.sqlite'
+    db_path = 'data\my_database.sqlite'
     Admin_crud_models = Admin_crud_model(db_path)
     """team = "Z"
     Admin_crud_models.addTeam(team)"""

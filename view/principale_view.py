@@ -1,10 +1,13 @@
 #view/principale_view.py
 from pathlib import Path
-import sys
+import sys , os
 from PyQt5.QtWidgets import QMessageBox,QLineEdit, QApplication,QDesktopWidget,QStackedWidget, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QSplitter 
 from PyQt5.QtGui import QPalette, QColor 
 from PyQt5.QtCore import Qt, QSize , QFile, QTextStream , QRect
-from inscription_personnel_view import InscriptionPersonnelForm
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+sys.path.append(parent_dir)
+from view.inscription_personnel_view import InscriptionPersonnelForm
 from view.personnel_card_view import Personnal_Card
 from controller.inscription_personnel_controller import InscriptionPersonnelController
 from view.login_view import LoginWindow
@@ -24,13 +27,15 @@ class CustomHeader(QWidget):
 
 
 class CustomNavigationBar(QWidget):
-    def __init__(self, main_window  ):
+    def __init__(self, main_window  , db_path):
         super().__init__()
         self.main_window = main_window  # Référence à la fenêtre principale
         self.setFixedWidth(150)  
         self.navigation_container = QWidget()
         self.navigation_layout = QVBoxLayout(self.navigation_container)
         self.navigation_buttons = []
+
+        self.db_path = db_path
 
   
         button = QPushButton("Effectif")
@@ -51,7 +56,7 @@ class CustomNavigationBar(QWidget):
         self.logoutButton = QPushButton(F"Logout")
         self.navigation_layout.addWidget(self.logoutButton)
 
-        self.login_view = LoginWindow(db_path , self)
+        self.login_view = LoginWindow(self.db_path , self)
         self.logoutButton.clicked.connect(self.logout)
 
         self.setLayout(self.navigation_layout)
@@ -94,7 +99,7 @@ class MainWindow(QMainWindow):
         self.resize(new_size)"""
 
         # Créez la barre de navigation (1ère partie) en utilisant la classe personnalisée
-        self.navigation_bar = CustomNavigationBar(self)  # Passez une référence à MainWindow
+        self.navigation_bar = CustomNavigationBar( self, self.db_path)  # Passez une référence à MainWindow
         """self.navigation_bar.setStyleSheet(
             
             QPushButton {
@@ -150,17 +155,17 @@ class MainWindow(QMainWindow):
         self.stacked_widget = QStackedWidget()
         self.central_layout.addWidget(self.stacked_widget)
 
-        self.admin_crud = Admin_crud(db_path)
+        self.admin_crud = Admin_crud(self.db_path)
         self.stacked_widget.addWidget(self.admin_crud)
 
 
 
 
-        self.personnal_card_form = Personnal_Card(db_path , self)
+        self.personnal_card_form = Personnal_Card(self.db_path , self)
         self.stacked_widget.addWidget(self.personnal_card_form)
 
         self.inscri_controller = InscriptionPersonnelController()
-        self.inscription_form = InscriptionPersonnelForm(db_path , self.inscri_controller) 
+        self.inscription_form = InscriptionPersonnelForm(self.db_path , self.inscri_controller) 
         self.inscri_controller.view = self.inscription_form      
         self.stacked_widget.addWidget(self.inscription_form)
 
@@ -195,7 +200,7 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.container)
 
     def show_login_view(self):
-        self.login_view = LoginWindow(db_path , self)
+        self.login_view = LoginWindow(self.db_path , self)
         self.setCentralWidget(self.login_view)
         self.login_view.show()
 
@@ -250,11 +255,3 @@ class MainWindow(QMainWindow):
 
 
 
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    db_path = 'data/my_database.sqlite'
-    window = MainWindow(db_path)
-
-    window.showMaximized() 
-    
-    sys.exit(app.exec_())

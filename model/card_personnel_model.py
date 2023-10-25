@@ -129,7 +129,7 @@ class PersonnelCardModel:
 
 # Test the model by creating an instance and calling the method
 if __name__ == "__main__":
-    db_path = 'data/my_database.sqlite'
+    db_path = 'data\my_database.sqlite'
     Databasess = PersonnelCardModel(db_path)
     #Databasess.get_employee_details("543454")
     tri =  Databasess.get_personnel_by_team("Equipe B")

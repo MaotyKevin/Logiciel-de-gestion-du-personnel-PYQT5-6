@@ -3,7 +3,7 @@
 import sqlite3
 
 class DatabaseHandler:
-    def __init__(self, db_file="data/my_database.sqlite"):
+    def __init__(self, db_file="data\my_database.sqlite"):
         try:
             self.connection = sqlite3.connect(db_file)
             print("Database connected")

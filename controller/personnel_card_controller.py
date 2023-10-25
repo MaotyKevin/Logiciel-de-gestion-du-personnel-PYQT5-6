@@ -31,5 +31,5 @@ class PersonnelController:
            return  self.model.get_personnel_by_team(team_name)
 
 if __name__ == "__main__":
-    contro = PersonnelController('data/my_database.sqlite')
+    contro = PersonnelController('data\my_database.sqlite')
     contro.get_employee_details("543454")
