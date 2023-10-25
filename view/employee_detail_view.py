@@ -42,16 +42,3 @@ class EmployeeDetailsForm(QWidget):
             self.main_window.setupUI()
             self.main_window.setCentralWidget(self.main_window.container)
 
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-
-    # Replace 'your_badge_data' with the actual badge data you want to test
-    badge_data = '543454'
-    
-    # Create an instance of EmployeeDetailsForm
-    details_form = EmployeeDetailsForm(badge_data)
-
-    # Show the form
-    details_form.show()
-
-    sys.exit(app.exec_())

@@ -81,12 +81,11 @@ class StepOne(QScrollArea):
         Date_lieu_naissance_layout.addWidget(self.lieu_naissance_edit)
 
         Equipe_souscategorie_layout = QHBoxLayout()
-        Equipe_souscategorie_layout.setSpacing(0)
         Equipe_souscategorie_layout.addWidget(QLabel("Equipe :"))
         Equipe_souscategorie_layout.addWidget(self.equipe_combo)
         Equipe_souscategorie_layout.addWidget(QLabel("Categorie : "))
         Equipe_souscategorie_layout.addWidget(self.sous_categorie_combo)
-
+        
         
 
         layout.addWidget(QLabel("Badge:"))

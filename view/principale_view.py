@@ -9,7 +9,7 @@ from view.personnel_card_view import Personnal_Card
 from controller.inscription_personnel_controller import InscriptionPersonnelController
 from view.login_view import LoginWindow
 from view.employee_detail_view import EmployeeDetailsForm
-
+from view.admin_crud_view import Admin_crud
 
 class CustomHeader(QWidget):
     def __init__(self):
@@ -33,13 +33,20 @@ class CustomNavigationBar(QWidget):
         self.navigation_buttons = []
 
   
-        button = QPushButton(f"Nos employees")
+        button = QPushButton("Effectif")
+        button.setToolTip("Effectif")
         self.navigation_buttons.append(button)
         self.navigation_layout.addWidget(button)
 
+        button1 = QPushButton("Admin")
+        button.setToolTip("Admin")
+        self.navigation_buttons.append(button1)
+        self.navigation_layout.addWidget(button1)
+
         button2 = QPushButton(f"Nouveaux personnels")
         self.navigation_buttons.append(button2)
-        self.navigation_layout.addWidget(button2)        
+        self.navigation_layout.addWidget(button2)  
+      
 
         self.logoutButton = QPushButton(F"Logout")
         self.navigation_layout.addWidget(self.logoutButton)
@@ -48,6 +55,8 @@ class CustomNavigationBar(QWidget):
         self.logoutButton.clicked.connect(self.logout)
 
         self.setLayout(self.navigation_layout)
+
+
     
     def logout(self):
         confirmation = QMessageBox.question(self, "Confirmation" , "Etes-vous sur de vouloir vous deconnecter ?",QMessageBox.Yes | QMessageBox.No)
@@ -86,6 +95,21 @@ class MainWindow(QMainWindow):
 
         # Créez la barre de navigation (1ère partie) en utilisant la classe personnalisée
         self.navigation_bar = CustomNavigationBar(self)  # Passez une référence à MainWindow
+        """self.navigation_bar.setStyleSheet(
+            
+            QPushButton {
+                border : 1px solid black;
+                background : transparent;
+                padding : 0 ;
+            }
+
+            QPushButton::hover {
+                padding : 5px;
+            }
+
+
+            
+        )"""
         # Utilisez la classe de l'en-tête personnalisée
         self.header = CustomHeader()
         self.header.setStyleSheet("background-color: white")
@@ -126,6 +150,10 @@ class MainWindow(QMainWindow):
         self.stacked_widget = QStackedWidget()
         self.central_layout.addWidget(self.stacked_widget)
 
+        self.admin_crud = Admin_crud()
+        self.stacked_widget.addWidget(self.admin_crud)
+
+
 
 
         self.personnal_card_form = Personnal_Card(db_path , self)
@@ -138,7 +166,9 @@ class MainWindow(QMainWindow):
 
 
         self.navigation_bar.navigation_buttons[0].clicked.connect(self.show_personnal_card_form)
-        self.navigation_bar.navigation_buttons[1].clicked.connect(self.show_inscription_page)
+        self.navigation_bar.navigation_buttons[1].clicked.connect(self.show_admin_crud)
+        self.navigation_bar.navigation_buttons[2].clicked.connect(self.show_inscription_page)
+
         self.show_personnal_card_form()
 
     """   def return_to_last_displayed_page(self):
@@ -213,7 +243,9 @@ class MainWindow(QMainWindow):
         self.last_displayed_page = self.personnal_card_form
         self.stacked_widget.setCurrentWidget(self.personnal_card_form)
         self.personnal_card_form.refresh_personnel_cards()
-        
+    
+    def show_admin_crud(self):
+        self.stacked_widget.setCurrentWidget(self.admin_crud)
 
 
 
