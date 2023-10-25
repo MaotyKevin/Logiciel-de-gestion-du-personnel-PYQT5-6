@@ -7,6 +7,17 @@ class Admin_crud_model:
         self.connection = sqlite3.connect(self.db_path)
         self.cursor = self.connection.cursor()     
 
+    def getTeamData(self):
+        query = """
+            SELECT id_equipe , nom_equipe FROM Equipe
+        """
+
+        self.cursor.execute(query)
+        self.connection.commit()
+
+        teamData = self.cursor.fetchall()
+        return teamData
+
     def addTeam(self , nom_equipe):
         insert_query = """
             INSERT INTO Equipe (nom_equipe) VALUES (?)
@@ -75,7 +86,8 @@ if __name__ == "__main__":
     new_name_team = "Nettoyage"
     Admin_crud_models.updateTeam(4 , new_name_team)
     """
-    
+    teamlist = Admin_crud_models.getTeamData()
+    print(teamlist)
     
 
     #Admin_crud_models.deleteTeam(4)

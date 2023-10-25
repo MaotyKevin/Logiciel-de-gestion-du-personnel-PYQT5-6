@@ -150,7 +150,7 @@ class MainWindow(QMainWindow):
         self.stacked_widget = QStackedWidget()
         self.central_layout.addWidget(self.stacked_widget)
 
-        self.admin_crud = Admin_crud()
+        self.admin_crud = Admin_crud(db_path)
         self.stacked_widget.addWidget(self.admin_crud)
 
 

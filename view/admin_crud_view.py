@@ -1,35 +1,27 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTabWidget, QWidget, QVBoxLayout, QLabel
 
+from view.team_crud_view import Team_crud
+from view.Users_account_crud_view import User_account
+
 class Admin_crud(QTabWidget):
-    def __init__(self):
+    def __init__(self , db_path):
         super().__init__()
+        db_path = db_path
 
         # Create tabs
-        tab1 = QWidget()
-        tab2 = QWidget()
+        tab1 = Team_crud(db_path)
+        tab2 = User_account()
         
 
         # Add tabs to the tab widget
-        self.addTab(tab1, "Tab 1")
-        self.addTab(tab2, "Tab 2")
+        self.addTab(tab1, "Les equipes")
+        self.addTab(tab2, "Les comptes")
         
 
-        # Customize the contents of each tab
-        self.setupTab1(tab1)
-        self.setupTab2(tab2)
+
         
 
-    def setupTab1(self, tab):
-        layout = QVBoxLayout()
-        label = QLabel("This is the content of Tab 1.")
-        layout.addWidget(label)
-        tab.setLayout(layout)
 
-    def setupTab2(self, tab):
-        layout = QVBoxLayout()
-        label = QLabel("This is the content of Tab 2.")
-        layout.addWidget(label)
-        tab.setLayout(layout)
 
 
