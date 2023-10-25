@@ -40,10 +40,10 @@ class LoginWindow(QWidget):
         self.password_input = QLineEdit()
         self.password_input.setEchoMode(QLineEdit.Password)
         self.password_input.returnPressed.connect(self.login)
-        self.username_input.setStyleSheet("width : 200; height: 30;color:white;")
+        self.username_input.setStyleSheet("width : 200; height: 30;color:white;font-weight:bold;")
         self.username_input.setPlaceholderText("Username")
         self.password_input.setPlaceholderText("password")
-        self.password_input.setStyleSheet("width : 200; height: 30;color:white;")
+        self.password_input.setStyleSheet("width : 200; height: 30;color:white;font-weight:bold;")
 
         
 

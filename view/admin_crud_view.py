@@ -13,10 +13,21 @@ class Admin_crud(QTabWidget):
         tab1 = Team_crud(db_path)
         tab2 = User_account(db_path)
         
+        self.equipeHeader = "Les equipes"
+        self.userHeader = "Les comptes"
+
+        
 
         # Add tabs to the tab widget
-        self.addTab(tab1, "Les equipes")
-        self.addTab(tab2, "Les comptes")
+        self.addTab(tab1, self.equipeHeader)
+        self.addTab(tab2, self.userHeader)
+
+        self.setStyleSheet(
+            "QTabBar::tab {"
+            "    font-weight: bold;"  # Set the font weight to bold
+            "    width:150px;   "
+            "}"
+        )
         
 
 

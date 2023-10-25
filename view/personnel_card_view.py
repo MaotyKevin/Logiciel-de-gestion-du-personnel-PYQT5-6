@@ -54,7 +54,19 @@ class Personnal_Card(QWidget):
     def filter_personnel_team(self, index):
         selected_team = self.team_filter.currentText()
         personnel_data = self.controller.get_personnel_by_team(selected_team)
+        #self.update_combo_box_items()
         self.refresh_personnel_cards(personnel_data)
+
+    def update_combo_box_items(self):
+        # Clear the existing items
+        self.team_filter.clear()
+        
+        # Add the initial option
+        self.team_filter.addItem("All Teams")
+        
+        # Fetch and add the updated team names
+        equipe_name = self.controller.get_team_names()
+        self.team_filter.addItems(equipe_name)
 
     def refresh_personnel_cards(self, personnel_data=None):
         # Supprimez toutes les cartes actuelles

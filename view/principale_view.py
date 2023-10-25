@@ -243,6 +243,7 @@ class MainWindow(QMainWindow):
         self.last_displayed_page = self.personnal_card_form
         self.stacked_widget.setCurrentWidget(self.personnal_card_form)
         self.personnal_card_form.refresh_personnel_cards()
+        self.personnal_card_form.update_combo_box_items()
     
     def show_admin_crud(self):
         self.stacked_widget.setCurrentWidget(self.admin_crud)
