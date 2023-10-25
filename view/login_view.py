@@ -33,20 +33,22 @@ class LoginWindow(QWidget):
         left_widget.setLayout(left_layout)
 
         right_widget = QWidget()
-        #right_widget.setStyleSheet("background-color: black;")
+        right_widget.setStyleSheet("background-color: #363636;")
         right_layout = QHBoxLayout()
 
         self.username_input = QLineEdit()
         self.password_input = QLineEdit()
         self.password_input.setEchoMode(QLineEdit.Password)
         self.password_input.returnPressed.connect(self.login)
-        self.username_input.setStyleSheet("width : 200; height: 30;")
+        self.username_input.setStyleSheet("width : 200; height: 30;color:white;")
         self.username_input.setPlaceholderText("Username")
         self.password_input.setPlaceholderText("password")
-        self.password_input.setStyleSheet("width : 200; height: 30;")
+        self.password_input.setStyleSheet("width : 200; height: 30;color:white;")
 
-        self.login_button = QPushButton("Login")
-        self.login_button.clicked.connect(self.login)
+        
+
+        #self.login_button = QPushButton("Login")
+        #self.login_button.clicked.connect(self.login)
 
         self.username_input.returnPressed.connect(self.password_input.setFocus)
 
@@ -54,7 +56,7 @@ class LoginWindow(QWidget):
         right_layout.addWidget(self.username_input)
         #right_layout.addWidget(QLabel("Password:"))
         right_layout.addWidget(self.password_input)
-        right_layout.addWidget(self.login_button)
+        #right_layout.addWidget(self.login_button)
         right_widget.setLayout(right_layout)
 
         splitter.addWidget(left_widget)

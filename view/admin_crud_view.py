@@ -11,7 +11,7 @@ class Admin_crud(QTabWidget):
 
         # Create tabs
         tab1 = Team_crud(db_path)
-        tab2 = User_account()
+        tab2 = User_account(db_path)
         
 
         # Add tabs to the tab widget

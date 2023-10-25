@@ -5,7 +5,18 @@ class Admin_crud_model:
     def __init__(self , db_path):
         self.db_path = str(db_path)
         self.connection = sqlite3.connect(self.db_path)
-        self.cursor = self.connection.cursor()     
+        self.cursor = self.connection.cursor()  
+
+    def getUserData(self):
+        query = """
+            SELECT id , Username , Password FROM User
+        """
+
+        self.cursor.execute(query)
+        self.connection.commit()
+
+        UserData = self.cursor.fetchall()
+        return UserData   
 
     def getTeamData(self):
         query = """

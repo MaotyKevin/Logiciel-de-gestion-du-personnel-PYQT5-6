@@ -6,6 +6,9 @@ class AdminCrudController:
 
     def getTeamData(self):
         return self.model.getTeamData()
+    
+    def getUserData(self):
+        return self.model.getUserData()
 
     def add_team(self, nom_equipe):
         self.model.addTeam(nom_equipe)
@@ -15,3 +18,12 @@ class AdminCrudController:
 
     def update_team(self, id_equipe, new_team_name):
         return self.model.updateTeam(id_equipe, new_team_name)
+    
+    def add_User(self, username , password):
+        self.model.addNewUser(username , password)
+
+    def delete_User(self, id_user):
+        self.model.deleteUser(id_user)
+
+    def update_Username(self, id_user, username):
+        return self.model.updateUserName(id_user, username)

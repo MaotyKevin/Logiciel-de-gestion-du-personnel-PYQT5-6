@@ -5,18 +5,23 @@ from PyQt5.QtGui import QImage, QPixmap, QFont, QPainter
 from PyQt5.QtCore import Qt
 from controller.team_crud_controller import AdminCrudController
 
-class TeamCard(QWidget):
-    def __init__(self , id_equipe, nom_equipe):
+class UserCard(QWidget):
+    def __init__(self , id_user, username , password):
         super().__init__()
 
-        self.id_equipe = id_equipe
+        self.id_user = id_user
+        self.username = username
+        self.password = password
+
 
         self.container = QWidget()
         self.container.setObjectName("card-container")
         self.container.setStyleSheet("#card-container { border: 1px solid black; border-radius: 5px; margin: 10px; padding: 10px; }")
         self.controller = AdminCrudController(db_path='data/my_database.sqlite')
 
-        equipe_label = QLabel(f"{nom_equipe}")
+        username_label = QLabel(f"{self.username}")
+        password_label = QLabel(f"{self.password}")
+
         self.delete_button = QPushButton("Supprimer")
         self.delete_button.setObjectName("delete-button")
         self.delete_button.setStyleSheet("#delete-button { background-color: red; color: white; }")
@@ -27,7 +32,8 @@ class TeamCard(QWidget):
         top_right_layout.addWidget(self.delete_button)
 
         card_layout = QVBoxLayout()
-        card_layout.addWidget(equipe_label)
+        card_layout.addWidget(username_label)
+        card_layout.addWidget(password_label)
         card_layout.addLayout(top_right_layout)
         self.container.setLayout(card_layout)
 
@@ -36,10 +42,10 @@ class TeamCard(QWidget):
         self.setLayout(layout)
 
     def confirm_delete(self):
-        idTeamStr = str(self.id_equipe)
+        idUserStr = str(self.id_user)
         # Affichez une boîte de dialogue de confirmation
         confirmation = QMessageBox.question(self, "Confirmation", "Êtes-vous sûr de vouloir supprimer cette equipe ?",
                                              QMessageBox.Yes | QMessageBox.No)
         if confirmation == QMessageBox.Yes:
-            self.controller.delete_team(idTeamStr)
+            self.controller.delete_User(idUserStr)
             self.deleteLater()
