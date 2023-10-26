@@ -135,8 +135,10 @@ if __name__ == "__main__":
     new_name_team = "Nettoyage"
     Admin_crud_models.updateTeam(4 , new_name_team)
     """
-    teamlist = Admin_crud_models.getTeamData()
-    print(teamlist)
+    #teamlist = Admin_crud_models.getTeamData()
+    #print(teamlist)
+
+    Admin_crud_models.addSC("Nouveau test")
     
 
     #Admin_crud_models.deleteTeam(4)

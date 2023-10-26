@@ -66,7 +66,7 @@ class SCCard(QWidget):
         confirmation = QMessageBox.question(self, "Confirmation", "Êtes-vous sûr de vouloir supprimer cette equipe ?",
                                              QMessageBox.Yes | QMessageBox.No)
         if confirmation == QMessageBox.Yes:
-            self.controller.delete_team(idSCStr)
+            self.controller.deleteSC(idSCStr)
             self.deleteLater()
 
     def toggle_editable(self):

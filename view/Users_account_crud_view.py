@@ -1,6 +1,7 @@
-from PyQt5.QtWidgets import QWidget,QFrame,QScrollArea,QGridLayout, QVBoxLayout, QLabel
-from PyQt5 import QtCore
+from PyQt5.QtWidgets import QDialog,QLineEdit,QWidget,QInputDialog,QPushButton,QHBoxLayout,QFrame,QScrollArea,QGridLayout, QVBoxLayout, QLabel
 from controller.team_crud_controller import AdminCrudController
+from PyQt5 import QtCore 
+from PyQt5.QtCore import Qt
 from view.user_card_view import UserCard
 
 class User_account(QWidget):
@@ -13,6 +14,17 @@ class User_account(QWidget):
         self.initUI()
 
     def initUI(self):
+
+        self.add_user_button = QPushButton("Add User")
+        self.add_user_button.setStyleSheet("background-color: #007BFF; color: white; padding: 10px 20px; border: none; border-radius: 5px;")
+        self.add_user_button.clicked.connect(self.show_add_user_dialog)
+        
+
+        add_user_container = QWidget()
+        add_user_layout = QHBoxLayout(add_user_container)
+        add_user_layout.addWidget(self.add_user_button)
+        add_user_layout.setAlignment(Qt.AlignRight | Qt.AlignTop)
+
         self.page_layout = QGridLayout()
         self.page_layout.setAlignment(QtCore.Qt.AlignTop)
         scroll_area = QScrollArea()
@@ -25,6 +37,7 @@ class User_account(QWidget):
         scroll_area.setWidget(container)
 
         main_layout = QVBoxLayout()
+        main_layout.addWidget(add_user_container)
         main_layout.addWidget(self.populateUser())
         main_layout.addWidget(scroll_area)
         self.setLayout(main_layout)
@@ -40,3 +53,62 @@ class User_account(QWidget):
                 self.page_layout.addWidget(card_container , row_idx // 3, row_idx % 3)
                 card_container.setStyleSheet("border-radius:2px ; padding:5px ; margin:5px")
             self.update()
+
+    def show_add_user_dialog(self):
+        # Create a custom dialog to input the new username and password
+        dialog = AddUserDialog(self)
+        
+        # Show the dialog and wait for the user's input
+        if dialog.exec_() == QDialog.Accepted:
+            # Get the entered username and password from the dialog
+            username = dialog.get_username()
+            password = dialog.get_password()
+            
+            # Call your controller's method to add the new team with username and password
+            self.controller.add_User(username, password)
+            
+            # Refresh the team list and update the UI
+            self.refresh_user_cards()
+
+    def refresh_user_cards(self):
+        # Clear the current team cards
+        for i in reversed(range(self.page_layout.count())):
+            widget = self.page_layout.itemAt(i).widget()
+            if widget is not None:
+                widget.deleteLater()
+        
+        # Reload the team data
+        self.donnee = self.controller.getUserData()
+        
+        # Populate the UI with the updated team data
+        self.populateUser()
+
+
+class AddUserDialog(QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle("Add User")
+        
+        self.username_label = QLabel("Username:")
+        self.username_input = QLineEdit(self)
+        
+        self.password_label = QLabel("Password:")
+        self.password_input = QLineEdit(self)
+        
+        self.add_button = QPushButton("Confirm")
+        self.add_button.clicked.connect(self.accept)
+        
+        layout = QVBoxLayout()
+        layout.addWidget(self.username_label)
+        layout.addWidget(self.username_input)
+        layout.addWidget(self.password_label)
+        layout.addWidget(self.password_input)
+        layout.addWidget(self.add_button)
+        
+        self.setLayout(layout)
+    
+    def get_username(self):
+        return self.username_input.text()
+    
+    def get_password(self):
+        return self.password_input.text()

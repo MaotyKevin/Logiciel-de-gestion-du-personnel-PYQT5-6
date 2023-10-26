@@ -32,6 +32,8 @@ class CustomNavigationBar(QWidget):
         self.main_window = main_window  # Référence à la fenêtre principale
         self.setFixedWidth(150)  
         self.navigation_container = QWidget()
+       
+        
         self.navigation_layout = QVBoxLayout(self.navigation_container)
         self.navigation_buttons = []
 
@@ -100,6 +102,7 @@ class MainWindow(QMainWindow):
 
         # Créez la barre de navigation (1ère partie) en utilisant la classe personnalisée
         self.navigation_bar = CustomNavigationBar( self, self.db_path)  # Passez une référence à MainWindow
+        
         """self.navigation_bar.setStyleSheet(
             
             QPushButton {

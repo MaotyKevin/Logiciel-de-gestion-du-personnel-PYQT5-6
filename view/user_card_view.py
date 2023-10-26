@@ -1,5 +1,5 @@
 import typing
-from PyQt5.QtWidgets import QWidget,QGraphicsDropShadowEffect, QLineEdit,QVBoxLayout, QLabel , QFrame , QHBoxLayout,QPushButton , QMessageBox
+from PyQt5.QtWidgets import QWidget,QCheckBox,QGraphicsDropShadowEffect, QLineEdit,QVBoxLayout, QLabel , QFrame , QHBoxLayout,QPushButton , QMessageBox
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtGui import QImage, QPixmap, QFont, QPainter 
 from PyQt5.QtCore import Qt
@@ -21,6 +21,16 @@ class UserCard(QWidget):
 
         self.username_label = QLineEdit(f"{self.username}")
         self.password_label = QLineEdit(f"{self.password}")
+        self.password_label.setReadOnly(True)  # Set it to read-only initially
+        self.password_label.setEchoMode(QLineEdit.Password)
+
+
+        self.show_password_checkbox = QCheckBox("Show")
+        self.show_password_checkbox.stateChanged.connect(self.toggle_password_visibility)
+
+        password_layout = QHBoxLayout()
+        password_layout.addWidget(self.password_label)
+        password_layout.addWidget(self.show_password_checkbox)
 
 
         self.edit_button = QPushButton("Modifier")
@@ -59,7 +69,7 @@ class UserCard(QWidget):
 
         card_layout = QVBoxLayout()
         card_layout.addWidget(self.username_label)
-        card_layout.addWidget(self.password_label)
+        card_layout.addLayout(password_layout)
         card_layout.addLayout(top_right_layout)
         self.container.setLayout(card_layout)
 
@@ -111,3 +121,11 @@ class UserCard(QWidget):
         self.edit_button.show()
         self.save_button.hide()
         self.cancel_button.hide()
+
+    def toggle_password_visibility(self, state):
+        if state == Qt.Checked:
+            self.password_label.setReadOnly(False)
+            self.password_label.setEchoMode(QLineEdit.Normal)
+        else:
+            self.password_label.setReadOnly(True)
+            self.password_label.setEchoMode(QLineEdit.Password)
