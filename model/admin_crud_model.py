@@ -86,6 +86,44 @@ class Admin_crud_model:
         except sqlite3.Error as e:
             print(f"Error updating team: {e}")
             return False
+
+#____________________________________________________________________________________________________
+
+
+    def getSCData(self):
+        query = """
+            SELECT id_sousCategorie , sousCategorie FROM SousCategorie
+        """
+
+        self.cursor.execute(query)
+        self.connection.commit()
+
+        SCData = self.cursor.fetchall()
+        return SCData
+
+    def addSC(self , sousCategorie):
+        insert_query = """
+            INSERT INTO SousCategorie (sousCategorie) VALUES (?)
+        """
+        self.cursor.execute(insert_query , (sousCategorie,))
+        self.connection.commit()
+
+    def deleteSC(self , id_sousCategorie):
+        delete_query = """
+            DELETE FROM SousCategorie WHERE id_sousCategorie = ?
+        """
+        self.cursor.execute(delete_query , (id_sousCategorie,))
+        self.connection.commit()
+
+    def updateSC(self , id_sousCategorie , sousCategorie):
+        try:
+            update_query = "UPDATE SousCategorie SET sousCategorie = ? WHERE id_sousCategorie = ?"
+            self.cursor.execute(update_query, (sousCategorie, id_sousCategorie))
+            self.connection.commit()
+            return True  # Return True to indicate success
+        except sqlite3.Error as e:
+            print(f"Error updating team: {e}")
+            return False
         
 # Example usage:
 if __name__ == "__main__":

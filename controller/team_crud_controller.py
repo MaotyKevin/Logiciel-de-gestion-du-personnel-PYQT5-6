@@ -9,16 +9,28 @@ class AdminCrudController:
     
     def getUserData(self):
         return self.model.getUserData()
+    
+    def getSCData(self):
+        return self.model.getSCData()
 
     def add_team(self, nom_equipe):
         self.model.addTeam(nom_equipe)
 
+    def addSC(self , sousCategorie):
+        self.model.addSC(sousCategorie)
+
     def delete_team(self, id_equipe):
         self.model.deleteTeam(id_equipe)
+
+    def deleteSC( self , id_sousCategorie):
+        self.model.deleteSC(id_sousCategorie)
 
     def update_team(self, id_equipe, new_team_name):
         return self.model.updateTeam(id_equipe, new_team_name)
     
+    def updateSC(self , id_sousCategorie , sousCategorie):
+        return self.model.updateSC(id_sousCategorie , sousCategorie)
+
     def add_User(self, username , password):
         self.model.addNewUser(username , password)
 
@@ -30,3 +42,5 @@ class AdminCrudController:
     
     def update_Password(self , id_user , password):
         return self.model.updateUserPassword(id_user , password)
+    
+    

@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QTabWidget, QWidget, QVBo
 
 from view.team_crud_view import Team_crud
 from view.Users_account_crud_view import User_account
+from view.SC_view import SC_crud
 
 class Admin_crud(QTabWidget):
     def __init__(self , db_path):
@@ -11,16 +12,19 @@ class Admin_crud(QTabWidget):
 
         # Create tabs
         tab1 = Team_crud(db_path)
-        tab2 = User_account(db_path)
+        tab2 = SC_crud(db_path)
+        tab3 = User_account(db_path)
+        
         
         self.equipeHeader = "Les equipes"
         self.userHeader = "Les comptes"
-
+        self.SCHeader = "Sous-Categorie"
         
 
         # Add tabs to the tab widget
         self.addTab(tab1, self.equipeHeader)
-        self.addTab(tab2, self.userHeader)
+        self.addTab(tab2 , self.SCHeader)
+        self.addTab(tab3, self.userHeader)
 
         self.setStyleSheet(
             "QTabBar::tab {"

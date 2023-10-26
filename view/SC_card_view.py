@@ -1,27 +1,24 @@
 import typing
-from PyQt5.QtWidgets import QWidget,QGraphicsDropShadowEffect, QLineEdit,QVBoxLayout, QLabel , QFrame , QHBoxLayout,QPushButton , QMessageBox
+from PyQt5.QtWidgets import QWidget,QLineEdit,QGraphicsDropShadowEffect, QVBoxLayout, QLabel , QFrame , QHBoxLayout,QPushButton , QMessageBox
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtGui import QImage, QPixmap, QFont, QPainter 
 from PyQt5.QtCore import Qt
 from controller.team_crud_controller import AdminCrudController
 
-class UserCard(QWidget):
-    def __init__(self , id_user, username , password):
+class SCCard(QWidget):
+    def __init__(self , id_sousCategorie, sousCategorie):
         super().__init__()
 
-        self.id_user = id_user
-        self.username = username
-        self.password = password
-
+        self.id_sousCategorie = id_sousCategorie
+        self.sousCategorie = sousCategorie
 
         self.container = QWidget()
         self.container.setObjectName("card-container")
         self.container.setStyleSheet("#card-container { border: 1px solid black; border-radius: 5px; margin: 10px; padding: 10px; }")
         self.controller = AdminCrudController(db_path='data/my_database.sqlite')
 
-        self.username_label = QLineEdit(f"{self.username}")
-        self.password_label = QLineEdit(f"{self.password}")
-
+        self.SC_label = QLineEdit(f"{self.sousCategorie}")
+        self.SC_label.setStyleSheet("font-weight: semi-bold;")
 
         self.edit_button = QPushButton("Modifier")
         self.edit_button.setObjectName("edit-button")
@@ -41,13 +38,11 @@ class UserCard(QWidget):
         self.cancel_button.clicked.connect(self.cancel_changes)
         self.cancel_button.hide()  # Initially hide the "Cancel" button
 
-
-
-
         self.delete_button = QPushButton("Supprimer")
         self.delete_button.setObjectName("delete-button")
         self.delete_button.setStyleSheet("#delete-button { background-color: #FF7519; color: white; }")
         self.delete_button.clicked.connect(self.confirm_delete)
+
 
         top_right_layout = QHBoxLayout()
         top_right_layout.addStretch(1)  # Pour pousser le bouton à droite
@@ -56,10 +51,8 @@ class UserCard(QWidget):
         top_right_layout.addWidget(self.cancel_button)
         top_right_layout.addWidget(self.delete_button)
         
-
         card_layout = QVBoxLayout()
-        card_layout.addWidget(self.username_label)
-        card_layout.addWidget(self.password_label)
+        card_layout.addWidget(self.SC_label)
         card_layout.addLayout(top_right_layout)
         self.container.setLayout(card_layout)
 
@@ -68,46 +61,41 @@ class UserCard(QWidget):
         self.setLayout(layout)
 
     def confirm_delete(self):
-        idUserStr = str(self.id_user)
+        idSCStr = str(self.id_sousCategorie)
         # Affichez une boîte de dialogue de confirmation
         confirmation = QMessageBox.question(self, "Confirmation", "Êtes-vous sûr de vouloir supprimer cette equipe ?",
                                              QMessageBox.Yes | QMessageBox.No)
         if confirmation == QMessageBox.Yes:
-            self.controller.delete_User(idUserStr)
+            self.controller.delete_team(idSCStr)
             self.deleteLater()
 
     def toggle_editable(self):
-        self.username_label.setReadOnly(False)
-        self.password_label.setReadOnly(False)
+        self.SC_label.setReadOnly(False)
         self.edit_button.hide()
         self.save_button.show()
         self.cancel_button.show()
 
     def save_changes(self):
-        new_username = self.username_label.text()
-        new_password = self.password_label.text()
+        newSC = self.SC_label.text()
 
-        if new_username != self.username:
-            self.controller.update_Username(self.id_user, new_username)
-            self.username = new_username
+        if newSC != self.sousCategorie:
+            self.controller.updateSC(self.id_sousCategorie, newSC)
+            self.sousCategorie = newSC
 
-        if new_password != self.password:
-            self.controller.update_Password(self.id_user, new_password)
-            self.password = new_password
 
         # Restore the original view
-        self.username_label.setReadOnly(True)
-        self.password_label.setReadOnly(True)
+        self.SC_label.setReadOnly(True)
+      
         self.edit_button.show()
         self.save_button.hide()
         self.cancel_button.hide()
 
     def cancel_changes(self):
         # Restore the original data and view
-        self.username_label.setText(self.username)
-        self.password_label.setText(self.password)
-        self.username_label.setReadOnly(True)
-        self.password_label.setReadOnly(True)
+        self.SC_label.setText(self.sousCategorie)
+       
+        self.SC_label.setReadOnly(True)
+   
         self.edit_button.show()
         self.save_button.hide()
         self.cancel_button.hide()

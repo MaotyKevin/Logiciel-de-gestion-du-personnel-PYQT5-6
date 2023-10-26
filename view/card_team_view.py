@@ -40,7 +40,7 @@ class TeamCard(QWidget):
 
         self.delete_button = QPushButton("Supprimer")
         self.delete_button.setObjectName("delete-button")
-        self.delete_button.setStyleSheet("#delete-button { background-color: red; color: white; }")
+        self.delete_button.setStyleSheet("#delete-button { background-color: #FF7519; color: white; }")
         self.delete_button.clicked.connect(self.confirm_delete)
 
 
