@@ -3,10 +3,11 @@ import sys , os
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
-from PyQt5.QtWidgets import QComboBox,QWidget, QVBoxLayout, QLabel, QScrollArea, QGridLayout ,QFrame
+from PyQt5.QtWidgets import QComboBox,QHBoxLayout,QWidget, QVBoxLayout, QLabel, QScrollArea, QGridLayout ,QFrame
 from view.card_view import Card
 from controller.personnel_card_controller import PersonnelController
 from PyQt5 import QtCore
+from PyQt5.QtCore import QRect
 
 class Personnal_Card(QWidget):
     def __init__(self, db_path , main_window):
@@ -36,16 +37,22 @@ class Personnal_Card(QWidget):
         scroll_area.setWidget(container)
 
         # Create a combo box for team selection
+        combo_container = QHBoxLayout()
         self.team_filter = QComboBox()
-        self.team_filter.addItem("All Teams") 
-        
+        self.team_filter.addItem("All Teams")
+        combo_container.addWidget(self.team_filter)
+        self.team_filter.setStyleSheet("QComboBox { padding: 0px; }")
          # Initial option
         self.equipe_name = self.controller.get_team_names()
         self.team_filter.addItems(self.equipe_name)  # Implement this method to get team names
         self.team_filter.currentIndexChanged.connect(self.filter_personnel_team)
-
+        #combo_container.setStretch(1000 , 1000)
+        combo_container.setSpacing(0)
+        #combo_container.addStretch(900)
+        combo_container.setContentsMargins(1040 , 0 , 0 , 0)
+        #combo_container.setGeometry(QRect(1000 , 100 , 100 , 100))
         main_layout = QVBoxLayout()
-        main_layout.addWidget(self.team_filter)
+        main_layout.addLayout(combo_container)
         main_layout.addWidget(scroll_area)
         self.setLayout(main_layout)
 
