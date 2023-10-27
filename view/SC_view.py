@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget,QInputDialog,QHBoxLayout,QPushButton,QFrame,QScrollArea,QGridLayout, QVBoxLayout, QLabel
+from PyQt5.QtWidgets import QWidget,QMessageBox,QInputDialog,QHBoxLayout,QPushButton,QFrame,QScrollArea,QGridLayout, QVBoxLayout, QLabel
 from controller.team_crud_controller import AdminCrudController
 from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
@@ -61,12 +61,20 @@ class SC_crud(QWidget):
         SCName, ok = QInputDialog.getText(self, "Add SC", "Enter the SC's name:")
         
         if ok:
-            # Call your controller's method to add the new team
-            self.controller.addSC(SCName)
-            
-            # Refresh the team list and update the UI
-            self.refresh_SC_cards()
+            if SCName and not SCName.isspace():
+                # Check if the team name already exists in the database
+                if not self.controller.verifySC(SCName):
+                    # L'équipe n'existe pas encore, vous pouvez l'ajouter
+                    self.controller.addSC(SCName)
 
+                    # Refresh the team list and update the UI
+                    self.refresh_SC_cards()
+                else:
+                    # L'équipe existe déjà, affichez un message d'erreur à l'utilisateur
+                    QMessageBox.warning(self, "Erreur", "Sous Categorie deja existante.")
+            else:
+                QMessageBox.warning(self, "Erreur", "Le champ ne peut pas être vide.")     
+    
     def refresh_SC_cards(self):
         # Clear the current team cards
         for i in reversed(range(self.page_layout.count())):

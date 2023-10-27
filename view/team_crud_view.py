@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget,QInputDialog,QPushButton,QHBoxLayout,QFrame,QScrollArea,QGridLayout, QVBoxLayout, QLabel
+from PyQt5.QtWidgets import  QMessageBox,  QWidget,QInputDialog,QPushButton,QHBoxLayout,QFrame,QScrollArea,QGridLayout, QVBoxLayout, QLabel
 from controller.team_crud_controller import AdminCrudController
 from PyQt5 import QtCore 
 from PyQt5.QtCore import Qt
@@ -62,11 +62,21 @@ class Team_crud(QWidget):
         team_name, ok = QInputDialog.getText(self, "Add Team", "Enter the team's name:")
         
         if ok:
-            # Call your controller's method to add the new team
-            self.controller.add_team(team_name)
-            
-            # Refresh the team list and update the UI
-            self.refresh_team_cards()
+            # Check if the team name is empty or consists of only whitespace
+            if team_name and not team_name.isspace():
+                # Check if the team name already exists in the database
+                if not self.controller.verifyTeam(team_name):
+                    # L'équipe n'existe pas encore, vous pouvez l'ajouter
+                    self.controller.add_team(team_name)
+
+                    # Refresh the team list and update the UI
+                    self.refresh_team_cards()
+                else:
+                    # L'équipe existe déjà, affichez un message d'erreur à l'utilisateur
+                    QMessageBox.warning(self, "Erreur", "Équipe existante.")
+            else:
+                # Le champ équipe est vide ou ne contient que des espaces, affichez un message d'erreur
+                QMessageBox.warning(self, "Erreur", "Le champ équipe ne peut pas être vide.")
 
     def refresh_team_cards(self):
         # Clear the current team cards

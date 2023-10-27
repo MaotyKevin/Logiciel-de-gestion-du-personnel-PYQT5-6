@@ -125,6 +125,32 @@ class Admin_crud_model:
             print(f"Error updating team: {e}")
             return False
         
+#___________________________________________________
+
+    def teamVerify(self , nom_equipe):
+        query = "SELECT COUNT(*) FROM Equipe WHERE nom_equipe = ?"
+        result = self.cursor.execute(query, (nom_equipe,)).fetchone()
+        self.connection.commit()
+        return result[0] > 0
+    
+    def SCVerify(self , sousCategorie):
+        query = "SELECT COUNT(*) FROM SousCategorie WHERE sousCategorie = ?"
+        result = self.cursor.execute(query, (sousCategorie,)).fetchone()
+        self.connection.commit()
+        return result[0] > 0
+
+    def UsernameVerify(self , username):
+        query = "SELECT COUNT(*) FROM User WHERE Username = ?"
+        result = self.cursor.execute(query, (username,)).fetchone()
+        self.connection.commit()
+        return result[0] > 0
+    
+    def PasswordVerify(self , password):
+        query = "SELECT COUNT(*) FROM User WHERE Password = ?"
+        result = self.cursor.execute(query, (password,)).fetchone()
+        self.connection.commit()
+        return result[0] > 0
+
 # Example usage:
 if __name__ == "__main__":
     db_path = 'data\my_database.sqlite'

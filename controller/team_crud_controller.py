@@ -43,4 +43,15 @@ class AdminCrudController:
     def update_Password(self , id_user , password):
         return self.model.updateUserPassword(id_user , password)
     
+    def verifyTeam(self , nom_equipe):
+        return self.model.teamVerify(nom_equipe)
+    
+    def verifySC(self , sousCategorie):
+        return self.model.SCVerify(sousCategorie)
+    
+    def verifyUsername(self , username):
+        return self.model.UsernameVerify(username)
+    
+    def verifyPassword(self , password):
+        return self.model.PasswordVerify(password)
     

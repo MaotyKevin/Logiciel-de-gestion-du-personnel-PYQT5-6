@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QDialog,QLineEdit,QWidget,QInputDialog,QPushButton,QHBoxLayout,QFrame,QScrollArea,QGridLayout, QVBoxLayout, QLabel
+from PyQt5.QtWidgets import QDialog,QMessageBox,QLineEdit,QWidget,QInputDialog,QPushButton,QHBoxLayout,QFrame,QScrollArea,QGridLayout, QVBoxLayout, QLabel
 from controller.team_crud_controller import AdminCrudController
 from PyQt5 import QtCore 
 from PyQt5.QtCore import Qt
@@ -64,11 +64,15 @@ class User_account(QWidget):
             username = dialog.get_username()
             password = dialog.get_password()
             
-            # Call your controller's method to add the new team with username and password
-            self.controller.add_User(username, password)
-            
-            # Refresh the team list and update the UI
-            self.refresh_user_cards()
+            if not self.controller.verifyUsername(username) or not self.controller.verifyPassword(password):
+                # L'équipe n'existe pas encore, vous pouvez l'ajouter
+                self.controller.add_User(username , password)
+
+                # Refresh the team list and update the UI
+                self.refresh_user_cards()
+            else:
+                # L'équipe existe déjà, affichez un message d'erreur à l'utilisateur
+                QMessageBox.warning(self, "Erreur", "Username or password already existed.")
 
     def refresh_user_cards(self):
         # Clear the current team cards
@@ -96,7 +100,7 @@ class AddUserDialog(QDialog):
         self.password_input = QLineEdit(self)
         
         self.add_button = QPushButton("Confirm")
-        self.add_button.clicked.connect(self.accept)
+        self.add_button.clicked.connect(self.check_and_accept)
         
         layout = QVBoxLayout()
         layout.addWidget(self.username_label)
@@ -112,3 +116,12 @@ class AddUserDialog(QDialog):
     
     def get_password(self):
         return self.password_input.text()
+    
+    def check_and_accept(self):
+        username = self.get_username()
+        password = self.get_password()
+        
+        if not username or not password:
+            QMessageBox.warning(self, "Warning", "Both username and password are required.")
+        else:
+            self.accept()
