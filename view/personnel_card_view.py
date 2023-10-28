@@ -3,7 +3,7 @@ import sys , os
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
-from PyQt5.QtWidgets import QComboBox,QHBoxLayout,QWidget, QVBoxLayout, QLabel, QScrollArea, QGridLayout ,QFrame
+from PyQt5.QtWidgets import QComboBox,QHBoxLayout,QWidget, QVBoxLayout, QLabel, QScrollArea, QGridLayout ,QFrame , QLineEdit
 from view.card_view import Card
 from controller.personnel_card_controller import PersonnelController
 from PyQt5 import QtCore
@@ -38,23 +38,53 @@ class Personnal_Card(QWidget):
 
         # Create a combo box for team selection
         combo_container = QHBoxLayout()
+
+        self.search_field = QLineEdit()  # Champ de recherche
+        self.search_field.textChanged.connect(self.perform_search)
+        self.search_field.setStyleSheet("Background-color: #FFFFFF;border: 1px solid #CCCCCC; border-radius: 5px; padding: 5px;font-size: 14px;color: #333333;")
+
+
         self.team_filter = QComboBox()
         self.team_filter.addItem("All Teams")
+
         combo_container.addWidget(self.team_filter)
+        combo_container.addWidget(self.search_field)
+        
         self.team_filter.setStyleSheet("QComboBox { padding: 0px; }")
          # Initial option
         self.equipe_name = self.controller.get_team_names()
         self.team_filter.addItems(self.equipe_name)  # Implement this method to get team names
         self.team_filter.currentIndexChanged.connect(self.filter_personnel_team)
         #combo_container.setStretch(1000 , 1000)
-        combo_container.setSpacing(0)
+        combo_container.setSpacing(20)
         #combo_container.addStretch(900)
-        combo_container.setContentsMargins(1040 , 0 , 0 , 0)
+        combo_container.setContentsMargins(650 , 0 , 0 , 0)
         #combo_container.setGeometry(QRect(1000 , 100 , 100 , 100))
         main_layout = QVBoxLayout()
         main_layout.addLayout(combo_container)
         main_layout.addWidget(scroll_area)
         self.setLayout(main_layout)
+
+    def perform_search(self):
+        #self.show_personnal_card_form()
+        search_text = self.search_field.text().strip().lower()
+        print(f"Reception search text: {search_text} , bouton fonctionnel")
+        print(f"Données existantes : {self.personnel_data}")
+
+        self.donnee = self.controller.get_personnel_data()
+
+        personnel_data = []
+        
+        # Parcourez vos données existantes pour la recherche
+        for row in self.donnee:
+            badge, nom, categorie, fonction, sous_categorie = row
+            if search_text in badge.lower() or search_text in nom.lower():
+                personnel_data.append(row)
+        
+               
+        # Actualisez l'affichage avec les résultats filtrés
+        self.refresh_personnel_cards(personnel_data)
+        #print(personnel_data)
 
 
 

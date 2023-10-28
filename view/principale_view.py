@@ -158,13 +158,13 @@ class MainWindow(QMainWindow):
 
         self.central_space = QWidget()
         self.central_layout = QVBoxLayout()
-        self.search_field = QLineEdit()  # Champ de recherche
-        self.central_layout.addWidget(self.search_field)
+        
+        #self.central_layout.addWidget(self.search_field)
         self.central_space.setLayout(self.central_layout)
 
-        self.search_field.textChanged.connect(self.perform_search)
 
-        self.search_field.setStyleSheet("Background-color: #FFFFFF;border: 1px solid #CCCCCC; border-radius: 5px; padding: 5px;font-size: 14px;color: #333333;")
+
+
         #self.search_field.setFixedWidth(300)
 
         # Créez un widget pour organiser la barre de navigation et l'espace central horizontalement
@@ -203,17 +203,6 @@ class MainWindow(QMainWindow):
 
         self.show_personnal_card_form()
 
-    """   def return_to_last_displayed_page(self):
-        
-        if self.last_displayed_page:
-            if isinstance(self.last_displayed_page, EmployeeDetailsForm):
-                self.setupUI()
-                # self.show_personnal_card_form()  # Return to the list of cards
-            else:
-                self.stacked_widget.setCurrentWidget(self.last_displayed_page)
-            if self.last_displayed_page == self.personnal_card_form:
-                self.personnal_card_form.refresh_personnel_cards()
-               """ 
     def show_employee_details_view(self, employee_details_form):
         # Replace the current view with the EmployeeDetailsForm
         if self.last_displayed_page:
@@ -230,28 +219,6 @@ class MainWindow(QMainWindow):
         self.login_view = LoginWindow(self.db_path , self)
         self.setCentralWidget(self.login_view)
         self.login_view.show()
-
-    def perform_search(self):
-        #self.show_personnal_card_form()
-        search_text = self.search_field.text().strip().lower()
-        print(f"Reception search text: {search_text} , bouton fonctionnel")
-        print(f"Données existantes : {self.personnal_card_form.personnel_data}")
-
-        self.personnal_card_form.donnee = self.personnal_card_form.controller.get_personnel_data()
-
-        self.donnee = self.personnal_card_form.donnee
-        personnel_data = []
-        
-        # Parcourez vos données existantes pour la recherche
-        for row in self.donnee:
-            badge, nom, categorie, fonction, sous_categorie = row
-            if search_text in badge.lower() or search_text in nom.lower():
-                personnel_data.append(row)
-        
-               
-        # Actualisez l'affichage avec les résultats filtrés
-        self.personnal_card_form.refresh_personnel_cards(personnel_data)
-        #print(personnel_data)
 
     def return_to_last_displayed_page(self , employee_details_form):
         print("return last displayed called")
