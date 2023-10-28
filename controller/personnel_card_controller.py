@@ -29,6 +29,15 @@ class PersonnelController:
             return self.model.get_personnel_data()
         else:
            return  self.model.get_personnel_by_team(team_name)
+        
+    def get_SC_names(self):
+        return self.model.get_SC_names()
+    
+    def get_personnel_by_SC(self , sousCategorie):
+        if sousCategorie == "All SC":
+            return self.model.get_personnel_data()
+        else:
+           return  self.model.get_personnel_by_SC(sousCategorie)
 
 if __name__ == "__main__":
     contro = PersonnelController('data\my_database.sqlite')

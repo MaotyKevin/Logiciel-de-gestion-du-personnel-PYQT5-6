@@ -127,6 +127,46 @@ class PersonnelCardModel:
             print("Error executing the query:", e)
          # Close the database connection
 
+#__________________________________________________________________________
+
+    def get_SC_names(self):
+        try:
+            self.connect()
+            cursor = self.conn.cursor()
+            cursor.execute("SELECT sousCategorie FROM SousCategorie")
+
+            SC_data = [row[0] for row in cursor.fetchall()]
+            return SC_data
+        except sqlite3.Error as e:
+            print(f"Erreur lors de la récupération des données des SC : {str(e)}")
+            return []
+        
+    def get_personnel_by_SC(self, sousCategorie):
+        try:
+            self.connect()
+            cursor = self.conn.cursor()
+
+
+            query = f'''
+                    SELECT P.Badge, P.Nom, COALESCE(A.Categorie, 'Aucun') AS Categorie, COALESCE(A.Fonction, 'Aucun') AS Fonction, COALESCE(S.sousCategorie, 'Aucun') AS sousCategorie
+                    FROM Personnel P
+                    LEFT JOIN Affectation A ON P.id_affectation = A.id_affectation
+                    LEFT JOIN SousCategorie S ON A.id_sousCategorie = S.id_sousCategorie
+                    WHERE S.sousCategorie = '{sousCategorie}'  -- Filter by the selected SC
+                    ORDER BY S.sousCategorie
+                '''
+
+            cursor.execute(query)
+            result = cursor.fetchall()
+
+            self.conn.close()
+           
+            return result
+
+        except sqlite3.Error as e:
+            print(f"SQLite error: {e}")
+            return None
+
 # Test the model by creating an instance and calling the method
 if __name__ == "__main__":
     db_path = 'data\my_database.sqlite'

@@ -47,18 +47,29 @@ class Personnal_Card(QWidget):
         self.team_filter = QComboBox()
         self.team_filter.addItem("All Teams")
 
+        self.SC_filter = QComboBox()
+        self.SC_filter.addItem("All SC")
+
         combo_container.addWidget(self.team_filter)
+        combo_container.addWidget(self.SC_filter)
         combo_container.addWidget(self.search_field)
         
         self.team_filter.setStyleSheet("QComboBox { padding: 0px; }")
+        self.SC_filter.setStyleSheet("QComboBox { padding: 0px; }")
+
          # Initial option
         self.equipe_name = self.controller.get_team_names()
         self.team_filter.addItems(self.equipe_name)  # Implement this method to get team names
         self.team_filter.currentIndexChanged.connect(self.filter_personnel_team)
+
+        self.SC_name = self.controller.get_SC_names()
+        self.SC_filter.addItems(self.SC_name)  # Implement this method to get team names
+        self.SC_filter.currentIndexChanged.connect(self.filter_personnel_SC)
+
         #combo_container.setStretch(1000 , 1000)
         combo_container.setSpacing(20)
         #combo_container.addStretch(900)
-        combo_container.setContentsMargins(650 , 0 , 0 , 0)
+        combo_container.setContentsMargins(450 , 0 , 0 , 0)
         #combo_container.setGeometry(QRect(1000 , 100 , 100 , 100))
         main_layout = QVBoxLayout()
         main_layout.addLayout(combo_container)
@@ -94,16 +105,26 @@ class Personnal_Card(QWidget):
         #self.update_combo_box_items()
         self.refresh_personnel_cards(personnel_data)
 
+    def filter_personnel_SC(self, index):
+        selected_SC = self.SC_filter.currentText()
+        personnel_data = self.controller.get_personnel_by_SC(selected_SC)
+        #self.update_combo_box_items()
+        self.refresh_personnel_cards(personnel_data)
+
     def update_combo_box_items(self):
         # Clear the existing items
         self.team_filter.clear()
-        
+        self.SC_filter.clear()
         # Add the initial option
         self.team_filter.addItem("All Teams")
-        
+        self.SC_filter.addItem("All SC")
+
         # Fetch and add the updated team names
         equipe_name = self.controller.get_team_names()
+        SC_name = self.controller.get_SC_names()
+
         self.team_filter.addItems(equipe_name)
+        self.SC_filter.addItems(SC_name)
 
     def refresh_personnel_cards(self, personnel_data=None):
         # Supprimez toutes les cartes actuelles
@@ -128,7 +149,7 @@ class Personnal_Card(QWidget):
                 card_container = Card( badge, nom, categorie, fonction, sous_categorie , self.main_window)
                 self.page2_layout.addWidget(card_container, row_idx // 3, row_idx % 3)
 
-                card_container.setStyleSheet(" border-radius: 2px; padding: 5px ; margin :5px")
+                card_container.setStyleSheet(" border-radius: 2px; padding: 5px ; margin :5px ;")
 
                 # Actualisez l'affichage
             self.update()

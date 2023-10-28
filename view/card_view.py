@@ -11,11 +11,12 @@ from view.employee_detail_view import EmployeeDetailsForm
 class Card(QWidget):
     def __init__(self, badge=None, nom=None, categorie=None,fonction=None, sous_categorie=None, main_window=None ):
         super().__init__()
+        
 
         # Conteneur principal pour la carte
         self.container = QWidget()
         self.container.setObjectName("card-container")
-        self.container.setStyleSheet("#card-container { border: 1px solid black; border-radius: 5px; margin: 10px; padding: 10px; }")
+        self.container.setStyleSheet("#card-container { border: 1px solid gray; border-radius: 5px; margin: 10px; padding: 10px;}")
 
         self.controller = PersonnelController(db_path='data\my_database.sqlite')
 
