@@ -28,10 +28,15 @@ class Admin_crud(QTabWidget):
 
         self.setStyleSheet(
             "QTabBar::tab {"
-            "    font-weight: bold;"  # Set the font weight to bold
-            "    width:150px;   "
+            "    font-weight: bold;"
+            "    width: 150px;"
+            "}"
+            "QTabBar::tab:!selected {"
+            "    background-color: #734001;"
+            "    color: white;   "
             "}"
         )
+
         
 
 

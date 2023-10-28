@@ -18,12 +18,18 @@ class CustomHeader(QWidget):
     def __init__(self):
         super().__init__()
         self.setFixedHeight(80)  
-        self.setStyleSheet("background-color: #6495ED;")  
+ 
         self.header_label = QLabel("LOGO HERE")
         self.header_label.setStyleSheet("color: white ; font-weight: bolder")
         header_layout = QHBoxLayout()
         header_layout.addWidget(self.header_label)
-        self.setLayout(header_layout)
+        
+
+        centre = QWidget()
+        centre.setLayout(header_layout)
+        centre.setStyleSheet("background-color: #734001; border-radius : 4px;") 
+        self.setLayout(QHBoxLayout())
+        self.layout().addWidget(centre)
 
 
 class CustomNavigationBar(QWidget):
@@ -31,10 +37,11 @@ class CustomNavigationBar(QWidget):
         super().__init__()
         self.main_window = main_window  # Référence à la fenêtre principale
         self.setFixedWidth(150)  
-        self.navigation_container = QWidget()
-       
+        #self.navigation_container = QWidget()
+        #self.navigation_container.setObjectName("nav-container")
         
-        self.navigation_layout = QVBoxLayout(self.navigation_container)
+        self.navigation_layout = QVBoxLayout() #(self.navigation_container)
+        
         self.navigation_buttons = []
 
         self.db_path = db_path
@@ -44,24 +51,54 @@ class CustomNavigationBar(QWidget):
         button.setToolTip("Effectif")
         self.navigation_buttons.append(button)
         self.navigation_layout.addWidget(button)
+        button.setStyleSheet("border : none;background-color : white ;padding : 10px 20px ;color: #161c2a;border-radius: 5px;")
 
         button1 = QPushButton("Admin")
         button.setToolTip("Admin")
         self.navigation_buttons.append(button1)
         self.navigation_layout.addWidget(button1)
+        button1.setStyleSheet("border : none;background-color : white;padding : 10px 20px ;color: #161c2a;border-radius: 5px;")
 
-        button2 = QPushButton(f"Nouveaux personnels")
+        button2 = QPushButton(f"Recruter")
         self.navigation_buttons.append(button2)
         self.navigation_layout.addWidget(button2)  
+        button2.setStyleSheet("border : none;background-color : white ;padding : 10px 20px ;color: #161c2a;border-radius: 5px;")
       
 
         self.logoutButton = QPushButton(F"Logout")
+        self.logoutButton.setStyleSheet("border : none;background-color : white;padding : 10px 20px ;color: #161c2a;border-radius: 5px;")
         self.navigation_layout.addWidget(self.logoutButton)
 
         self.login_view = LoginWindow(self.db_path , self)
         self.logoutButton.clicked.connect(self.logout)
 
-        self.setLayout(self.navigation_layout)
+        centre = QWidget()
+        centre.setLayout(self.navigation_layout)
+        centre.setStyleSheet("""
+                            background-color: #734001; 
+                            border : 1px solid white;
+                            border-radius:5px;
+                            QPushButton {
+                                border : none;
+                                background-color : white;
+                                padding : 10px 20px ;
+                                color: black;
+                                border-radius: 5px;
+                            }
+
+                            QPushButton::hover {
+                                padding : 5px 15px;
+                                border: 1px solid #161c2a;
+                                background-color:white;
+                                color: black;
+                            }
+                             
+                             """)
+
+        self.setLayout(QVBoxLayout())
+        self.layout().addWidget(centre)
+        
+        
 
 
     
@@ -89,41 +126,36 @@ class MainWindow(QMainWindow):
         #self.login_view.show()
 
         self.setupUI()
+        self.setStyleSheet("background-color: white;")
 
     def setupUI(self):    
-        # Récupérer la taille de l'écran actuel
-        """desktop = QDesktopWidget()
-        screen_rect = desktop.screenGeometry()
-        width, height = screen_rect.width(), screen_rect.height()
-        
-        # Redimensionner la fenêtre en fonction de la taille de l'écran
-        new_size = QSize(int(width*3), int(height*3))
-        self.resize(new_size)"""
 
-        # Créez la barre de navigation (1ère partie) en utilisant la classe personnalisée
         self.navigation_bar = CustomNavigationBar( self, self.db_path)  # Passez une référence à MainWindow
         
         """self.navigation_bar.setStyleSheet(
             
             QPushButton {
-                border : 1px solid black;
-                background : transparent;
-                padding : 0 ;
+                border : none;
+                background-color : black;
+                padding : 10px 20px ;
+                color: white;
+                border-radius: 5px;
             }
 
             QPushButton::hover {
-                padding : 5px;
+                padding : 5px 15px;
+                background-color:white;
+                color: black;
             }
-
-
+                                          
             
+          
+             
         )"""
-        # Utilisez la classe de l'en-tête personnalisée
+     
         self.header = CustomHeader()
         self.header.setStyleSheet("background-color: white")
 
-
-        # Créez l'espace central (3ème partie)
         self.central_space = QWidget()
         self.central_layout = QVBoxLayout()
         self.search_field = QLineEdit()  # Champ de recherche
@@ -134,10 +166,6 @@ class MainWindow(QMainWindow):
 
         self.search_field.setStyleSheet("Background-color: #FFFFFF;border: 1px solid #CCCCCC; border-radius: 5px; padding: 5px;font-size: 14px;color: #333333;")
         #self.search_field.setFixedWidth(300)
-        
-
-        
-       
 
         # Créez un widget pour organiser la barre de navigation et l'espace central horizontalement
         navigation_and_central_layout = QHBoxLayout()
@@ -153,16 +181,13 @@ class MainWindow(QMainWindow):
         self.container.setLayout(main_layout)
         #self.setCentralWidget(self.container)
 
-
         # Ajoutez un QStackedWidget pour gérer les pages
         self.stacked_widget = QStackedWidget()
+        self.stacked_widget.setStyleSheet("background-color: white;")
         self.central_layout.addWidget(self.stacked_widget)
 
         self.admin_crud = Admin_crud(self.db_path)
         self.stacked_widget.addWidget(self.admin_crud)
-
-
-
 
         self.personnal_card_form = Personnal_Card(self.db_path , self)
         self.stacked_widget.addWidget(self.personnal_card_form)
@@ -171,7 +196,6 @@ class MainWindow(QMainWindow):
         self.inscription_form = InscriptionPersonnelForm(self.db_path , self.inscri_controller) 
         self.inscri_controller.view = self.inscription_form      
         self.stacked_widget.addWidget(self.inscription_form)
-
 
         self.navigation_bar.navigation_buttons[0].clicked.connect(self.show_personnal_card_form)
         self.navigation_bar.navigation_buttons[1].clicked.connect(self.show_admin_crud)

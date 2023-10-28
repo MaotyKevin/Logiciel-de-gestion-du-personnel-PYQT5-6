@@ -1,61 +1,56 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QStackedWidget, QWidget, QVBoxLayout, QPushButton, QLabel
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton
 
-class AdminPage(QWidget):
+class Header(QWidget):
     def __init__(self):
         super().__init__()
-        layout = QVBoxLayout()
-        user_crud_button = QPushButton("User CRUD")
-        team_crud_button = QPushButton("Team CRUD")
-        layout.addWidget(user_crud_button)
-        layout.addWidget(team_crud_button)
-        self.setLayout(layout)
+        self.initUI()
 
-class UserCrudPage(QWidget):
+    def initUI(self):
+        # Create widgets for your header
+        header_label = QLabel("Your Application Name")
+
+        # Create a layout for the header
+        header_layout = QHBoxLayout()
+        header_layout.addWidget(header_label)
+
+        self.setLayout(header_layout)
+
+class SideNavBar(QWidget):
     def __init__(self):
         super().__init__()
-        layout = QVBoxLayout()
-        # Add user CRUD elements here
-        label = QLabel("User CRUD Page")
-        layout.addWidget(label)
-        self.setLayout(layout)
+        self.initUI()
 
-class TeamCrudPage(QWidget):
-    def __init__(self):
-        super().__init__()
-        layout = QVBoxLayout()
-        # Add team CRUD elements here
-        label = QLabel("Team CRUD Page")
-        layout.addWidget(label)
-        self.setLayout(layout)
+    def initUI(self):
+        # Create widgets for your side navigation bar
+        button1 = QPushButton("Menu Item 1")
+        button2 = QPushButton("Menu Item 2")
+        button3 = QPushButton("Menu Item 3")
+
+        # Create a layout for the side navigation bar
+        side_layout = QVBoxLayout()
+        side_layout.addWidget(button1)
+        side_layout.addWidget(button2)
+        side_layout.addWidget(button3)
+
+        self.setLayout(side_layout)
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Admin Panel")
-        self.setGeometry(100, 100, 800, 600)
 
-        self.stacked_widget = QStackedWidget()
+        # Create instances of your header, side navigation bar
+        header = Header()
+        side_nav_bar = SideNavBar()
 
-        self.admin_page = AdminPage()
-        self.user_crud_page = UserCrudPage()
-        self.team_crud_page = TeamCrudPage()
+        # Create a central widget to hold the layouts
+        central_widget = QWidget()
+        self.setCentralWidget(central_widget)
 
-        self.stacked_widget.addWidget(self.admin_page)
-        self.stacked_widget.addWidget(self.user_crud_page)
-        self.stacked_widget.addWidget(self.team_crud_page)
-
-        self.setCentralWidget(self.stacked_widget)
-
-        # Connect buttons to page changes
-        self.admin_page.layout().itemAt(0).widget().clicked.connect(self.show_user_crud)
-        self.admin_page.layout().itemAt(1).widget().clicked.connect(self.show_team_crud)
-
-    def show_user_crud(self):
-        self.stacked_widget.setCurrentWidget(self.user_crud_page)
-
-    def show_team_crud(self):
-        self.stacked_widget.setCurrentWidget(self.team_crud_page)
+        # Create a layout for the central widget
+        central_layout = QHBoxLayout(central_widget)
+        central_layout.addWidget(side_nav_bar)
+        central_layout.addWidget(header)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
