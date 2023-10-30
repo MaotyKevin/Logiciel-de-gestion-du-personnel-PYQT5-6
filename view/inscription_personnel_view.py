@@ -5,7 +5,6 @@ from PyQt5.QtGui import QImage, QPixmap, QFont, QPainter
 from PyQt5.QtCore import Qt , QDate, pyqtSignal
 
 
-
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
@@ -13,7 +12,6 @@ from model.database import Databases
 from view.step_one import StepOne
 from view.step_two import StepTwo
 from view.step_three import StepTree
-
 
 
 class InscriptionPersonnelForm(QWidget):
@@ -24,18 +22,12 @@ class InscriptionPersonnelForm(QWidget):
         self.current_step = 0
         self.initUI()
         
-        #self.enregistrer_button.clicked.connect(controller.enregistrer_personnel)
-        # Créez une instance du modèle de base de données
         self.db_model = Databases(db_path)
         self.controller = controller
        
-
-
-        # Remplissez les listes déroulantes avec les données de la base de données
         self.remplir_liste_equipe()
         self.remplir_liste_sous_categorie()
-        
-        
+            
 
     def obtenir_id_equipe(self):
         selected_equipe = self.stepOne.equipe_combo.currentText()
@@ -93,21 +85,6 @@ class InscriptionPersonnelForm(QWidget):
 
 
     def initUI(self):
-    
-    
-        """    scroll_widget = QWidget()
-            self.enregistrer_button.clicked.connect(self.envoi)
-            layout = QVBoxLayout()
-
-            scroll_widget.setLayout(layout)
-            scroll_area = QScrollArea(self)
-            scroll_area.setWidget(scroll_widget)      
-            scroll_area.setWidgetResizable(True)
-
-        
-            main_layout = QVBoxLayout()
-            main_layout.addWidget(scroll_area)
-            self.setLayout(main_layout) """
 
         self.step_widget = QStackedWidget(self)        
         self.stepOne = StepOne()
@@ -118,10 +95,10 @@ class InscriptionPersonnelForm(QWidget):
         self.step_widget.addWidget(self.stepTwo)
         self.step_widget.addWidget(self.stepThree)
 
-        self.prev_button = QPushButton("Previous")
+        self.prev_button = QPushButton("Precedent")
         self.prev_button.clicked.connect(self.show_previous_step)
 
-        self.next_button = QPushButton("Next")
+        self.next_button = QPushButton("Suivant")
         self.next_button.clicked.connect(self.show_next_step)
 
         button_layout = QVBoxLayout()
@@ -162,7 +139,6 @@ class InscriptionPersonnelForm(QWidget):
     
     def envoi(self):
 
-       # if self.current_step == 0 :
         badge = self.stepOne.badge_edit.text()
         nom = self.stepOne.nom_edit.text()
         prenom = self.stepOne.prenom_edit.text()
@@ -214,7 +190,6 @@ class InscriptionPersonnelForm(QWidget):
 
         self.controller.add_employee(badge , nom , prenom , sexe , cin , date_cin , lieu_cin , contact , date_naissance , lieu_naissance , adresse , photo_data , affectation_id , equipe_id , equipement_id , visite_id) 
 
-        print(f"Badge = {badge}")
 
         self.message_valide()
         

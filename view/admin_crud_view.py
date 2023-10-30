@@ -11,10 +11,11 @@ class Admin_crud(QTabWidget):
         db_path = db_path
 
         # Create tabs
-        tab1 = Team_crud(db_path)
-        tab2 = SC_crud(db_path)
-        tab3 = User_account(db_path)
         
+        
+        tab1 = User_account(db_path)
+        tab2 = SC_crud(db_path)
+        tab3 = Team_crud(db_path)
         
         self.equipeHeader = "Les equipes"
         self.userHeader = "Les comptes"
@@ -22,9 +23,9 @@ class Admin_crud(QTabWidget):
         
 
         # Add tabs to the tab widget
-        self.addTab(tab1, self.equipeHeader)
+        self.addTab(tab1, self.userHeader)
         self.addTab(tab2 , self.SCHeader)
-        self.addTab(tab3, self.userHeader)
+        self.addTab(tab3, self.equipeHeader)
 
         self.setStyleSheet(
             "QTabBar::tab {"

@@ -33,7 +33,7 @@ class StepOne(QScrollArea):
 
 
         self.photo_label = QLabel()
-        self.photo_button = QPushButton("Import Photo")
+        self.photo_button = QPushButton("Importer une photo")
         self.photo_data = None
 
         self.nom_edit = QLineEdit()
@@ -111,9 +111,11 @@ class StepOne(QScrollArea):
         layout.addWidget(QLabel("Photo:"))
         layout.addWidget(self.photo_label)
         layout.addWidget(self.photo_button)
+        layout.setSpacing(1)
 
         self.setWidget(content_widget)
         self.setWidgetResizable(True)
+        
 
     def capture_sexe(self):
         # Check which radio button is checked and capture the selected "sexe" value

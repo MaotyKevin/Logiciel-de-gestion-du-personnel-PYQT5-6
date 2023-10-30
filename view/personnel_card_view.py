@@ -41,6 +41,7 @@ class Personnal_Card(QWidget):
 
         self.search_field = QLineEdit()  # Champ de recherche
         self.search_field.textChanged.connect(self.perform_search)
+        self.search_field.setPlaceholderText("Rechercher...")
         self.search_field.setStyleSheet("Background-color: #FFFFFF;border: 1px solid #CCCCCC; border-radius: 5px; padding: 5px;font-size: 14px;color: #333333;")
 
 
@@ -54,8 +55,8 @@ class Personnal_Card(QWidget):
         combo_container.addWidget(self.SC_filter)
         combo_container.addWidget(self.search_field)
         
-        self.team_filter.setStyleSheet("QComboBox { padding: 0px; }")
-        self.SC_filter.setStyleSheet("QComboBox { padding: 0px; }")
+        self.team_filter.setStyleSheet("QComboBox { padding: 5px; }")
+        self.SC_filter.setStyleSheet("QComboBox { padding: 5px; }")
 
          # Initial option
         self.equipe_name = self.controller.get_team_names()
@@ -69,7 +70,7 @@ class Personnal_Card(QWidget):
         #combo_container.setStretch(1000 , 1000)
         combo_container.setSpacing(20)
         #combo_container.addStretch(900)
-        combo_container.setContentsMargins(450 , 0 , 0 , 0)
+        combo_container.setContentsMargins(550 , 0 , 0 , 0)
         #combo_container.setGeometry(QRect(1000 , 100 , 100 , 100))
         main_layout = QVBoxLayout()
         main_layout.addLayout(combo_container)
