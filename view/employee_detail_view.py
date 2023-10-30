@@ -54,7 +54,7 @@ class EmployeeDetailsForm(QWidget):
         container_layout = QVBoxLayout()
 
         previous_button = QPushButton("Retour a la liste")
-        previous_button.setStyleSheet("background-color: #007BFF; color: white; padding: 10px 20px; border: none; border-radius: 5px;")
+        previous_button.setStyleSheet("background-color: #007BFF; color: white; padding: 10px 20px; border: none; border-radius: 5px;font-weight:bold;")
         previous_button.clicked.connect(self.show_previous_cards)
         top_right_layout.addWidget(previous_button)
         
