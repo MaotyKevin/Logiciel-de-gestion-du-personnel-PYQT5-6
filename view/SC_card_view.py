@@ -63,7 +63,7 @@ class SCCard(QWidget):
     def confirm_delete(self):
         idSCStr = str(self.id_sousCategorie)
         # Affichez une boîte de dialogue de confirmation
-        confirmation = QMessageBox.question(self, "Confirmation", "Êtes-vous sûr de vouloir supprimer cette equipe ?",
+        confirmation = QMessageBox.question(self, "Confirmation", "Êtes-vous sûr de vouloir supprimer ce sous categorie ?",
                                              QMessageBox.Yes | QMessageBox.No)
         if confirmation == QMessageBox.Yes:
             self.controller.deleteSC(idSCStr)
