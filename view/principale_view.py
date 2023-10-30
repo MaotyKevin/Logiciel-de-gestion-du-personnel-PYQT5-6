@@ -205,9 +205,10 @@ class MainWindow(QMainWindow):
 
     def show_employee_details_view(self, employee_details_form):
         # Replace the current view with the EmployeeDetailsForm
-        if self.last_displayed_page:
-            self.last_displayed_page.hide()
-        self.setCentralWidget(employee_details_form)
+        #if self.last_displayed_page:
+            #self.last_displayed_page.hide()
+        self.stacked_widget.addWidget(employee_details_form)
+        self.stacked_widget.setCurrentWidget(employee_details_form)
         self.last_displayed_page = employee_details_form
 
     def show_principal_view(self):
