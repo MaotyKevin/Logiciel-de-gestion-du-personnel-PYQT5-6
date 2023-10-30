@@ -45,9 +45,12 @@ class PersonnelCardModel:
             cursor = self.conn.cursor()
             query = """
             SELECT 
-                P.Badge, P.Nom, P.Sexe , P.Photo
-            FROM Personnel P WHERE Badge = ? """
-            print(f"Badge : {Badge}")
+                A.Fonction , P.Badge , P.Photo , P.Nom , P.Prenom , P.Date_Naissance ,P.Lieu_Naissance , P.CIN , P.Date_CIN , P.Lieu_CIN , P.Adresse , P.Contact , A.DateDebut , V.VE_OMSI , A.DateFin , A.CauseDepart , E.DateEquipement , E.Casque , E.Haut , E.Lunette  , E.Chaussure
+            FROM Personnel P 
+            LEFT JOIN Affectation A ON P.id_affectation = A.id_affectation
+            LEFT JOIN Equipement E ON P.id_equipement = E.id_equipement
+            LEFT JOIN Visite V ON P.id_visite = V.id_visite
+            WHERE Badge = ? """
             
             cursor.execute(query, (Badge,))
             employeeDetails = cursor.fetchone()  # Use fetchone() to retrieve a single row
