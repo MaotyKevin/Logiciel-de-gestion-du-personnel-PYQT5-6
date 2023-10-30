@@ -45,13 +45,12 @@ class PersonnelCardModel:
             cursor = self.conn.cursor()
             query = """
             SELECT 
-                P.Badge, P.Nom, P.Sexe 
+                P.Badge, P.Nom, P.Sexe , P.Photo
             FROM Personnel P WHERE Badge = ? """
             print(f"Badge : {Badge}")
             
             cursor.execute(query, (Badge,))
             employeeDetails = cursor.fetchone()  # Use fetchone() to retrieve a single row
-            print(f"Employee details = {employeeDetails}")
             return employeeDetails
 
         except sqlite3.Error as e:

@@ -3,7 +3,7 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
 
-from PyQt5.QtWidgets import QPushButton,QApplication,QWidget, QLabel, QVBoxLayout , QTabWidget
+from PyQt5.QtWidgets import QPushButton,QApplication,QWidget, QLabel, QVBoxLayout , QTabWidget , QScrollArea , QHBoxLayout 
 from controller.personnel_card_controller import PersonnelController
 from view.employeeDetailTabOne_view import EmployeeDetailsTabOne
 
@@ -30,13 +30,25 @@ class EmployeeDetailsForm(QWidget):
         self.initUI()
 
     def initUI(self):
-        layout = QVBoxLayout()
 
-        # Add the "Previous" button
+        scroll_area = QScrollArea()
+        scroll_area.setWidget(self.employeeTabForm)  # Set the QTabWidget as the widget within the scroll area
+        scroll_area.setWidgetResizable(True) 
+        container = QWidget()
+        container_layout = QVBoxLayout()
         previous_button = QPushButton("Previous")
         previous_button.clicked.connect(self.show_previous_cards)
-        layout.addWidget(self.employeeTabForm)
-        layout.addWidget(previous_button)
+        container_layout.addWidget(previous_button)
+        container_layout.addWidget(scroll_area)
+        
+        # Add the "Previous" button to the container
+
+        
+
+        container.setLayout(container_layout)
+
+        layout = QVBoxLayout()
+        layout.addWidget(container)  # Add the container widget to the layout
         self.setLayout(layout)
 
     def show_previous_cards(self):

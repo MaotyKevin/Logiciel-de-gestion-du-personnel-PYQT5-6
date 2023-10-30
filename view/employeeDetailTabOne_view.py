@@ -1,7 +1,7 @@
 import sys , os
-from PyQt5.QtWidgets import QApplication,QStackedWidget, QDialog, QVBoxLayout, QWidget, QLabel, QLineEdit, QPushButton, QComboBox, QFileDialog,QScrollArea , QDateEdit , QMessageBox , QSizePolicy
-from PyQt5.QtGui import QImage, QPixmap, QFont, QPainter
-from PyQt5.QtCore import Qt , QDate, pyqtSignal , QRect
+from PyQt5.QtWidgets import QApplication,QStackedWidget, QDialog, QVBoxLayout, QWidget, QLabel, QLineEdit, QPushButton, QComboBox, QFileDialog,QScrollArea , QDateEdit , QMessageBox , QSizePolicy , QHBoxLayout
+from PyQt5.QtGui import QImage, QPixmap, QFont, QPainter 
+from PyQt5.QtCore import Qt , QDate, pyqtSignal , QRect , QSize
 from controller.personnel_card_controller import PersonnelController
 
 class EmployeeDetailsTabOne(QWidget):
@@ -14,9 +14,10 @@ class EmployeeDetailsTabOne(QWidget):
 
     def defUI(self , employee_data):
         layout = QVBoxLayout()
+        mainLayout = QHBoxLayout()
 
         if employee_data:
-            Badge , Nom , Sexe = employee_data
+            Badge , Nom , Sexe , Photo = employee_data
 
             self.badgeLabel = QLineEdit(f"Badge : {Badge}")
             self.badgeLabel.setReadOnly(True)
@@ -30,6 +31,14 @@ class EmployeeDetailsTabOne(QWidget):
             self.SexeLabel.setReadOnly(True)
             self.styleLineEdit(self.SexeLabel)
 
+            if Photo:
+                pixmap = QPixmap()
+                pixmap.loadFromData(Photo)
+                if not pixmap.isNull():
+                    self.photo_label = QLabel()
+                    self.photo_label.setPixmap(pixmap)
+                    self.photo_label.setPixmap(pixmap.scaled(QSize(300, 300), Qt.KeepAspectRatio)) 
+
             badge_desired_width = self.badgeLabel.fontMetrics().width(self.badgeLabel.text()) + 20
             self.badgeLabel.setFixedWidth(badge_desired_width)
 
@@ -42,9 +51,10 @@ class EmployeeDetailsTabOne(QWidget):
             layout.addWidget(self.badgeLabel)
             layout.addWidget(self.NomLabel)
             layout.addWidget(self.SexeLabel)   
-
+            mainLayout.addLayout(layout)
+            mainLayout.addWidget(self.photo_label)
              
-        self.setLayout(layout)
+        self.setLayout(mainLayout)
 
     def styleLineEdit(self, line_edit):
         # Define the CSS style for QLineEdit
@@ -56,6 +66,7 @@ class EmployeeDetailsTabOne(QWidget):
                 border-bottom: 1px solid #C0C0C0;  /* Border color and thickness */
                 border-radius: 5px;         /* Rounded corners */
                 padding: 5px;               /* Padding inside the QLineEdit */
+                
                 
             }
         """
