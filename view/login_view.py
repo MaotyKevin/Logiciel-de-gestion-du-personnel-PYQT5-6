@@ -1,10 +1,11 @@
 #LoginForm.py
 
-from PyQt5.QtWidgets import QApplication,QSplitter, QWidget, QHBoxLayout,QVBoxLayout, QLineEdit, QPushButton, QLabel, QMessageBox
+from PyQt5.QtWidgets import QApplication,QSplitter, QWidget, QHBoxLayout,QVBoxLayout, QLineEdit, QPushButton, QLabel, QMessageBox 
 from model.admin_model import DatabaseHandler
 from PyQt5 import QtGui
-from PyQt5.QtCore import QRect
-from PyQt5 import QtCore
+from PyQt5.QtCore import QRect 
+from PyQt5 import QtCore 
+from PyQt5.QtGui import QIcon
 
 
 class LoginWindow(QWidget):
@@ -36,26 +37,36 @@ class LoginWindow(QWidget):
         right_widget.setStyleSheet("background-color: #734001;")
         right_layout = QHBoxLayout()
 
+
         self.username_input = QLineEdit()
+        self.username_input.setStyleSheet("width : 200; height: 30;color:white;font-weight:bold; background-color:#734001;")
+        self.username_input.setPlaceholderText("Username")
+
+
+        self.toggle_button = QPushButton()
+        self.toggle_button.setIcon(QIcon("assets/pic/hidden-eye.svg"))
+        self.toggle_button.setFlat(True)
+        self.toggle_button.clicked.connect(self.on_toggle_password_Action)
+
         self.password_input = QLineEdit()
         self.password_input.setEchoMode(QLineEdit.Password)
         self.password_input.returnPressed.connect(self.login)
-        self.username_input.setStyleSheet("width : 200; height: 30;color:white;font-weight:bold; background-color:#734001;")
-        self.username_input.setPlaceholderText("Username")
         self.password_input.setPlaceholderText("password")
         self.password_input.setStyleSheet("width : 200; height: 30;color:white;font-weight:bold;background-color:#734001;")
 
+        self.username_input.returnPressed.connect(self.password_input.setFocus)
         
 
         #self.login_button = QPushButton("Login")
         #self.login_button.clicked.connect(self.login)
 
-        self.username_input.returnPressed.connect(self.password_input.setFocus)
+
 
         #right_layout.addWidget(QLabel("Username:"))
         right_layout.addWidget(self.username_input)
         #right_layout.addWidget(QLabel("Password:"))
         right_layout.addWidget(self.password_input)
+        right_layout.addWidget(self.toggle_button)
         #right_layout.addWidget(self.login_button)
         right_widget.setLayout(right_layout)
 
@@ -66,6 +77,8 @@ class LoginWindow(QWidget):
 
         # Set the main layout for the central widget
         self.setLayout(main_layout)
+
+        self.password_shown = False
 
     def login(self):
         username = self.username_input.text()
@@ -90,3 +103,13 @@ class LoginWindow(QWidget):
         self.username_input.setText("")
         self.password_input.setText("")
         #super().show()
+
+    def on_toggle_password_Action(self):
+        if not self.password_shown:
+            self.password_input.setEchoMode(QLineEdit.Normal)
+            self.password_shown = True
+            self.toggle_button.setIcon(QIcon("assets/pic/visible-eye.svg"))
+        else:
+            self.password_input.setEchoMode(QLineEdit.Password)
+            self.password_shown = False
+            self.toggle_button.setIcon(QIcon("assets/pic/hidden-eye.svg"))
