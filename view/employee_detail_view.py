@@ -3,32 +3,39 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
 
-from PyQt5.QtWidgets import QPushButton,QApplication,QWidget, QLabel, QVBoxLayout
+from PyQt5.QtWidgets import QPushButton,QApplication,QWidget, QLabel, QVBoxLayout , QTabWidget
 from controller.personnel_card_controller import PersonnelController
+from view.employeeDetailTabOne_view import EmployeeDetailsTabOne
+
+class EmployeeTabForm(QTabWidget):
+    def __init__(self , badge):
+        super().__init__()
+        
+        self.badge = badge
+        tab1 = EmployeeDetailsTabOne(self.badge)
+        tab2 = QWidget()
+
+        self.addTab(tab1 , "tab1")
+        self.addTab(tab2 , "tab2")
+        
 
 class EmployeeDetailsForm(QWidget):
     def __init__(self, badge , main_window):
         super().__init__()
         self.badge = badge
+        print(f"BADGE DANS DETAILS FORM = {self.badge}")
         self.main_window = main_window
-        self.controller = PersonnelController(db_path='data\my_database.sqlite')
-        employee_data = self.controller.get_employee_details(self.badge)
-        self.initUI(employee_data)
+        self.employeeTabForm = EmployeeTabForm(self.badge)
 
-    def initUI(self, employee_data):
+        self.initUI()
+
+    def initUI(self):
         layout = QVBoxLayout()
-
-        if employee_data:
-            for value in employee_data:
-                label = QLabel(f" {value}\n")
-                layout.addWidget(label)
-        else:
-            label = QLabel("Employee not found")  # Add a message if employee is not found
-            layout.addWidget(label)
 
         # Add the "Previous" button
         previous_button = QPushButton("Previous")
         previous_button.clicked.connect(self.show_previous_cards)
+        layout.addWidget(self.employeeTabForm)
         layout.addWidget(previous_button)
         self.setLayout(layout)
 

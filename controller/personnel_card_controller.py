@@ -41,4 +41,4 @@ class PersonnelController:
 
 if __name__ == "__main__":
     contro = PersonnelController('data\my_database.sqlite')
-    contro.get_employee_details("543454")
+    contro.get_employee_details("Batman")
