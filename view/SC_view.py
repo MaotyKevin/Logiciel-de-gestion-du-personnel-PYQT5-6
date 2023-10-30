@@ -17,7 +17,7 @@ class SC_crud(QWidget):
     def initUI(self):
 
 
-        self.add_SC_button = QPushButton("Add SC")
+        self.add_SC_button = QPushButton("Nouveau sous-categorie")
         self.add_SC_button.setStyleSheet("background-color: #007BFF; color: white; padding: 10px 20px; border: none; border-radius: 5px;")
         self.add_SC_button.clicked.connect(self.show_add_SC_dialog)
         
@@ -58,7 +58,7 @@ class SC_crud(QWidget):
 
     def show_add_SC_dialog(self):
         # Create a dialog to input the new team's name
-        SCName, ok = QInputDialog.getText(self, "Add SC", "Enter the SC's name:")
+        SCName, ok = QInputDialog.getText(self, "Ajout", "Le nom du sous-categorie:")
         
         if ok:
             if SCName and not SCName.isspace():

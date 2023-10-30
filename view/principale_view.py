@@ -222,9 +222,7 @@ class MainWindow(QMainWindow):
         self.login_view.show()
 
     def return_to_last_displayed_page(self , employee_details_form):
-        print("return last displayed called")
         if self.last_displayed_page:
-            print("last displayed page condition ok")
             self.show_principal_view()
             self.stacked_widget.setCurrentWidget(self.last_displayed_page)
 

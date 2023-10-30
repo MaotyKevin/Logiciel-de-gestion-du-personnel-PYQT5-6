@@ -14,11 +14,9 @@ class PersonnelController:
         return self.model.get_personnel_data()
     
     def get_employee_details(self , Badge):
-        print("contro get employee details called")
         return self.model.get_employee_details(Badge)
     
     def delete_data(self , Badge):
-        print("Controller delete called")
         return self.model.delete_card(Badge)
     
     def get_team_names(self):

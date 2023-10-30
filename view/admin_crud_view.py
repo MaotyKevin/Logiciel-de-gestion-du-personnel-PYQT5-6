@@ -10,9 +10,7 @@ class Admin_crud(QTabWidget):
         super().__init__()
         db_path = db_path
 
-        # Create tabs
-        
-        
+
         tab1 = User_account(db_path)
         tab2 = SC_crud(db_path)
         tab3 = Team_crud(db_path)

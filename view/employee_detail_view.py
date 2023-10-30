@@ -35,7 +35,6 @@ class EmployeeDetailsForm(QWidget):
     def __init__(self, badge , main_window):
         super().__init__()
         self.badge = badge
-        print(f"BADGE DANS DETAILS FORM = {self.badge}")
         self.main_window = main_window
         self.employeeTabForm = EmployeeTabForm(self.badge)
 
@@ -74,10 +73,8 @@ class EmployeeDetailsForm(QWidget):
         self.setLayout(layout)
 
     def show_previous_cards(self):
-        print("previous function called")
         # Use the reference to the main window to switch back to the list of cards
         if self.main_window:
-            print("inside the condition if self.mainwindow")
             self.main_window.return_to_last_displayed_page(self)
         else:
             self.main_window.setupUI()

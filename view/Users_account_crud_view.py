@@ -72,7 +72,7 @@ class User_account(QWidget):
                 self.refresh_user_cards()
             else:
                 # L'équipe existe déjà, affichez un message d'erreur à l'utilisateur
-                QMessageBox.warning(self, "Erreur", "Username or password already existed.")
+                QMessageBox.warning(self, "Erreur", "Pseudo ou mot de passe deja existant.")
 
     def refresh_user_cards(self):
         # Clear the current team cards
@@ -91,15 +91,15 @@ class User_account(QWidget):
 class AddUserDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setWindowTitle("Add User")
+        self.setWindowTitle("Ajout de nouveau compte")
         
-        self.username_label = QLabel("Username:")
+        self.username_label = QLabel("Pseudo:")
         self.username_input = QLineEdit(self)
         
-        self.password_label = QLabel("Password:")
+        self.password_label = QLabel("Mot de passe :")
         self.password_input = QLineEdit(self)
         
-        self.add_button = QPushButton("Confirm")
+        self.add_button = QPushButton("Creer")
         self.add_button.clicked.connect(self.check_and_accept)
         
         layout = QVBoxLayout()
@@ -122,6 +122,6 @@ class AddUserDialog(QDialog):
         password = self.get_password()
         
         if not username or not password:
-            QMessageBox.warning(self, "Warning", "Both username and password are required.")
+            QMessageBox.warning(self, "Attention", "Tous les champs a completer.")
         else:
             self.accept()

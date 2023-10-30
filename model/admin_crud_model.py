@@ -155,17 +155,5 @@ class Admin_crud_model:
 if __name__ == "__main__":
     db_path = 'data\my_database.sqlite'
     Admin_crud_models = Admin_crud_model(db_path)
-    """team = "Z"
-    Admin_crud_models.addTeam(team)"""
-    """
-    new_name_team = "Nettoyage"
-    Admin_crud_models.updateTeam(4 , new_name_team)
-    """
-    #teamlist = Admin_crud_models.getTeamData()
-    #print(teamlist)
 
-    Admin_crud_models.addSC("Nouveau test")
-    
-
-    #Admin_crud_models.deleteTeam(4)
     

@@ -57,7 +57,7 @@ class InscriptionPersonnelForm(QWidget):
 
     def message_valide(self):
         
-        QMessageBox.information(self , "Confirmation", "Les données ont été enregistrées avec succès.")
+        QMessageBox.information(self , "Confirmation", "Nouveau personnel ajoutee!")
 
         # Réinitialisez les champs de saisie
         for widget in self.stepOne.findChildren(QLineEdit):

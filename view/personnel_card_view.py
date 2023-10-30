@@ -80,8 +80,6 @@ class Personnal_Card(QWidget):
     def perform_search(self):
         #self.show_personnal_card_form()
         search_text = self.search_field.text().strip().lower()
-        print(f"Reception search text: {search_text} , bouton fonctionnel")
-        print(f"Données existantes : {self.personnel_data}")
 
         self.donnee = self.controller.get_personnel_data()
 
@@ -143,7 +141,6 @@ class Personnal_Card(QWidget):
     
         #data = self.controller.get_personnel_data or personnel_data
         if data is not None:
-            print(f"DATA = {data}")
             for row_idx, row in enumerate(data):
                 badge, nom, categorie, fonction, sous_categorie = row
                 card_container = QFrame()

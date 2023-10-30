@@ -16,7 +16,7 @@ class Team_crud(QWidget):
 
     def initUI(self):
 
-        self.add_team_button = QPushButton("Add Team")
+        self.add_team_button = QPushButton("Nouvelle equipe")
         self.add_team_button.setStyleSheet("background-color: #007BFF; color: white; padding: 10px 20px; border: none; border-radius: 5px;")
         self.add_team_button.clicked.connect(self.show_add_team_dialog)
         
@@ -48,7 +48,6 @@ class Team_crud(QWidget):
     def populateTeam(self):
         data = self.donnee
         if data is not None:
-            print(f"EQUIPE LIST : {data}")
             for row_idx , row in enumerate(data):
                 id_equipe , nom_equipe = row 
                 card_container = QFrame()
@@ -59,7 +58,7 @@ class Team_crud(QWidget):
 
     def show_add_team_dialog(self):
         # Create a dialog to input the new team's name
-        team_name, ok = QInputDialog.getText(self, "Add Team", "Enter the team's name:")
+        team_name, ok = QInputDialog.getText(self, "Ajout d'Equipe", "Le nom de l'equipe :")
         
         if ok:
             # Check if the team name is empty or consists of only whitespace

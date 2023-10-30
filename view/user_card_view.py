@@ -25,7 +25,7 @@ class UserCard(QWidget):
         self.password_label.setEchoMode(QLineEdit.Password)
 
 
-        self.show_password_checkbox = QCheckBox("Show")
+        self.show_password_checkbox = QCheckBox("Montrer")
         self.show_password_checkbox.stateChanged.connect(self.toggle_password_visibility)
 
         password_layout = QHBoxLayout()
@@ -80,7 +80,7 @@ class UserCard(QWidget):
     def confirm_delete(self):
         idUserStr = str(self.id_user)
         # Affichez une boîte de dialogue de confirmation
-        confirmation = QMessageBox.question(self, "Confirmation", "Êtes-vous sûr de vouloir supprimer cette equipe ?",
+        confirmation = QMessageBox.question(self, f"Confirmation", "Êtes-vous sûr de vouloir supprimer le compte ?",
                                              QMessageBox.Yes | QMessageBox.No)
         if confirmation == QMessageBox.Yes:
             self.controller.delete_User(idUserStr)

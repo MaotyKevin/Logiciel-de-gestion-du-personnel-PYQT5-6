@@ -68,9 +68,7 @@ class Card(QWidget):
 
     def show_employee_details(self):
         # Use the reference to the main window to switch views
-        print("detail clicked")
         if self.main_window:
-            print("entree dans la condition")
             self.main_window.show_employee_details_view(self.employee_details_form)
         
 
