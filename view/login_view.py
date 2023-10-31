@@ -84,8 +84,12 @@ class LoginWindow(QWidget):
         username = self.username_input.text()
         password = self.password_input.text()
 
-        if self.db_handler.validate_credentials(username, password):
-            self.main_window.show_principal_view()
+        usernames, role = self.db_handler.validate_credentials(username, password)
+
+        if role == "Admin":
+            self.main_window.show_principal_view(usernames, role)
+        elif role == "User":
+            self.show_user_dialog(usernames)
         else:
             self.show_error_dialog()
 
@@ -97,6 +101,13 @@ class LoginWindow(QWidget):
         error_dialog.setText("Invalid username or password. Please try again.")
         error_dialog.setIcon(QMessageBox.Warning)
         error_dialog.exec_()
+
+    def show_user_dialog(self , username):
+        user_dialog = QMessageBox()
+        user_dialog.setWindowTitle("User confirmed")
+        user_dialog.setText(f"{username} est connectee , GUI maintenance.")
+        user_dialog.setIcon(QMessageBox.Warning)
+        user_dialog.exec_()
 
     def clear(self):
         # Reset the input fields when the window is shown again
