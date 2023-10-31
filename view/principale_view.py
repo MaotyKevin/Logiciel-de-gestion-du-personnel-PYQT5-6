@@ -215,7 +215,7 @@ class MainWindow(QMainWindow):
         self.stacked_widget.setCurrentWidget(employee_details_form)
         self.last_displayed_page = employee_details_form
 
-    def show_principal_view(self , username , role):
+    def show_principal_view(self , username=None , role=None):
         self.username = username
         self.role = role 
         #self.login_view.hide()

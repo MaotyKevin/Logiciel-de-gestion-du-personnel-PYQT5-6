@@ -209,9 +209,11 @@ class EmployeeDetailsTabOne(QWidget):
             mainLayout.addLayout(horizontal1)
             mainLayout.addLayout(vertical4)
             mainLayout.addWidget(self.tableWidget)
+            mainLayout.setSpacing(0)
             
              
         self.setLayout(mainLayout)
+        
 
     def styleLineEdit(self, line_edit):
         # Define the CSS style for QLineEdit
