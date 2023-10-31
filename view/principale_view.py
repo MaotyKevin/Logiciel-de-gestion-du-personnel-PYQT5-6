@@ -2,7 +2,7 @@
 from pathlib import Path
 import sys , os
 from PyQt5.QtWidgets import QMessageBox,QLineEdit, QApplication,QDesktopWidget,QStackedWidget, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QSplitter 
-from PyQt5.QtGui import QPalette, QColor 
+from PyQt5.QtGui import QPalette, QColor  , QIcon
 from PyQt5.QtCore import Qt, QSize , QFile, QTextStream , QRect
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
@@ -46,26 +46,30 @@ class CustomNavigationBar(QWidget):
 
         self.db_path = db_path
 
-  
-        button = QPushButton("Effectif")
+        
+        button = QPushButton("  Effectif")
         button.setToolTip("Effectif")
         self.navigation_buttons.append(button)
         self.navigation_layout.addWidget(button)
+        button.setIcon(QIcon("assets\pic\effectif.png"))
         button.setStyleSheet("border : none;background-color : white ;padding : 10px 20px ;color: #161c2a;border-radius: 5px;")
 
-        button1 = QPushButton("Admin")
+        button1 = QPushButton("  Admin")
         button.setToolTip("Admin")
         self.navigation_buttons.append(button1)
         self.navigation_layout.addWidget(button1)
+        button1.setIcon(QIcon("assets/pic/admin.png"))
         button1.setStyleSheet("border : none;background-color : white;padding : 10px 20px ;color: #161c2a;border-radius: 5px;")
 
-        button2 = QPushButton(f"Recruter")
+        button2 = QPushButton(f"  Recruter")
         self.navigation_buttons.append(button2)
-        self.navigation_layout.addWidget(button2)  
+        self.navigation_layout.addWidget(button2)
+        button2.setIcon(QIcon("assets/pic/recruter.png"))  
         button2.setStyleSheet("border : none;background-color : white ;padding : 10px 20px ;color: #161c2a;border-radius: 5px;")
       
 
-        self.logoutButton = QPushButton(F"Logout")
+        self.logoutButton = QPushButton(F"  Logout")
+        self.logoutButton.setIcon(QIcon("assets\pic\logout.png"))
         self.logoutButton.setStyleSheet("border : none;background-color : white;padding : 10px 20px ;color: #161c2a;border-radius: 5px;")
         self.navigation_layout.addWidget(self.logoutButton)
 
