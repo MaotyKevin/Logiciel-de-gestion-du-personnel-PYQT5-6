@@ -7,6 +7,17 @@ class Admin_crud_model:
         self.connection = sqlite3.connect(self.db_path)
         self.cursor = self.connection.cursor()  
 
+    def getAdminData(self):
+        query = """
+            SELECT id , Username , Password FROM Admin
+        """
+
+        self.cursor.execute(query)
+        self.connection.commit()
+
+        AdminData = self.cursor.fetchall()
+        return AdminData
+    
     def getUserData(self):
         query = """
             SELECT id , Username , Password FROM User
@@ -55,9 +66,10 @@ class Admin_crud_model:
         
     def addNewUser(self , username , password):
         add_query = """
-            INSERT INTO User (Username , Password) VALUES (? , ?)
+            INSERT INTO User (Username , Password , id_role) VALUES (? , ? , ?)
         """
-        self.cursor.execute(add_query , (username , password,))
+        userRole = int(2)
+        self.cursor.execute(add_query , (username , password,userRole))
         self.connection.commit()
 
     def deleteUser(self , id_user):
@@ -84,7 +96,44 @@ class Admin_crud_model:
             self.connection.commit()
             return True  # Return True to indicate success
         except sqlite3.Error as e:
-            print(f"Error updating team: {e}")
+            print(f"Error updating User: {e}")
+            return False
+        
+#________________________________________________
+
+    def addNewAdmin(self , username , password):
+        add_query = """
+            INSERT INTO Admin (Username , Password , id_role) VALUES (? , ? , ?)
+        """
+        adminRole = int(1)
+        self.cursor.execute(add_query , (username , password,adminRole))
+        self.connection.commit()
+
+    def deleteAdmin(self , id_admin):
+        delete_query = """
+            DELETE FROM Admin WHERE id = ?
+        """
+        self.cursor.execute(delete_query , (id_admin,))
+        self.connection.commit()
+
+    def updateAdminName(self , id_admin , adminName):
+        try:
+            update_query = "UPDATE Admin SET Username = ? WHERE id = ?"
+            self.cursor.execute(update_query, (adminName, id_admin))
+            self.connection.commit()
+            return True  # Return True to indicate success
+        except sqlite3.Error as e:
+            print(f"Error updating Admin username: {e}")
+            return False
+        
+    def updateAdminPassword(self , id_admin , adminPassword):
+        try:
+            update_query = "UPDATE Admin SET Password = ? WHERE id = ?"
+            self.cursor.execute(update_query, (adminPassword, id_admin))
+            self.connection.commit()
+            return True  # Return True to indicate success
+        except sqlite3.Error as e:
+            print(f"Error updating Admin password: {e}")
             return False
 
 #____________________________________________________________________________________________________
@@ -147,6 +196,18 @@ class Admin_crud_model:
     
     def PasswordVerify(self , password):
         query = "SELECT COUNT(*) FROM User WHERE Password = ?"
+        result = self.cursor.execute(query, (password,)).fetchone()
+        self.connection.commit()
+        return result[0] > 0
+    
+    def AdminNameVerify(self , username):
+        query = "SELECT COUNT(*) FROM Admin WHERE Username = ?"
+        result = self.cursor.execute(query, (username,)).fetchone()
+        self.connection.commit()
+        return result[0] > 0
+    
+    def AdminPasswordVerify(self , password):
+        query = "SELECT COUNT(*) FROM Admin WHERE Password = ?"
         result = self.cursor.execute(query, (password,)).fetchone()
         self.connection.commit()
         return result[0] > 0
