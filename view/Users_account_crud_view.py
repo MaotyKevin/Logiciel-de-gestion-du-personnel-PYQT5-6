@@ -30,6 +30,44 @@ class User_account(QWidget):
         scroll_area = QScrollArea()
         scroll_area.setWidgetResizable(True)
 
+        scroll_area.setStyleSheet(
+            """
+            QScrollArea {
+                border: 1px solid #CCCCCC;
+            }
+            
+            QScrollBar:vertical {
+                border: 1px solid #734001;
+                background: #734001;
+                width: 12px;
+                margin: 0px;
+            }
+            
+            QScrollBar:horizontal {
+                border: 1px solid #734001;
+                background: #734001;
+                height: 12px;
+                margin: 0px;
+            }
+            
+            QScrollBar::handle:vertical {
+                background: #734001;
+                min-height: 20px;
+                border-radius: 6px;
+            }
+            
+            QScrollBar::handle:horizontal {
+                background: #734001;
+                min-width: 20px;
+                border-radius: 6px;
+            }
+            
+            QScrollBar::add-line, QScrollBar::sub-line {
+                background: none;
+            }
+            """
+        )
+
         container = QWidget()
         container.setLayout(self.page_layout)
         container.setStyleSheet("background-color: white")
