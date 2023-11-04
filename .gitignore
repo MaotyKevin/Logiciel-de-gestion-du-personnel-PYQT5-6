@@ -2,3 +2,5 @@ venv/
 envMint/
 gmain.exe
 main.exe 
+build/
+dist/
