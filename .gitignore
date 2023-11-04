@@ -4,3 +4,5 @@ gmain.exe
 main.exe 
 build/
 dist/
+.vscode/
+__pycache__/
