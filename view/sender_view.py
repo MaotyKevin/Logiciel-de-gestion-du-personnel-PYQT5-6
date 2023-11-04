@@ -1,7 +1,7 @@
 import sys
 import pika
-from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QTextEdit, QPushButton, QLineEdit
-from PyQt5.QtCore import QCoreApplication
+from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QListWidget, QPushButton, QLineEdit, QListWidgetItem
+from PyQt5.QtCore import Qt
 
 class MessageSender(QWidget):
     def __init__(self):
@@ -10,13 +10,15 @@ class MessageSender(QWidget):
         self.setupRabbitMQ()
 
     def initUI(self):
-        self.setWindowTitle('Message Sender')
-        self.setGeometry(100, 100, 400, 300)
+        self.setWindowTitle('Messenger App')
+        self.setGeometry(100, 100, 400, 500)
 
+        self.message_list = QListWidget(self)
         self.message_input = QLineEdit(self)
         self.send_button = QPushButton('Send', self)
 
         layout = QVBoxLayout()
+        layout.addWidget(self.message_list)
         layout.addWidget(self.message_input)
         layout.addWidget(self.send_button)
         self.setLayout(layout)
@@ -32,8 +34,17 @@ class MessageSender(QWidget):
         message = self.message_input.text()
         if message:
             self.channel.basic_publish(exchange='', routing_key='hello', body=message)
-            print(f"Sent: {message}")  # For debugging
+            self.displayMessage(message, outgoing=True)  # Display sent message
             self.message_input.clear()
+
+    def displayMessage(self, message, outgoing=False):
+        item = QListWidgetItem(self.message_list)
+        item.setText(message)
+        if outgoing:
+            item.setTextAlignment(Qt.AlignRight)
+            item.setForeground(Qt.blue)  # Customize the color for outgoing messages
+        else:
+            item.setTextAlignment(Qt.AlignLeft)
 
     def closeEvent(self, event):
         self.connection.close()
