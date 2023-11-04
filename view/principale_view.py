@@ -13,24 +13,30 @@ from controller.inscription_personnel_controller import InscriptionPersonnelCont
 from view.login_view import LoginWindow
 from view.employee_detail_view import EmployeeDetailsForm
 from view.admin_crud_view import Admin_crud
+from view.sender_view import MessageSender
+from view.receiver_view import MessageReceiver
 
 class CustomHeader(QWidget):
     def __init__(self):
         super().__init__()
-        self.setFixedHeight(80)  
- 
+        self.setFixedHeight(80)
         self.header_label = QLabel("LOGO HERE")
-        self.header_label.setStyleSheet("color: white ; font-weight: bolder")
-        header_layout = QHBoxLayout()
+        self.header_label.setStyleSheet("color: white; font-weight: bolder")
+
+        self.message_button = QPushButton("CHAT")
+        self.message_button.setStyleSheet("background-color: white; color: black; padding: 10px 20px; border: none; border-radius: 5px;")
+
+        header_layout = QHBoxLayout()  # Horizontal layout for the header content
         header_layout.addWidget(self.header_label)
-        
+        header_layout.addStretch(1)  # Add a stretch to push the message button to the right
+        header_layout.addWidget(self.message_button)
 
         centre = QWidget()
         centre.setLayout(header_layout)
-        centre.setStyleSheet("background-color: #734001; border-radius : 4px;") 
-        self.setLayout(QHBoxLayout())
-        self.layout().addWidget(centre)
-
+        centre.setStyleSheet("background-color: #734001; border-radius: 4px;")
+        layout = QVBoxLayout()  # Vertical layout for top alignment
+        layout.addWidget(centre)
+        self.setLayout(layout)
 
 class CustomNavigationBar(QWidget):
     def __init__(self, main_window  , db_path):
@@ -190,6 +196,9 @@ class MainWindow(QMainWindow):
         self.stacked_widget.setStyleSheet("background-color: white;")
         self.central_layout.addWidget(self.stacked_widget)
 
+        self.send = MessageSender()
+        self.stacked_widget.addWidget(self.send)
+
         self.admin_crud = Admin_crud(self.db_path)
         self.stacked_widget.addWidget(self.admin_crud)
 
@@ -200,6 +209,8 @@ class MainWindow(QMainWindow):
         self.inscription_form = InscriptionPersonnelForm(self.db_path , self.inscri_controller) 
         self.inscri_controller.view = self.inscription_form      
         self.stacked_widget.addWidget(self.inscription_form)
+
+        self.header.message_button.clicked.connect(self.show_sender)
 
         self.navigation_bar.navigation_buttons[0].clicked.connect(self.show_personnal_card_form)
         self.navigation_bar.navigation_buttons[1].clicked.connect(self.show_admin_crud)
@@ -221,6 +232,11 @@ class MainWindow(QMainWindow):
         #self.login_view.hide()
         self.setupUI()
         self.setCentralWidget(self.container)
+
+    def show_client_message(self):
+        self.client_message = MessageReceiver()
+        self.setCentralWidget(self.client_message)
+        self.client_message.show()
 
     def show_login_view(self):
         self.login_view = LoginWindow(self.db_path , self)
@@ -252,5 +268,6 @@ class MainWindow(QMainWindow):
     def show_admin_crud(self):
         self.stacked_widget.setCurrentWidget(self.admin_crud)
 
-
+    def show_sender(self):
+        self.stacked_widget.setCurrentWidget(self.send)
 

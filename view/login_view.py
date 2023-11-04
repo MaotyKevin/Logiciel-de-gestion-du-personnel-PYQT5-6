@@ -1,11 +1,13 @@
 #LoginForm.py
 
+import sys
 from PyQt5.QtWidgets import QApplication,QSplitter, QWidget, QHBoxLayout,QVBoxLayout, QLineEdit, QPushButton, QLabel, QMessageBox 
-from model.admin_model import DatabaseHandler
 from PyQt5 import QtGui
 from PyQt5.QtCore import QRect 
 from PyQt5 import QtCore 
 from PyQt5.QtGui import QIcon
+
+from model.admin_model import DatabaseHandler
 
 
 class LoginWindow(QWidget):
@@ -14,7 +16,7 @@ class LoginWindow(QWidget):
         self.db_path = db_path
         self.main_window = main_window
         self.db_handler = DatabaseHandler(db_path)
-
+       
         main_layout = QHBoxLayout()
 
         splitter = QSplitter()
@@ -89,7 +91,8 @@ class LoginWindow(QWidget):
         if role == "Admin":
             self.main_window.show_principal_view(usernames, role)
         elif role == "User":
-            self.show_user_dialog(usernames)
+            #self.show_user_dialog(usernames)
+            self.main_window.show_client_message()
         else:
             self.show_error_dialog()
 
