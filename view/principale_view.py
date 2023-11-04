@@ -23,7 +23,8 @@ class CustomHeader(QWidget):
         self.header_label = QLabel("LOGO HERE")
         self.header_label.setStyleSheet("color: white; font-weight: bolder")
 
-        self.message_button = QPushButton("CHAT")
+        self.message_button = QPushButton("  CHAT")
+        self.message_button.setIcon(QIcon("assets\pic\chat.svg"))
         self.message_button.setStyleSheet("background-color: white; color: black; padding: 10px 20px; border: none; border-radius: 5px;")
 
         header_layout = QHBoxLayout()  # Horizontal layout for the header content
@@ -233,8 +234,8 @@ class MainWindow(QMainWindow):
         self.setupUI()
         self.setCentralWidget(self.container)
 
-    def show_client_message(self):
-        self.client_message = MessageReceiver()
+    def show_client_message(self ):
+        self.client_message = MessageReceiver(self)
         self.setCentralWidget(self.client_message)
         self.client_message.show()
 
