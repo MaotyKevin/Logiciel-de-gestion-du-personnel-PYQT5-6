@@ -20,8 +20,13 @@ class CustomHeader(QWidget):
     def __init__(self):
         super().__init__()
         self.setFixedHeight(80)
-        self.header_label = QLabel("LOGO HERE")
+
+     
+
+        self.header_label = QLabel(f"LOGO HERE.")
         self.header_label.setStyleSheet("color: white; font-weight: bolder")
+
+
 
         self.message_button = QPushButton("  CHAT")
         self.message_button.setIcon(QIcon("assets\pic\chat.svg"))
@@ -123,7 +128,7 @@ class CustomNavigationBar(QWidget):
 class MainWindow(QMainWindow):
     def __init__(self , db_path ):
         super().__init__()
-
+        
         self.setWindowTitle("RH MANAGEMENT - Kevin Copyright")
         self.db_path = db_path
         self.last_displayed_page = None
@@ -230,12 +235,13 @@ class MainWindow(QMainWindow):
     def show_principal_view(self , username=None , role=None):
         self.username = username
         self.role = role 
+        print(f"Usernames dans show principal = {username}")
         #self.login_view.hide()
         self.setupUI()
         self.setCentralWidget(self.container)
 
-    def show_client_message(self ):
-        self.client_message = MessageReceiver(self)
+    def show_client_message(self , usernames ):
+        self.client_message = MessageReceiver(self , usernames)
         self.setCentralWidget(self.client_message)
         self.client_message.show()
 
@@ -271,4 +277,3 @@ class MainWindow(QMainWindow):
 
     def show_sender(self):
         self.stacked_widget.setCurrentWidget(self.send)
-

@@ -116,4 +116,3 @@ class EmployeeDetailsForm(QWidget):
         else:
             self.main_window.setupUI()
             self.main_window.setCentralWidget(self.main_window.container)
-

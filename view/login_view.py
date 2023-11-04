@@ -92,7 +92,7 @@ class LoginWindow(QWidget):
             self.main_window.show_principal_view(usernames, role)
         elif role == "User":
             #self.show_user_dialog(usernames)
-            self.main_window.show_client_message()
+            self.main_window.show_client_message(usernames)
         else:
             self.show_error_dialog()
 

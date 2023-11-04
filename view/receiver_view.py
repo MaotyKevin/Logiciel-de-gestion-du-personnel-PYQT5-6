@@ -5,10 +5,12 @@ from PyQt5.QtCore import QTimer
 from PyQt5.QtGui import QIcon
 
 class ClientHeader(QWidget):
-    def __init__(self , main_window):
+    def __init__(self , main_window , usernames):
         super().__init__()
         self.setFixedHeight(80)
-        self.header_label = QLabel("LOGO HERE")
+
+        self.header_label = QLabel()
+        self.header_label.setText(f"Connecté en tant que {usernames}.")
         self.header_label.setStyleSheet("color: white; font-weight: bolder")
 
         self.main_window = main_window
@@ -36,9 +38,10 @@ class ClientHeader(QWidget):
             self.main_window.show_login_view()
 
 class MessageReceiver(QWidget):
-    def __init__(self , main_window):
+    def __init__(self , main_window , usernames):
         super().__init__()
         self.main_window = main_window
+        self.usernames = usernames
         self.initUI()
         self.setupRabbitMQ()
 
@@ -46,7 +49,7 @@ class MessageReceiver(QWidget):
         self.setWindowTitle('Client')
         self.setGeometry(100, 100, 400, 300)
 
-        self.cliHeader = ClientHeader(self.main_window)
+        self.cliHeader = ClientHeader(self.main_window , self.usernames)
 
         main_layout = QVBoxLayout()  
         

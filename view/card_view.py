@@ -80,5 +80,3 @@ class Card(QWidget):
         if confirmation == QMessageBox.Yes:
             self.controller.delete_data(badge_str)
             self.deleteLater()
-
-
