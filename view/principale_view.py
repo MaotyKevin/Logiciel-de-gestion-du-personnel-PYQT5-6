@@ -10,11 +10,13 @@ sys.path.append(parent_dir)
 from view.inscription_personnel_view import InscriptionPersonnelForm
 from view.personnel_card_view import Personnal_Card
 from controller.inscription_personnel_controller import InscriptionPersonnelController
+from controller.chat_controller import ChatController
 from view.login_view import LoginWindow
 from view.employee_detail_view import EmployeeDetailsForm
 from view.admin_crud_view import Admin_crud
 from view.sender_view import MessageSender
 from view.receiver_view import MessageReceiver
+
 
 class CustomHeader(QWidget):
     def __init__(self):
@@ -216,7 +218,9 @@ class MainWindow(QMainWindow):
         self.stacked_widget.setStyleSheet("background-color: white;")
         self.central_layout.addWidget(self.stacked_widget)
 
-        self.send = MessageSender(self.logged_username , self.db_path)
+        self.controllerChat = ChatController(self.db_path)
+        self.sampleUsersName = self.controllerChat.sampleUserName()
+        self.send = MessageSender(  self.db_path , self.logged_username , self.sampleUsersName)
         self.stacked_widget.addWidget(self.send)
 
         self.admin_crud = Admin_crud(self.db_path)

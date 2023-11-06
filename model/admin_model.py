@@ -5,7 +5,8 @@ import sqlite3
 class DatabaseHandler:
     def __init__(self, db_file="data\my_database.sqlite"):
         try:
-            self.connection = sqlite3.connect(db_file)
+            self.db_file = str(db_file)
+            self.connection = sqlite3.connect(self.db_file)
             print("Database connected")
         except sqlite3.Error as err:
             print("Database connection error:", err)

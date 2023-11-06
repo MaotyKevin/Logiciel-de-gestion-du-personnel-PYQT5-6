@@ -3,19 +3,12 @@ import pika
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QListWidget, QPushButton, QLineEdit, QListWidgetItem, QSplitter
 from PyQt5.QtCore import Qt
 
-import sys , os
-current_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.dirname(current_dir)
-sys.path.append(parent_dir)
-
-from controller.chat_controller import ChatController
 
 class MessageSender(QWidget):
-    def __init__(self , db_path, logged_username):
+    def __init__(self , db_path, logged_username , sampleUsers):
         super().__init__()
         self.db_path = db_path
-        self.controller = ChatController(self.db_path)
-        self.sampleUsers = self.controller.sampleUserName()
+        self.sampleUsers = sampleUsers
         self.logged_username = logged_username
         self.initUI(self.sampleUsers)
         self.setupRabbitMQ(self.sampleUsers)
