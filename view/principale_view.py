@@ -216,7 +216,7 @@ class MainWindow(QMainWindow):
         self.stacked_widget.setStyleSheet("background-color: white;")
         self.central_layout.addWidget(self.stacked_widget)
 
-        self.send = MessageSender(self.logged_username)
+        self.send = MessageSender(self.logged_username , self.db_path)
         self.stacked_widget.addWidget(self.send)
 
         self.admin_crud = Admin_crud(self.db_path)
