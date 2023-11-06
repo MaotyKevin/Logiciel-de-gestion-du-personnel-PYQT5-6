@@ -4,8 +4,9 @@ from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QListWidget, QPu
 from PyQt5.QtCore import Qt
 
 class MessageSender(QWidget):
-    def __init__(self):
+    def __init__(self , logged_username):
         super().__init__()
+        self.logged_username = logged_username
         self.initUI()
         self.setupRabbitMQ()
 

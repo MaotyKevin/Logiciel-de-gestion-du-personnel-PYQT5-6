@@ -49,8 +49,21 @@ class DatabaseHandler:
         if self.connection:
             self.connection.close()
 
+    def sampleUserName(self):
+        if not self.connection:
+            return None 
+        try :
+            cursor = self.connection.cursor()
+            query = "SELECT Username FROM User"
+            cursor.execute(query)
+            sampleUserName = [row[0] for row in cursor.fetchall()]
+            return sampleUserName
+        except sqlite3.Error as e:
+            print(f"Erreur pour la recup des samples userName : {str(e)}")
+            return []
+
 if __name__ == "__main__":
     db_path = 'data\my_database.sqlite'
     handler = DatabaseHandler(db_path)
-    result = handler.validate_credentials("MaotyKevin" , "Kev")
+    result = handler.sampleUserName()
     print(f"{result}")

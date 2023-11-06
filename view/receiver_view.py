@@ -9,6 +9,8 @@ class ClientHeader(QWidget):
         super().__init__()
         self.setFixedHeight(80)
 
+        
+
         self.header_label = QLabel()
         self.header_label.setText(f"Connecté en tant que {usernames}.")
         self.header_label.setStyleSheet("color: white; font-weight: bolder")
@@ -42,10 +44,10 @@ class MessageReceiver(QWidget):
         super().__init__()
         self.main_window = main_window
         self.usernames = usernames
-        self.initUI()
-        self.setupRabbitMQ()
+        self.initUI(self.usernames)
+        self.setupRabbitMQ(self.usernames)
 
-    def initUI(self):
+    def initUI(self , usernames):
         self.setWindowTitle('Client')
         self.setGeometry(100, 100, 400, 300)
 
@@ -68,17 +70,17 @@ class MessageReceiver(QWidget):
         
 
         self.timer = QTimer(self)
-        self.timer.timeout.connect(self.checkForMessages)
+        self.timer.timeout.connect(self.checkForMessages(usernames))
         self.timer.start(1000)  # Adjust the interval as needed (in milliseconds)
 
-    def setupRabbitMQ(self):
+    def setupRabbitMQ(self , receiverName):
         self.connection = pika.BlockingConnection(pika.ConnectionParameters(host='127.0.0.1'))
         self.channel = self.connection.channel()
-        self.channel.queue_declare(queue='hello')
-        self.channel.queue_purge(queue='hello')
+        self.channel.queue_declare(queue=f'{receiverName}')
+        #self.channel.queue_purge(queue='hello')
 
-    def checkForMessages(self):
-        method_frame, header_frame, body = self.channel.basic_get(queue='hello')
+    def checkForMessages(self , receiverName):
+        method_frame, header_frame, body = self.channel.basic_get(queue=f'{receiverName}')
         if method_frame:
             message = f"Received: {body.decode('utf-8')}"
             print(message)  # For debugging

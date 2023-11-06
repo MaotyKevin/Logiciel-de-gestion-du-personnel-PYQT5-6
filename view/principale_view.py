@@ -132,7 +132,7 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("RH MANAGEMENT - Kevin Copyright")
         self.db_path = db_path
         self.last_displayed_page = None
-
+        self.logged_username = None
         
         self.login_view = LoginWindow(db_path , self)
         self.principal_view = None
@@ -143,6 +143,20 @@ class MainWindow(QMainWindow):
 
         self.setupUI()
         self.setStyleSheet("background-color: white;")
+
+    def setLoggedUserInfo(self, username):
+        print(f"TESTTTTT : {username}")
+        self.logged_username = username
+        print(f"LOGGED AS {self.logged_username}")
+     
+        # You can also perform additional actions, like updating the UI with the user's info
+        self.updateUserInfoInUI(self.logged_username)
+
+    def updateUserInfoInUI(self, username):
+        # Update the UI elements with the user's info as needed
+        # For example, you can set the header label text with the username
+        self.header.header_label.setText(f"Logged in as {username}")
+        print(f"Header : {username}")
 
     def setupUI(self):    
 
@@ -202,7 +216,7 @@ class MainWindow(QMainWindow):
         self.stacked_widget.setStyleSheet("background-color: white;")
         self.central_layout.addWidget(self.stacked_widget)
 
-        self.send = MessageSender()
+        self.send = MessageSender(self.logged_username)
         self.stacked_widget.addWidget(self.send)
 
         self.admin_crud = Admin_crud(self.db_path)
@@ -274,16 +288,3 @@ class MainWindow(QMainWindow):
     def show_sender(self):
         self.stacked_widget.setCurrentWidget(self.send)
 
-    def setLoggedUserInfo(self, username):
-        print(f"TESTTTTT : {username}")
-        self.logged_username = username
-        print(f"LOGGED AS {self.logged_username}")
-     
-        # You can also perform additional actions, like updating the UI with the user's info
-        self.updateUserInfoInUI(self.logged_username)
-
-    def updateUserInfoInUI(self, username):
-        # Update the UI elements with the user's info as needed
-        # For example, you can set the header label text with the username
-        self.header.header_label.setText(f"Logged in as {username}")
-        print(f"Header : {username}")
