@@ -41,7 +41,7 @@ class PersonnelCardModel:
 
     def get_employee_details(self, Badge ):
         try:
-            self.connect()  # Connect to the database
+            self.connect() # Connect to the database
             cursor = self.conn.cursor()
             query = """
             SELECT 

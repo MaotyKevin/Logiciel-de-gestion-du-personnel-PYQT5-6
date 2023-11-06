@@ -23,7 +23,7 @@ class CustomHeader(QWidget):
 
      
 
-        self.header_label = QLabel(f"LOGO HERE.")
+        self.header_label = QLabel()
         self.header_label.setStyleSheet("color: white; font-weight: bolder")
 
 
@@ -232,11 +232,7 @@ class MainWindow(QMainWindow):
         self.stacked_widget.setCurrentWidget(employee_details_form)
         self.last_displayed_page = employee_details_form
 
-    def show_principal_view(self , username=None , role=None):
-        self.username = username
-        self.role = role 
-        print(f"Usernames dans show principal = {username}")
-        #self.login_view.hide()
+    def show_principal_view(self):
         self.setupUI()
         self.setCentralWidget(self.container)
 
@@ -277,3 +273,17 @@ class MainWindow(QMainWindow):
 
     def show_sender(self):
         self.stacked_widget.setCurrentWidget(self.send)
+
+    def setLoggedUserInfo(self, username):
+        print(f"TESTTTTT : {username}")
+        self.logged_username = username
+        print(f"LOGGED AS {self.logged_username}")
+     
+        # You can also perform additional actions, like updating the UI with the user's info
+        self.updateUserInfoInUI(self.logged_username)
+
+    def updateUserInfoInUI(self, username):
+        # Update the UI elements with the user's info as needed
+        # For example, you can set the header label text with the username
+        self.header.header_label.setText(f"Logged in as {username}")
+        print(f"Header : {username}")

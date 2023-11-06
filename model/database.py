@@ -6,7 +6,7 @@ import io
 
 class Databases:
     def __init__(self , db_path):
-        self.db_path = str(db_path)
+        self.db_path = db_path
         self.connection = sqlite3.connect(self.db_path)
         self.cursor = self.connection.cursor()
 

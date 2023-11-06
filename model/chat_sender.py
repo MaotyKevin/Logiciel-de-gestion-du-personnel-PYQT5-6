@@ -5,8 +5,8 @@ connection = pika.BlockingConnection(
     pika.ConnectionParameters(host='127.0.0.1'))
 channel = connection.channel()
 
-channel.queue_declare(queue='hello')
+channel.queue_declare(queue='salut')
 
-channel.basic_publish(exchange='', routing_key='hello', body='GEH')
+channel.basic_publish(exchange='', routing_key='salut', body='test')
 print(" [x] Sent 'Hello World!'")
 connection.close()
