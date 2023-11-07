@@ -254,8 +254,8 @@ class MainWindow(QMainWindow):
         self.setupUI()
         self.setCentralWidget(self.container)
 
-    def show_client_message(self , usernames ):
-        self.client_message = MessageReceiver(self , usernames)
+    def show_client_message(self , id , usernames ):
+        self.client_message = MessageReceiver(self , id , usernames)
         self.setCentralWidget(self.client_message)
         self.client_message.show()
 

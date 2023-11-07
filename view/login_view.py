@@ -86,7 +86,7 @@ class LoginWindow(QWidget):
         username = self.username_input.text()
         password = self.password_input.text()
 
-        usernames, role = self.db_handler.validate_credentials(username, password)
+        id , usernames, role = self.db_handler.validate_credentials(username, password)
 
         if role == "Admin":
             
@@ -94,7 +94,7 @@ class LoginWindow(QWidget):
             self.main_window.setLoggedUserInfo(usernames)
         elif role == "User":
             #self.show_user_dialog(usernames)
-            self.main_window.show_client_message(usernames)
+            self.main_window.show_client_message(id , usernames)
         else:
             self.show_error_dialog()
 

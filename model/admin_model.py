@@ -19,31 +19,31 @@ class DatabaseHandler:
             cursor = self.connection.cursor()
 
             # Check the admins table
-            query = "SELECT A.Username , R.role FROM Admin A INNER JOIN Role R ON A.id_role = R.id_role WHERE A.Username = ? AND A.Password = ?"
+            query = "SELECT A.id , A.Username , R.role FROM Admin A INNER JOIN Role R ON A.id_role = R.id_role WHERE A.Username = ? AND A.Password = ?"
             cursor.execute(query, (username, password))
             admin_result = cursor.fetchone()
 
             if admin_result:
-                AUsername , ARole = admin_result
+                Aid , AUsername , ARole = admin_result
                 # User is an admin
-                return AUsername , ARole
+                return Aid , AUsername , ARole
 
             # Check the users table
-            query = "SELECT Username , R.role FROM User U INNER JOIN Role R ON U.id_role = R.id_role WHERE U.Username = ? AND U.Password = ?"
+            query = "SELECT  U.id , U.Username , R.role FROM User U INNER JOIN Role R ON U.id_role = R.id_role WHERE U.Username = ? AND U.Password = ?"
             cursor.execute(query, (username, password))
             user_result = cursor.fetchone()
 
             if user_result:
-                Username , URole = user_result
+                id , Username , URole = user_result
                 # User is a regular user
-                return Username , URole
+                return id , Username , URole
 
             # If no match is found, return None
-            return None , None
+            return None , None , None
 
         except sqlite3.Error as err:
             print("Error:", err)
-            return None , None
+            return None , None , None
 
 
     def close(self):
@@ -55,16 +55,18 @@ class DatabaseHandler:
             return None 
         try :
             cursor = self.connection.cursor()
-            query = "SELECT Username FROM User"
+            query = "SELECT id , Username FROM User ORDER BY Username"
             cursor.execute(query)
-            sampleUserName = [row[0] for row in cursor.fetchall()]
-            return sampleUserName
+            sampleUserNames = [(row[0], row[1]) for row in cursor.fetchall()]
+            return sampleUserNames
+        
         except sqlite3.Error as e:
             print(f"Erreur pour la recup des samples userName : {str(e)}")
-            return []
+            return [] , []
 
 if __name__ == "__main__":
     db_path = 'data\my_database.sqlite'
     handler = DatabaseHandler(db_path)
-    result = handler.sampleUserName()
-    print(f"{result}")
+    sample = handler.sampleUserName()
+    sample_ids = [data[0] for data in sample]
+    print(sample_ids)

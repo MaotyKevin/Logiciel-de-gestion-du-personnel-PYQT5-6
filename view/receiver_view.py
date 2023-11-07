@@ -38,10 +38,11 @@ class ClientHeader(QWidget):
             self.main_window.show_login_view()
 
 class MessageReceiver(QWidget):
-    def __init__(self , main_window , usernames):
+    def __init__(self , main_window , id , usernames):
         super().__init__()
         self.main_window = main_window
         self.usernames = usernames
+        self.id = id
         self.setupRabbitMQ()
         self.initUI()
         
@@ -77,11 +78,11 @@ class MessageReceiver(QWidget):
     def setupRabbitMQ(self ):
         self.connection = pika.BlockingConnection(pika.ConnectionParameters(host='127.0.0.1'))
         self.channel = self.connection.channel()
-        self.channel.queue_declare(queue=f'{self.usernames}')
+        self.channel.queue_declare(queue=f'{self.id}')
         #self.channel.queue_purge(queue='hello')
 
     def checkForMessages(self):
-        method_frame, header_frame, body = self.channel.basic_get(queue=f'{self.usernames}')
+        method_frame, header_frame, body = self.channel.basic_get(queue=f'{self.id}')
         if method_frame:
             message = f"Received: {body.decode('utf-8')}"
             print(message)  # For debugging
