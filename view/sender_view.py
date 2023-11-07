@@ -85,6 +85,13 @@ class MessageSender(QWidget):
         for connection in self.rabbitmq_connections.values():
             connection.close()
 
+    def updateData(self , userMajList):
+        # Update other data as needed
+        self.userMajList = userMajList
+        # Update the user list widget to reflect the changes
+        self.user_list.clear()
+        self.user_list.addItems([data[1] for data in self.userMajList])
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     db_path = 'data/my_database.sqlite'

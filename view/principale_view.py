@@ -290,5 +290,8 @@ class MainWindow(QMainWindow):
         self.stacked_widget.setCurrentWidget(self.admin_crud)
 
     def show_sender(self):
+        self.userMaj = self.controllerChat.sampleUserName()
+        self.send.updateData(self.userMaj)
         self.stacked_widget.setCurrentWidget(self.send)
+
 
