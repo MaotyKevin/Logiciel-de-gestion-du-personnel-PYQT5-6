@@ -31,6 +31,7 @@ class LoginWindow(QWidget):
         # Resize the background image to your desired dimensions
         background_image = background_image.scaled(700, 300)  # Adjust the size as needed
         left_label.setPixmap(background_image)
+        
 
         left_layout.addWidget(left_label)
         left_widget.setLayout(left_layout)

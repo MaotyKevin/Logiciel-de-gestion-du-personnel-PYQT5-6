@@ -16,7 +16,7 @@ class EmployeeTabForm(QTabWidget):
         tab1 = EmployeeDetailsTabOne(self.badge)
         tab2 = QWidget()
 
-        self.addTab(tab1 , "Fiche personnelle")
+        self.addTab(tab1 , "Fiche Individuelle")
         self.addTab(tab2 , "Fiche Complete")
 
         self.setStyleSheet(

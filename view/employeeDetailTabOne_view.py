@@ -1,7 +1,8 @@
 import sys , os
-from PyQt5.QtWidgets import QApplication,QStackedWidget, QDialog, QVBoxLayout, QWidget, QLabel, QLineEdit, QPushButton, QComboBox, QFileDialog,QScrollArea , QDateEdit , QMessageBox , QSizePolicy , QHBoxLayout , QTableWidget , QTableWidgetItem
+from PyQt5.QtWidgets import QApplication,QStackedWidget, QDialog, QVBoxLayout, QWidget, QLabel, QLineEdit, QPushButton, QComboBox, QFileDialog,QScrollArea , QDateEdit , QMessageBox , QSizePolicy , QHBoxLayout , QTableWidget , QTableWidgetItem , QSpacerItem
 from PyQt5.QtGui import QImage, QPixmap, QFont, QPainter 
-from PyQt5.QtCore import Qt , QDate, pyqtSignal , QRect , QSize
+from PyQt5.QtCore import Qt , QDate, pyqtSignal , QRect , QSize 
+
 from controller.personnel_card_controller import PersonnelController
 
 class EmployeeDetailsTabOne(QWidget):
@@ -162,15 +163,17 @@ class EmployeeDetailsTabOne(QWidget):
 
 #__________________________________________________________
 
-            logo = QLabel("Logo ici")
-            FicheIndividuelle = QLineEdit("FICHE INDIVIDUELLE")
-            FicheIndividuelle.setReadOnly(True)
+            logo = QLabel()
+            pixmap = QPixmap('assets\pic\logo fiche.jpg')  # Replace with the path to your image
+            logo.setPixmap(pixmap)
 
 #___________________________________________________________
 
             vertical = QVBoxLayout()
             vertical.addWidget(logo)
-            vertical.addWidget(FicheIndividuelle)
+            #vertical.setSpacing(5)
+            vertical.setContentsMargins(0 , 0 , 0 , 0)
+            vertical.addStretch(1)
 
             vertical1 = QVBoxLayout()
             vertical1.addWidget(self.FonctionLabel)
@@ -196,7 +199,12 @@ class EmployeeDetailsTabOne(QWidget):
 
             horizontal1 = QHBoxLayout()
             horizontal1.addLayout(vertical2)
+            horizontal1.addItem(QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum))
             horizontal1.addLayout(vertical3)
+            horizontal1.addStretch(0)
+            horizontal1.addSpacing(30)
+       
+            
 
             vertical4 = QVBoxLayout()
             vertical4.addWidget(self.DateEntreeLabel)
@@ -209,7 +217,8 @@ class EmployeeDetailsTabOne(QWidget):
             mainLayout.addLayout(horizontal1)
             mainLayout.addLayout(vertical4)
             mainLayout.addWidget(self.tableWidget)
-            mainLayout.setSpacing(0)
+            mainLayout.setSpacing(10)
+            mainLayout.addStretch(0)
             
              
         self.setLayout(mainLayout)

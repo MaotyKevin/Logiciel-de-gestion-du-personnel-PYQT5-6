@@ -18,6 +18,7 @@ from view.sender_view import MessageSender
 from view.receiver_view import MessageReceiver
 
 
+
 class CustomHeader(QWidget):
     def __init__(self):
         super().__init__()
@@ -80,7 +81,7 @@ class CustomNavigationBar(QWidget):
         self.navigation_layout.addWidget(button2)
         button2.setIcon(QIcon("assets/pic/recruter.png"))  
         button2.setStyleSheet("border : none;background-color : white ;padding : 10px 20px ;color: #161c2a;border-radius: 5px;")
-      
+
 
         self.logoutButton = QPushButton(F"  Logout")
         self.logoutButton.setIcon(QIcon("assets\pic\logout.png"))
