@@ -84,7 +84,7 @@ class MessageReceiver(QWidget):
     def checkForMessages(self):
         method_frame, header_frame, body = self.channel.basic_get(queue=f'{self.id}')
         if method_frame:
-            message = f"Received: {body.decode('utf-8')}"
+            message = f"{body.decode('utf-8')}"
             print(message)  # For debugging
             self.updateDisplay(message)
 

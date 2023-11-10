@@ -12,7 +12,7 @@ class MessageSender(QWidget):
         self.initUI([data[1] for data in sampleUsers])
         self.setupRabbitMQ([data[0] for data in sampleUsers])
 
-    def initUI(self, sampleUserName):
+    def initUI(self, sampleUserName ):
         self.setWindowTitle('Messenger App')
         self.setGeometry(100, 100, 400, 500)
 
@@ -26,6 +26,7 @@ class MessageSender(QWidget):
         splitter.addWidget(self.user_list)
         for message_list in self.message_lists.values():
             splitter.addWidget(message_list)
+            message_list.setStyleSheet("margin: 5px; padding: 5px; font-weight:bolder;")
 
         layout = QVBoxLayout()
         layout.addWidget(splitter)
@@ -44,6 +45,25 @@ class MessageSender(QWidget):
             if index != 0:
                 message_list.hide()
 
+        self.user_list.setStyleSheet(
+                                  "QListWidget QScrollBar"
+                                  "{"
+                                  "background : #734001;"
+                                  "}"
+                                  "QListView::item"
+                                  "{"
+                                  "font-weight: bolder;"
+                                  "padding:5px;"
+                                  "}"
+                                  "QListView::item:selected"
+                                  "{"
+                                  "border : 1px solid white;"
+                                  "background : #734001;"
+                                  "}"
+                                  )
+        
+
+
     def setupRabbitMQ(self, sampleUsersList):
 
         # Use user IDs as queue identifiers
@@ -53,14 +73,19 @@ class MessageSender(QWidget):
         for user in sampleUsersList:
             self.rabbitmq_channels[user].queue_declare(queue=f'{user}')  # Use user IDs as queue names
 
-    def sendMessage(self):
+    def sendMessage(self ):
         message = self.message_input.text()
         if message:
             # Get the currently selected username
             current_user = self.sampleUsers[self.user_list.currentRow()]
             current_user_id, current_username = current_user[0], current_user[1]
             message_list = self.message_lists[current_user_id]  # Use the user ID
-            self.rabbitmq_channels[current_user_id].basic_publish(exchange='', routing_key=str(current_user_id), body=message)  # Use user ID as routing key
+
+            sent_message = f"*{self.logged_username} : {message}\n"
+            print(f"Send -> {sent_message}")
+
+            self.rabbitmq_channels[current_user_id].basic_publish(exchange='', routing_key=str(current_user_id), body=sent_message)  # Use user ID as routing key
+
             self.displayMessage(message_list, message, outgoing=True)  # Display sent message
             self.message_input.clear()
 

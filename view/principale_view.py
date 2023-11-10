@@ -155,12 +155,16 @@ class MainWindow(QMainWindow):
         # You can also perform additional actions, like updating the UI with the user's info
         self.updateUserInfoInUI(self.logged_username)
 
+    
+        
+
     def updateUserInfoInUI(self, username):
         # Update the UI elements with the user's info as needed
         # For example, you can set the header label text with the username
         self.header.header_label.setText(f"Logged in as {username}")
         print(f"Header : {username}")
 
+     
     def setupUI(self):    
 
         self.navigation_bar = CustomNavigationBar( self, self.db_path)  # Passez une référence à MainWindow
@@ -221,6 +225,7 @@ class MainWindow(QMainWindow):
 
         self.controllerChat = ChatController(self.db_path)
         self.sampleUsersName = self.controllerChat.sampleUserName()
+      
         self.send = MessageSender(  self.db_path , self.logged_username , self.sampleUsersName)
         self.stacked_widget.addWidget(self.send)
 
