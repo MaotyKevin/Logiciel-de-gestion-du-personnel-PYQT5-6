@@ -5,6 +5,7 @@ main.exe
 main.rar
 build/
 dist/
+testingFile/
 .vscode/
 __pycache__/
 controller/__pycache__/
