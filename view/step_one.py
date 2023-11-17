@@ -33,7 +33,7 @@ class StepOne(QScrollArea):
         self.badge_edit.setPlaceholderText("Badge")
         self.badge_edit.setStyleSheet("""
             QLineEdit {
-                border: 2px solid #734001; /* Blue border */
+                border: 1px solid #734001; /* Blue border */
                 border-radius: 10px; /* Rounded corners */
                 padding: 8px; /* Add padding */
                 background-color: #FFFFFF; /* White background */
@@ -49,7 +49,7 @@ class StepOne(QScrollArea):
         self.nom_edit.setPlaceholderText("Nom")
         self.nom_edit.setStyleSheet("""
             QLineEdit {
-                border: 2px solid #734001; /* Blue border */
+                border: 1px solid #734001; /* Blue border */
                 border-radius: 10px; /* Rounded corners */
                 padding: 8px; /* Add padding */
                 background-color: #FFFFFF; /* White background */
@@ -60,7 +60,7 @@ class StepOne(QScrollArea):
         self.prenom_edit.setPlaceholderText("Prenoms")
         self.prenom_edit.setStyleSheet("""
             QLineEdit {
-                border: 2px solid #734001; /* Blue border */
+                border: 1px solid #734001; /* Blue border */
                 border-radius: 10px; /* Rounded corners */
                 padding: 8px; /* Add padding */
                 background-color: #FFFFFF; /* White background */
@@ -72,7 +72,7 @@ class StepOne(QScrollArea):
         self.cin_edit.setPlaceholderText("Numero de CIN")
         self.cin_edit.setStyleSheet("""
             QLineEdit {
-                border: 2px solid #734001; /* Blue border */
+                border: 1px solid #734001; /* Blue border */
                 border-radius: 10px; /* Rounded corners */
                 padding: 8px; /* Add padding */
                 background-color: #FFFFFF; /* White background */
@@ -80,6 +80,16 @@ class StepOne(QScrollArea):
         """)
 
         self.date_cin_edit = QDateEdit(QDate.currentDate())
+        self.date_cin_edit.setStyleSheet("""
+            QDateEdit {
+                border: 1px solid #734001; /* Blue border */
+                border-radius: 10px; /* Rounded corners */
+                padding: 8px; /* Add padding */
+                background-color: #FFFFFF; /* White background */
+            }
+        
+            QDateEdit::down-arrow {background-color: #734001;}
+        """)
         #self.date_cin_edit.setDisplayFormat("dd/MM/yyyy")
         self.date_cin_edit.setCalendarPopup(True)
       
@@ -88,7 +98,7 @@ class StepOne(QScrollArea):
         self.lieu_cin_edit.setPlaceholderText("Lieu CIN")
         self.lieu_cin_edit.setStyleSheet("""
             QLineEdit {
-                border: 2px solid #734001; /* Blue border */
+                border: 1px solid #734001; /* Blue border */
                 border-radius: 10px; /* Rounded corners */
                 padding: 8px; /* Add padding */
                 background-color: #FFFFFF; /* White background */
@@ -99,7 +109,7 @@ class StepOne(QScrollArea):
         self.contact_edit.setPlaceholderText("Contact")
         self.contact_edit.setStyleSheet("""
             QLineEdit {
-                border: 2px solid #734001; /* Blue border */
+                border: 1px solid #734001; /* Blue border */
                 border-radius: 10px; /* Rounded corners */
                 padding: 8px; /* Add padding */
                 background-color: #FFFFFF; /* White background */
@@ -107,6 +117,16 @@ class StepOne(QScrollArea):
         """)        
 
         self.date_naissance_edit = QDateEdit(QDate.currentDate())
+        self.date_naissance_edit.setStyleSheet("""
+            QDateEdit {
+                border: 1px solid #734001; /* Blue border */
+                border-radius: 10px; /* Rounded corners */
+                padding: 8px; /* Add padding */
+                background-color: #FFFFFF; /* White background */
+            }
+        
+            QDateEdit::down-arrow {background-color: #734001;}
+        """)
         #self.date_naissance_edit.setDisplayFormat("dd/MM/yyyy")
         self.date_naissance_edit.setCalendarPopup(True)
         
@@ -115,7 +135,7 @@ class StepOne(QScrollArea):
         self.lieu_naissance_edit.setPlaceholderText("Lieu de naissance")
         self.lieu_naissance_edit.setStyleSheet("""
             QLineEdit {
-                border: 2px solid #734001; /* Blue border */
+                border: 1px solid #734001; /* Blue border */
                 border-radius: 10px; /* Rounded corners */
                 padding: 8px; /* Add padding */
                 background-color: #FFFFFF; /* White background */
@@ -126,7 +146,7 @@ class StepOne(QScrollArea):
         self.adresse_edit.setPlaceholderText("Adresse")
         self.adresse_edit.setStyleSheet("""
             QLineEdit {
-                border: 2px solid #734001; /* Blue border */
+                border: 1px solid #734001; /* Blue border */
                 border-radius: 10px; /* Rounded corners */
                 padding: 8px; /* Add padding */
                 background-color: #FFFFFF; /* White background */
@@ -179,10 +199,8 @@ class StepOne(QScrollArea):
         Nom_prenom_layout.addWidget(self.prenom_edit)
 
         Date_lieu_naissance_layout = QHBoxLayout()
-        #Date_lieu_naissance_layout.addWidget(QLabel("Date de naissance :"))
-        Date_lieu_naissance_layout.addWidget(self.date_naissance_edit)
-        #Date_lieu_naissance_layout.addWidget(QLabel("Lieu de naissance"))
         Date_lieu_naissance_layout.addWidget(self.lieu_naissance_edit)
+        Date_lieu_naissance_layout.addWidget(self.date_naissance_edit)
 
         Equipe_souscategorie_layout = QHBoxLayout()
         Equipe_souscategorie_layout.addLayout(self.equipeLayout)
@@ -191,12 +209,9 @@ class StepOne(QScrollArea):
         #Equipe_souscategorie_layout.addWidget(self.sous_categorie_combo)
 
         CIN_layout = QHBoxLayout()
-        #CIN_layout.addWidget(QLabel("CIN :"))
         CIN_layout.addWidget(self.cin_edit)
-        #CIN_layout.addWidget(QLabel("Date CIN :"))
-        CIN_layout.addWidget(self.date_cin_edit)
-        #CIN_layout.addWidget(QLabel("Lieu CIN : "))
         CIN_layout.addWidget(self.lieu_cin_edit)
+        CIN_layout.addWidget(self.date_cin_edit)
 
 #_____________________________________CASES________________________________________
         
