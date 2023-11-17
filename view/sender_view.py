@@ -23,6 +23,7 @@ class MessageSender(QWidget):
         self.message_lists = {user[0]: QListWidget(self) for user in self.sampleUsers}
         
         self.message_input = QLineEdit(self)
+        self.message_input.setPlaceholderText("Ecrire ici.....")
         self.message_input.setStyleSheet("""
             QLineEdit {
                 border: 2px solid #734001; /* Blue border */
@@ -32,7 +33,9 @@ class MessageSender(QWidget):
             }
         """)
 
-        self.send_button = QPushButton('Send', self)
+        self.message_input.returnPressed.connect(self.sendMessage)
+
+        #self.send_button = QPushButton('Send', self)
 
         splitter.addWidget(self.user_list)
         for message_list in self.message_lists.values():
@@ -42,12 +45,14 @@ class MessageSender(QWidget):
         layout = QVBoxLayout()
         layout.addWidget(splitter)
         layout.addWidget(self.message_input)
-        layout.addWidget(self.send_button)
+        #layout.addWidget(self.send_button)
         self.setLayout(layout)
 
         self.user_list.addItems(sampleUserName)
 
-        self.send_button.clicked.connect(self.sendMessage)
+        #self.send_button.clicked.connect(self.sendMessage)
+
+        
 
         self.user_list.itemClicked.connect(self.showChatZone)
 
