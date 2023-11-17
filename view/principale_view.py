@@ -25,6 +25,7 @@ class CustomHeader(QWidget):
         self.setFixedHeight(80)
 
         self.toggle_button = QPushButton("Fanahisoa ENTREPRISE")
+        self.toggle_button.setToolTip("Afficher/reduire la barre de navigation")
         self.toggle_button.setCursor(Qt.PointingHandCursor)
         self.toggle_button.setStyleSheet("border: none; background-color: transparent; color: white; padding: 10px 20px; border-radius: 5px;font-weight: bolder;")
 

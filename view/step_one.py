@@ -21,7 +21,7 @@ class StepOne(QScrollArea):
         sexe_values = ["Homme", "Femme"]
         self.sexe_radios = []
         sexe_layout = QHBoxLayout()
-        sexe_layout.addWidget(QLabel("Sexe:"))
+        #sexe_layout.addWidget(QLabel("Sexe:"))
         for sexe_value in sexe_values:
             radio = QRadioButton(sexe_value)
             radio.clicked.connect(self.capture_sexe)
@@ -143,25 +143,36 @@ class StepOne(QScrollArea):
         self.SCategLayout.addWidget(QLabel("Sous-categorie"))
         self.SCategLayout.addWidget(self.sous_categorie_combo)
 
-        CIN_layout = QHBoxLayout()
-        #CIN_layout.addWidget(QLabel("CIN :"))
-        CIN_layout.addWidget(self.cin_edit)
-        #CIN_layout.addWidget(QLabel("Date CIN :"))
-        CIN_layout.addWidget(self.date_cin_edit)
-        #CIN_layout.addWidget(QLabel("Lieu CIN : "))
-        CIN_layout.addWidget(self.lieu_cin_edit)
+#__________________________LES FRAMES___________________________________________________
 
-        name_container = QFrame()
+        infoPerso_container = QFrame()
         
-        name_container.setObjectName("NameContainer")
-        name_container.setStyleSheet("""
+        infoPerso_container.setObjectName("NameContainer")
+        infoPerso_container.setStyleSheet("""
             QFrame#NameContainer {
                 border: 1px solid gray; /* Blue border */
                 border-radius: 10px; /* Rounded corners */
                 background-color: white; /* Semi-transparent white background */
             }
         """)
-        Nom_prenom_layout = QHBoxLayout(name_container)
+
+        Coordonnees_container = QFrame()
+        
+        Coordonnees_container.setObjectName("Coordonnees_container")
+        Coordonnees_container.setStyleSheet("""
+            QFrame#Coordonnees_container {
+                border: 1px solid gray; /* Blue border */
+                border-radius: 10px; /* Rounded corners */
+                background-color: white; /* Semi-transparent white background */
+            }
+        """)
+
+
+
+#___________________________________ASSEMBLAGES___________________________________________
+        
+
+        Nom_prenom_layout = QHBoxLayout()
         #Nom_prenom_layout.addWidget(QLabel("Nom :"))
         Nom_prenom_layout.addWidget(self.nom_edit)
         #Nom_prenom_layout.addWidget(QLabel("Prenoms :"))
@@ -178,33 +189,54 @@ class StepOne(QScrollArea):
         #Equipe_souscategorie_layout.addWidget(self.equipe_combo)
         Equipe_souscategorie_layout.addLayout(self.SCategLayout)
         #Equipe_souscategorie_layout.addWidget(self.sous_categorie_combo)
+
+        CIN_layout = QHBoxLayout()
+        #CIN_layout.addWidget(QLabel("CIN :"))
+        CIN_layout.addWidget(self.cin_edit)
+        #CIN_layout.addWidget(QLabel("Date CIN :"))
+        CIN_layout.addWidget(self.date_cin_edit)
+        #CIN_layout.addWidget(QLabel("Lieu CIN : "))
+        CIN_layout.addWidget(self.lieu_cin_edit)
+
+#_____________________________________CASES________________________________________
         
+        Info_perso_layout = QVBoxLayout(infoPerso_container)
+        Info_perso_layout.addWidget(self.badge_edit)
+        Info_perso_layout.addLayout(Nom_prenom_layout)
+        Info_perso_layout.addLayout(sexe_layout)
+        Info_perso_layout.addLayout(Date_lieu_naissance_layout)
+
+        info_perso_label = QLabel("Informations personnelles")
+        info_perso_label.setStyleSheet("font-weight: bolder; color:black;")
+
+        info_perso = QVBoxLayout()
+        info_perso.addWidget(info_perso_label)
+        info_perso.addWidget(infoPerso_container)
+
+        Coordonnees_layout = QVBoxLayout(Coordonnees_container)
+        Coordonnees_layout.addWidget(self.contact_edit)
+        Coordonnees_layout.addLayout(CIN_layout)
+        Coordonnees_layout.addWidget(self.adresse_edit)
+
+        coordonnees_label = QLabel("Coordonnees")
+        coordonnees_label.setStyleSheet("font-weight: bolder; color:black;")
+
+        coordonnees = QVBoxLayout()
+        coordonnees.addWidget(coordonnees_label)
+        coordonnees.addWidget(Coordonnees_container)
         
 
-        #layout.addWidget(QLabel("Badge:"))
-        layout.addWidget(self.badge_edit)
+#________________________________MISE EN PAGE_______________________________________________
 
-        layout.addWidget(name_container)
-
-        layout.addLayout(sexe_layout)
-        
-
-        #layout.addWidget(QLabel("Contact:"))
-        layout.addWidget(self.contact_edit)
-
-        layout.addLayout(CIN_layout)
-
-        layout.addLayout(Date_lieu_naissance_layout)
-
-        #layout.addWidget(QLabel("Adresse:"))
-        layout.addWidget(self.adresse_edit)
-
+  
+        layout.addLayout(info_perso)
+        layout.addLayout(coordonnees)
         layout.addLayout(Equipe_souscategorie_layout)
 
         layout.addWidget(QLabel("Photo:"))
         layout.addWidget(self.photo_label)
         layout.addWidget(self.photo_button)
-        layout.setSpacing(10)
+        layout.setSpacing(15)
 
         self.setWidget(content_widget)
         self.setWidgetResizable(True)
