@@ -24,24 +24,25 @@ class CustomHeader(QWidget):
         super().__init__()
         self.setFixedHeight(80)
 
-     
+        self.toggle_button = QPushButton("Fanahisoa ENTREPRISE")
+        self.toggle_button.setStyleSheet("border: none; background-color: transparent; color: white; padding: 10px 20px; border-radius: 5px;font-weight: bolder;")
+
 
         self.header_label = QLabel()
         self.header_label.setStyleSheet("color: white; font-weight: bolder")
-
-
 
         self.message_button = QPushButton("  CHAT")
         self.message_button.setIcon(QIcon("assets\pic\chat.svg"))
         self.message_button.setStyleSheet("background-color: white; color: black; padding: 10px 20px; border: none; border-radius: 5px;")
 
-        header_layout = QHBoxLayout()  # Horizontal layout for the header content
-        header_layout.addWidget(self.header_label)
-        header_layout.addStretch(1)  # Add a stretch to push the message button to the right
-        header_layout.addWidget(self.message_button)
+        self.header_layout = QHBoxLayout()  # Horizontal layout for the header content
+        self.header_layout.addWidget(self.toggle_button, alignment=Qt.AlignLeft)
+        self.header_layout.addStretch(1)  # Add a stretch to push the message button to the right
+        self.header_layout.addWidget(self.message_button)
+        self.header_layout.addWidget(self.header_label)
 
         centre = QWidget()
-        centre.setLayout(header_layout)
+        centre.setLayout(self.header_layout)
         centre.setStyleSheet("background-color: #734001; border-radius: 4px;")
         layout = QVBoxLayout()  # Vertical layout for top alignment
         layout.addWidget(centre)
@@ -202,22 +203,21 @@ class MainWindow(QMainWindow):
 
 
 
-        #self.search_field.setFixedWidth(300)
-
-        # Créez un widget pour organiser la barre de navigation et l'espace central horizontalement
-        navigation_and_central_layout = QHBoxLayout()
-        navigation_and_central_layout.addWidget(self.navigation_bar)
-        navigation_and_central_layout.addWidget(self.central_space)
+        self.splitter = QSplitter(Qt.Horizontal)
+        self.splitter.addWidget(self.navigation_bar)
+        self.splitter.addWidget(self.central_space)
+        self.splitter.setCollapsible(0, True)  # Allow collapsing the CustomNavigationBar
 
         # Créez un widget pour organiser l'en-tête et le widget précédemment créé verticalement
         main_layout = QVBoxLayout()
         main_layout.addWidget(self.header)
-        main_layout.addLayout(navigation_and_central_layout)
+        main_layout.addWidget(self.splitter)
 
         self.container = QWidget()
         self.container.setLayout(main_layout)
         #self.setCentralWidget(self.container)
 
+    
         # Ajoutez un QStackedWidget pour gérer les pages
         self.stacked_widget = QStackedWidget()
         self.stacked_widget.setStyleSheet("background-color: white;")
@@ -241,12 +241,17 @@ class MainWindow(QMainWindow):
         self.stacked_widget.addWidget(self.inscription_form)
 
         self.header.message_button.clicked.connect(self.show_sender)
+        self.header.toggle_button.clicked.connect(self.toggle_navigation_bar)
 
         self.navigation_bar.navigation_buttons[0].clicked.connect(self.show_personnal_card_form)
         self.navigation_bar.navigation_buttons[1].clicked.connect(self.show_admin_crud)
         self.navigation_bar.navigation_buttons[2].clicked.connect(self.show_inscription_page)
 
         self.show_personnal_card_form()
+
+    def toggle_navigation_bar(self):
+        # Toggle the visibility of the CustomNavigationBar
+        self.navigation_bar.setVisible(not self.navigation_bar.isVisible())
 
     def show_employee_details_view(self, employee_details_form):
         # Replace the current view with the EmployeeDetailsForm
