@@ -25,6 +25,7 @@ class CustomHeader(QWidget):
         self.setFixedHeight(80)
 
         self.toggle_button = QPushButton("Fanahisoa ENTREPRISE")
+        self.toggle_button.setCursor(Qt.PointingHandCursor)
         self.toggle_button.setStyleSheet("border: none; background-color: transparent; color: white; padding: 10px 20px; border-radius: 5px;font-weight: bolder;")
 
 
@@ -33,6 +34,8 @@ class CustomHeader(QWidget):
 
         self.message_button = QPushButton("  CHAT")
         self.message_button.setIcon(QIcon("assets\pic\chat.svg"))
+        self.message_button.setToolTip("Envoyer un message a un utilisateur")
+        self.message_button.setCursor(Qt.PointingHandCursor)
         self.message_button.setStyleSheet("background-color: white; color: black; padding: 10px 20px; border: none; border-radius: 5px;")
 
         self.header_layout = QHBoxLayout()  # Horizontal layout for the header content
@@ -64,20 +67,24 @@ class CustomNavigationBar(QWidget):
 
         
         button = QPushButton("  Effectif")
-        button.setToolTip("Effectif")
+        button.setToolTip("Gerer le personnel")
+        button.setCursor(Qt.PointingHandCursor)
         self.navigation_buttons.append(button)
         self.navigation_layout.addWidget(button)
         button.setIcon(QIcon("assets\pic\effectif.png"))
         button.setStyleSheet("border : none;background-color : white ;padding : 10px 20px ;color: #161c2a;border-radius: 5px;")
 
         button1 = QPushButton("  Admin")
-        button.setToolTip("Admin")
+        button1.setToolTip("Gestion des comptes , infrastructures....")
+        button1.setCursor(Qt.PointingHandCursor)
         self.navigation_buttons.append(button1)
         self.navigation_layout.addWidget(button1)
         button1.setIcon(QIcon("assets/pic/admin.png"))
         button1.setStyleSheet("border : none;background-color : white;padding : 10px 20px ;color: #161c2a;border-radius: 5px;")
 
         button2 = QPushButton(f"  Recruter")
+        button2.setToolTip("Ajouter un nouvel employee")
+        button2.setCursor(Qt.PointingHandCursor)
         self.navigation_buttons.append(button2)
         self.navigation_layout.addWidget(button2)
         button2.setIcon(QIcon("assets/pic/recruter.png"))  
@@ -85,6 +92,8 @@ class CustomNavigationBar(QWidget):
 
 
         self.logoutButton = QPushButton(F"  Logout")
+        self.logoutButton.setToolTip("Se deconnecter du compte")
+        self.logoutButton.setCursor(Qt.PointingHandCursor)
         self.logoutButton.setIcon(QIcon("assets\pic\logout.png"))
         self.logoutButton.setStyleSheet("border : none;background-color : white;padding : 10px 20px ;color: #161c2a;border-radius: 5px;")
         self.navigation_layout.addWidget(self.logoutButton)
