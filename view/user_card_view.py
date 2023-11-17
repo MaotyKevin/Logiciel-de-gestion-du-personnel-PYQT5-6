@@ -1,9 +1,11 @@
 import typing
+import pika
 from PyQt5.QtWidgets import QWidget,QCheckBox,QGraphicsDropShadowEffect, QLineEdit,QVBoxLayout, QLabel , QFrame , QHBoxLayout,QPushButton , QMessageBox
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtGui import QImage, QPixmap, QFont, QPainter 
 from PyQt5.QtCore import Qt
 from controller.team_crud_controller import AdminCrudController
+from view.sender_view import MessageSender
 
 class UserCard(QWidget):
     def __init__(self , id_user, username , password):
@@ -12,6 +14,7 @@ class UserCard(QWidget):
         self.id_user = id_user
         self.username = username
         self.password = password
+
 
 
         self.container = QWidget()
@@ -85,6 +88,7 @@ class UserCard(QWidget):
         if confirmation == QMessageBox.Yes:
             self.controller.delete_User(idUserStr)
             self.deleteLater()
+
 
     def toggle_editable(self):
         self.username_label.setReadOnly(False)

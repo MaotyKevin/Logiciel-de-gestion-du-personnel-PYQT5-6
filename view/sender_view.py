@@ -17,10 +17,21 @@ class MessageSender(QWidget):
         self.setGeometry(100, 100, 400, 500)
 
         splitter = QSplitter(Qt.Horizontal)
+      
 
         self.user_list = QListWidget(self)
         self.message_lists = {user[0]: QListWidget(self) for user in self.sampleUsers}
+        
         self.message_input = QLineEdit(self)
+        self.message_input.setStyleSheet("""
+            QLineEdit {
+                border: 2px solid #734001; /* Blue border */
+                border-radius: 10px; /* Rounded corners */
+                padding: 8px; /* Add padding */
+                background-color: #FFFFFF; /* White background */
+            }
+        """)
+
         self.send_button = QPushButton('Send', self)
 
         splitter.addWidget(self.user_list)
@@ -67,7 +78,7 @@ class MessageSender(QWidget):
     def setupRabbitMQ(self, sampleUsersList):
 
         # Use user IDs as queue identifiers
-        self.rabbitmq_connections = {user: pika.BlockingConnection(pika.ConnectionParameters(host='127.0.0.1')) for user in sampleUsersList}
+        self.rabbitmq_connections = {user: pika.BlockingConnection(pika.ConnectionParameters(host='localhost')) for user in sampleUsersList}
         self.rabbitmq_channels = {user: connection.channel() for user, connection in self.rabbitmq_connections.items()}
 
         for user in sampleUsersList:
@@ -81,7 +92,8 @@ class MessageSender(QWidget):
             current_user_id, current_username = current_user[0], current_user[1]
             message_list = self.message_lists[current_user_id]  # Use the user ID
 
-            sent_message = f"*{self.logged_username} : {message}\n"
+
+            sent_message = f"ADMIN : {message}\n"
             print(f"Send -> {sent_message}")
 
             self.rabbitmq_channels[current_user_id].basic_publish(exchange='', routing_key=str(current_user_id), body=sent_message)  # Use user ID as routing key
@@ -112,10 +124,10 @@ class MessageSender(QWidget):
 
     def updateData(self , userMajList):
         # Update other data as needed
-        self.userMajList = userMajList
+        self.sampleUsers = userMajList
         # Update the user list widget to reflect the changes
         self.user_list.clear()
-        self.user_list.addItems([data[1] for data in self.userMajList])
+        self.user_list.addItems([data[1] for data in self.sampleUsers])
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

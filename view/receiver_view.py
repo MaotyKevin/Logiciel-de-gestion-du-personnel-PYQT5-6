@@ -76,7 +76,7 @@ class MessageReceiver(QWidget):
         
 
     def setupRabbitMQ(self ):
-        self.connection = pika.BlockingConnection(pika.ConnectionParameters(host='127.0.0.1'))
+        self.connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
         self.channel = self.connection.channel()
         self.channel.queue_declare(queue=f'{self.id}')
         #self.channel.queue_purge(queue='hello')
@@ -92,7 +92,7 @@ class MessageReceiver(QWidget):
         current_text = self.message_display.toPlainText()
         self.message_display.setPlainText(current_text + message + '\n')
 
-    def closeEvent(self, event):
+    def closeEvent(self , event):
         self.timer.stop()
         self.connection.close()
 
