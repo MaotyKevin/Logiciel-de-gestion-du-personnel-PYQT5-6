@@ -36,26 +36,26 @@ class Personnal_Card(QWidget):
             
             QScrollBar:vertical {
                 border: 1px solid #734001;
-                background: #734001;
+                background: #102429;
                 width: 12px;
                 margin: 0px;
             }
             
             QScrollBar:horizontal {
                 border: 1px solid #734001;
-                background: #734001;
+                background: #102429;
                 height: 12px;
                 margin: 0px;
             }
             
             QScrollBar::handle:vertical {
-                background: #734001;
+                background: #102429;
                 min-height: 20px;
                 border-radius: 6px;
             }
             
             QScrollBar::handle:horizontal {
-                background: #734001;
+                background: #102429;
                 min-width: 20px;
                 border-radius: 6px;
             }
@@ -94,8 +94,8 @@ class Personnal_Card(QWidget):
         combo_container.addWidget(self.SC_filter)
         combo_container.addWidget(self.search_field)
         
-        self.team_filter.setStyleSheet("QComboBox { padding: 5px; border:1px solid #CCCCCC; border-radius: 5px; }     QComboBox::down-arrow {background-color: #734001;}")
-        self.SC_filter.setStyleSheet("QComboBox { padding: 5px; border:1px solid #CCCCCC; border-radius: 5px; } QComboBox::down-arrow {background-color: #734001;}")
+        self.team_filter.setStyleSheet("QComboBox { padding: 5px; border:1px solid #CCCCCC; border-radius: 5px; background-color:#102429;color:white;}     QComboBox::down-arrow {background-color: #7ed957;}")
+        self.SC_filter.setStyleSheet("QComboBox { padding: 5px; border:1px solid #CCCCCC; border-radius: 5px;background-color:#102429;color:white; } QComboBox::down-arrow {background-color: #7ed957;}")
 
          # Initial option
         self.equipe_name = self.controller.get_team_names()

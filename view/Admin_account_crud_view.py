@@ -16,7 +16,7 @@ class Admin_account(QWidget):
     def initUI(self):
 
         self.add_user_button = QPushButton("Nouvel admin")
-        self.add_user_button.setStyleSheet("background-color: #007BFF; color: white; padding: 10px 20px; border: none; border-radius: 5px;")
+        self.add_user_button.setStyleSheet("background-color: #102429; color: white; padding: 10px 20px; border: none; border-radius: 5px;")
         self.add_user_button.clicked.connect(self.show_add_user_dialog)
         
 

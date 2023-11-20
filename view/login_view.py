@@ -37,12 +37,12 @@ class LoginWindow(QWidget):
         left_widget.setLayout(left_layout)
 
         right_widget = QWidget()
-        right_widget.setStyleSheet("background-color: #734001;")
+        right_widget.setStyleSheet("background-color: #102429;")
         right_layout = QHBoxLayout()
 
 
         self.username_input = QLineEdit()
-        self.username_input.setStyleSheet("width : 200; height: 30;color:white;font-weight:bold; background-color:#734001;")
+        self.username_input.setStyleSheet("width : 200; height: 30;color:#7ed957;font-weight:bold; background-color:#102429;border-radius:5px;padding: 10px 20px;border:1px solid white;")
         self.username_input.setPlaceholderText("Username")
 
 
@@ -55,7 +55,7 @@ class LoginWindow(QWidget):
         self.password_input.setEchoMode(QLineEdit.Password)
         self.password_input.returnPressed.connect(self.login)
         self.password_input.setPlaceholderText("password")
-        self.password_input.setStyleSheet("width : 200; height: 30;color:white;font-weight:bold;background-color:#734001;")
+        self.password_input.setStyleSheet("width : 200; height: 30;color:#7ed957;font-weight:bold;background-color:#102429;border-radius:5px;padding: 10px 20px;border:1px solid white;")
 
         self.username_input.returnPressed.connect(self.password_input.setFocus)
         

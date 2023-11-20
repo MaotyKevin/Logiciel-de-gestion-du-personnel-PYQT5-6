@@ -90,6 +90,7 @@ class InscriptionPersonnelForm(QWidget):
         self.stepOne = StepOne()
         self.stepTwo = StepTwo()
         self.stepThree = StepTree()
+
         
         self.step_widget.addWidget(self.stepOne)
         self.step_widget.addWidget(self.stepTwo)

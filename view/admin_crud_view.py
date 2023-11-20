@@ -34,8 +34,8 @@ class Admin_crud(QTabWidget):
             "    width: 150px;"
             "}"
             "QTabBar::tab:!selected {"
-            "    background-color: #734001;"
-            "    color: white;   "
+            "    background-color: #7ed957;"
+            "    color: #102429;   "
             "}"
         )
 

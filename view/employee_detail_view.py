@@ -25,8 +25,8 @@ class EmployeeTabForm(QTabWidget):
             "    width: 150px;"
             "}"
             "QTabBar::tab:!selected {"
-            "    background-color: #734001;"
-            "    color: white;   "
+            "    background-color: #7ed957;"
+            "    color: #102429;   "
             "}"
         )
         
@@ -53,26 +53,26 @@ class EmployeeDetailsForm(QWidget):
             
             QScrollBar:vertical {
                 border: 1px solid #734001;
-                background: #734001;
+                background: #102429;
                 width: 12px;
                 margin: 0px;
             }
             
             QScrollBar:horizontal {
                 border: 1px solid #734001;
-                background: #734001;
+                background: #102429;
                 height: 12px;
                 margin: 0px;
             }
             
             QScrollBar::handle:vertical {
-                background: #734001;
+                background: #102429;
                 min-height: 20px;
                 border-radius: 6px;
             }
             
             QScrollBar::handle:horizontal {
-                background: #734001;
+                background: #102429;
                 min-width: 20px;
                 border-radius: 6px;
             }
@@ -90,7 +90,7 @@ class EmployeeDetailsForm(QWidget):
         container_layout = QVBoxLayout()
 
         previous_button = QPushButton("Retour a la liste")
-        previous_button.setStyleSheet("background-color: #007BFF; color: white; padding: 10px 20px; border: none; border-radius: 5px;font-weight:bold;")
+        previous_button.setStyleSheet("background-color: #102429; color: white; padding: 10px 20px; border: none; border-radius: 5px;font-weight:bold;")
         previous_button.clicked.connect(self.show_previous_cards)
         top_right_layout.addWidget(previous_button)
         

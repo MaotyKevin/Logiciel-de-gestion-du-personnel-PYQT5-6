@@ -228,10 +228,10 @@ class EmployeeDetailsTabOne(QWidget):
         # Define the CSS style for QLineEdit
         style = """
             QLineEdit {
-                background-color: black;  /* Background color */
-                color:white;
+                background-color: transparent;  /* Background color */
+                color:#102429;
                 border : none;
-                border-bottom: 1px solid #C0C0C0;  /* Border color and thickness */
+                border-bottom: 1px solid #102429;  /* Border color and thickness */
                 border-radius: 5px;         /* Rounded corners */
                 padding: 5px;               /* Padding inside the QLineEdit */
                 

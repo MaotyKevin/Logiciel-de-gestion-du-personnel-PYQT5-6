@@ -27,7 +27,7 @@ class CustomHeader(QWidget):
         self.toggle_button = QPushButton("Fanahisoa ENTREPRISE")
         self.toggle_button.setToolTip("Afficher/reduire la barre de navigation")
         self.toggle_button.setCursor(Qt.PointingHandCursor)
-        self.toggle_button.setStyleSheet("border: none; background-color: transparent; color: white; padding: 10px 20px; border-radius: 5px;font-weight: bolder;")
+        self.toggle_button.setStyleSheet("border: none; background-color: transparent; color: #7ed957; padding: 10px 20px; border-radius: 5px;font-weight: bolder;")
 
 
         self.header_label = QLabel()
@@ -43,11 +43,11 @@ class CustomHeader(QWidget):
         self.header_layout.addWidget(self.toggle_button, alignment=Qt.AlignLeft)
         self.header_layout.addStretch(1)  # Add a stretch to push the message button to the right
         self.header_layout.addWidget(self.message_button)
-        self.header_layout.addWidget(self.header_label)
+        #self.header_layout.addWidget(self.header_label)
 
         centre = QWidget()
         centre.setLayout(self.header_layout)
-        centre.setStyleSheet("background-color: #734001; border-radius: 4px;")
+        centre.setStyleSheet("background-color: #102429; border-radius: 4px;")
         layout = QVBoxLayout()  # Vertical layout for top alignment
         layout.addWidget(centre)
         self.setLayout(layout)
@@ -105,7 +105,7 @@ class CustomNavigationBar(QWidget):
         centre = QWidget()
         centre.setLayout(self.navigation_layout)
         centre.setStyleSheet("""
-                            background-color: #734001; 
+                            background-color: #102429; 
                             border : 1px solid white;
                             border-radius:5px;
                             QPushButton {

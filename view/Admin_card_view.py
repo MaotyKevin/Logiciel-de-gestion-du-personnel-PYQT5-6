@@ -35,7 +35,7 @@ class AdminAccountCard(QWidget):
 
         self.edit_button = QPushButton("Modifier")
         self.edit_button.setObjectName("edit-button")
-        self.edit_button.setStyleSheet("#edit-button { background-color: #007BFF; color: white; }")
+        self.edit_button.setStyleSheet("#edit-button { background-color: #7ed957; color: #102429; }")
         self.edit_button.clicked.connect(self.toggle_editable)
 
 
@@ -56,7 +56,7 @@ class AdminAccountCard(QWidget):
 
         self.delete_button = QPushButton("Supprimer")
         self.delete_button.setObjectName("delete-button")
-        self.delete_button.setStyleSheet("#delete-button { background-color: #FF7519; color: white; }")
+        self.delete_button.setStyleSheet("#delete-button { background-color: #404040; color: white; }")
         self.delete_button.clicked.connect(self.confirm_delete)
 
         top_right_layout = QHBoxLayout()

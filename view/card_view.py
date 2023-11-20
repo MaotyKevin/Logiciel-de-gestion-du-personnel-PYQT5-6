@@ -32,12 +32,12 @@ class Card(QWidget):
 
         self.delete_button = QPushButton("Supprimer")
         self.delete_button.setObjectName("delete-button")
-        self.delete_button.setStyleSheet("#delete-button { background-color: #FF7519; color: white; }")
+        self.delete_button.setStyleSheet("#delete-button { background-color: #102429; color: white; }")
         self.delete_button.clicked.connect(self.confirm_delete)  # Connectez le signal clicked au slot confirm_delete
 
         self.detail_utton = QPushButton("Details")
         self.detail_utton.setObjectName("details-button")
-        self.detail_utton.setStyleSheet("#details-button { background-color: #007BFF; color: white; }")
+        self.detail_utton.setStyleSheet("#details-button { background-color: #7ed957; color: #102429; }")
         self.detail_utton.clicked.connect(self.show_employee_details)
 
         # Créez un layout horizontal pour le coin supérieur droit
