@@ -2,6 +2,9 @@ import sys , os
 from PyQt5.QtWidgets import QApplication,QStackedWidget, QDialog, QVBoxLayout, QWidget, QLabel, QLineEdit, QPushButton, QComboBox, QFileDialog,QScrollArea , QDateEdit , QMessageBox , QSizePolicy , QHBoxLayout , QTableWidget , QTableWidgetItem , QSpacerItem
 from PyQt5.QtGui import QImage, QPixmap, QFont, QPainter 
 from PyQt5.QtCore import Qt , QDate, pyqtSignal , QRect , QSize 
+from reportlab.lib.pagesizes import letter
+from reportlab.lib import colors
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
 
 from controller.personnel_card_controller import PersonnelController
 
@@ -239,6 +242,62 @@ class EmployeeDetailsTabOne(QWidget):
             }
         """
         line_edit.setStyleSheet(style)
+
+
+class EmployeeDetailsTabOneContent:
+    def __init__(self, employee_data):
+        self.employee_data = employee_data
+
+    def draw_pdf(self, pdf):
+        if self.employee_data:
+            Fonction , Badge , Photo , Nom ,  Prenom , Date_Naissance , Lieu_Naissance , CIN  , Date_CIN , Lieu_CIN , Adresse , Contact , DateDebut , VE_OMSI , DateFin , CauseDepart , DateEquipement , Casque , Haut , Lunette , Chaussure  = self.employee_data
+
+            # Create a list to store data for the table
+            table_data = [
+                ["Date", "Chaussure", "Haut", "Casque", "Lunette"],
+                [DateEquipement, Chaussure, Haut, Casque, Lunette]
+            ]
+
+            # Create a PDF document
+            doc = SimpleDocTemplate(pdf, pagesize=letter)
+
+            # Define style for the table
+            style = TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+                                ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+                                ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                                ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                                ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+                                ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+                                ('GRID', (0, 0), (-1, -1), 1, colors.black)])
+
+            # Create table and apply style
+            table = Table(table_data)
+            table.setStyle(style)
+
+            # Add content to the PDF
+            pdf_title = "Employee Details"
+            pdf.drawString(100, 800, pdf_title)
+            pdf.drawString(100, 780, f"Fonction: {Fonction}")
+            pdf.drawString(100, 760, f"Badge: {Badge}")
+            pdf.drawString(100, 740, f"Nom: {Nom}")
+            pdf.drawString(100, 720, f"Prenom: {Prenom}")
+            pdf.drawString(100, 700, f"Date de naissance: {Date_Naissance}")
+            pdf.drawString(100, 680, f"CIN: {CIN}")
+            pdf.drawString(100, 660, f"Lieu de naissance: {Lieu_Naissance}")
+            pdf.drawString(100, 640, f"Date CIN: {Date_CIN}")
+            pdf.drawString(100, 620, f"Lieu CIN: {Lieu_CIN}")
+            pdf.drawString(100, 600, f"Adresse: {Adresse}")
+            pdf.drawString(100, 580, f"Contact: {Contact}")
+            pdf.drawString(100, 560, f"Date de debut: {DateDebut}")
+            pdf.drawString(100, 540, f"VE-OMSI: {VE_OMSI}")
+            pdf.drawString(100, 520, f"Date de fin: {DateFin}")
+            pdf.drawString(100, 500, f"Cause de depart: {CauseDepart}")
+
+            # Draw the table on the PDF
+            table.wrapOn(pdf, 0, 0)
+            table.drawOn(pdf, 100, 450)
+
+            
 
 
 

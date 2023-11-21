@@ -3,21 +3,25 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
 
-from PyQt5.QtWidgets import QPushButton,QApplication,QWidget, QLabel, QVBoxLayout , QTabWidget , QScrollArea , QHBoxLayout 
-from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QPushButton,QApplication,QWidget, QLabel, QVBoxLayout , QTabWidget , QScrollArea , QHBoxLayout , QFileDialog , QMessageBox
+from PyQt5.QtGui import QDesktopServices
+from PyQt5.QtCore import Qt , QUrl
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter
 from controller.personnel_card_controller import PersonnelController
-from view.employeeDetailTabOne_view import EmployeeDetailsTabOne
+from view.employeeDetailTabOne_view import EmployeeDetailsTabOne , EmployeeDetailsTabOneContent
+
 
 class EmployeeTabForm(QTabWidget):
     def __init__(self , badge):
         super().__init__()
         
         self.badge = badge
-        tab1 = EmployeeDetailsTabOne(self.badge)
-        tab2 = QWidget()
+        self.tab1 = EmployeeDetailsTabOne(self.badge)
+        self.tab2 = QWidget()
 
-        self.addTab(tab1 , "Fiche Individuelle")
-        self.addTab(tab2 , "Fiche Complete")
+        self.addTab(self.tab1 , "Fiche Individuelle")
+        self.addTab(self.tab2 , "Fiche Complete")
 
         self.setStyleSheet(
             "QTabBar::tab {"
@@ -37,6 +41,7 @@ class EmployeeDetailsForm(QWidget):
         self.badge = badge
         self.main_window = main_window
         self.employeeTabForm = EmployeeTabForm(self.badge)
+        self.controller = self.employeeTabForm.tab1.controller
 
         self.initUI()
 
@@ -89,9 +94,16 @@ class EmployeeDetailsForm(QWidget):
         container = QWidget()
         container_layout = QVBoxLayout()
 
+        export_pdf_button = QPushButton("Export PDF")
+        export_pdf_button.setStyleSheet("background-color: #7ed957; color: #102429; padding: 10px 20px; border: none; border-radius: 5px; font-weight:bold;")
+        export_pdf_button.clicked.connect(self.export_pdf)
+
+
         previous_button = QPushButton("Retour a la liste")
         previous_button.setStyleSheet("background-color: #102429; color: white; padding: 10px 20px; border: none; border-radius: 5px;font-weight:bold;")
         previous_button.clicked.connect(self.show_previous_cards)
+
+        top_right_layout.addWidget(export_pdf_button)
         top_right_layout.addWidget(previous_button)
         
         container_layout.addLayout(top_right_layout)
@@ -116,3 +128,29 @@ class EmployeeDetailsForm(QWidget):
         else:
             self.main_window.setupUI()
             self.main_window.setCentralWidget(self.main_window.container)
+
+    def export_pdf(self):
+        # Get the content of EmployeeDetailsTabOne
+        employee_data = self.controller.get_employee_details(self.badge)
+        tab_one_content = EmployeeDetailsTabOneContent(employee_data)
+
+        file_path, _ = QFileDialog.getSaveFileName(self, "Save PDF", f"{self.badge}.pdf", "PDF files (*.pdf)")
+
+        if file_path:
+            
+
+            # Generate the PDF
+            with open(file_path, 'wb') as pdf_file:
+                pdf = canvas.Canvas(pdf_file, pagesize=letter)
+                tab_one_content.draw_pdf(pdf)
+                pdf.save()
+                pdf
+
+            QMessageBox.information(self, "Export Successful", "PDF exported successfully!")
+
+            self.show_pdf(file_path)
+
+    def show_pdf(self, file_path):
+        # Open the PDF file with the default PDF viewer
+        QDesktopServices.openUrl(QUrl.fromLocalFile(file_path))
+
