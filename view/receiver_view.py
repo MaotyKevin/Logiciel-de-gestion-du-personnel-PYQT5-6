@@ -78,7 +78,7 @@ class MessageReceiver(QWidget):
     def setupRabbitMQ(self ):
         self.connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
         self.channel = self.connection.channel()
-        self.channel.queue_declare(queue=f'{self.id}')
+        self.channel.queue_declare(queue=f'{self.id}' , durable=True)
         #self.channel.queue_purge(queue='hello')
 
     def checkForMessages(self):

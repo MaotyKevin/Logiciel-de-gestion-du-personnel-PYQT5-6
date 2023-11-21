@@ -111,12 +111,6 @@ class EmployeeDetailsForm(QWidget):
         container_layout.addLayout(top_right_layout)
         container_layout.addWidget(scroll_area)
 
-        
-        
-        # Add the "Previous" button to the container
-
-        
-
         container.setLayout(container_layout)
 
         layout = QVBoxLayout()

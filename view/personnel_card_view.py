@@ -80,7 +80,7 @@ class Personnal_Card(QWidget):
 
         self.search_field = QLineEdit()  # Champ de recherche
         self.search_field.textChanged.connect(self.perform_search)
-        self.search_field.setPlaceholderText("Rechercher...")
+        self.search_field.setPlaceholderText("Rechercher par Badge ou Nom...")
         self.search_field.setStyleSheet("Background-color: #FFFFFF;border: 1px solid #CCCCCC; border-radius: 5px; padding: 5px;font-size: 14px;color: #333333;")
 
 

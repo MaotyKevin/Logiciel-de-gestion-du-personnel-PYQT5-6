@@ -88,7 +88,7 @@ class MessageSender(QWidget):
         self.rabbitmq_channels = {user: connection.channel() for user, connection in self.rabbitmq_connections.items()}
 
         for user in sampleUsersList:
-            self.rabbitmq_channels[user].queue_declare(queue=f'{user}')  # Use user IDs as queue names
+            self.rabbitmq_channels[user].queue_declare(queue=f'{user}' , durable=True)  # Use user IDs as queue names
 
     def sendMessage(self ):
         message = self.message_input.text()
@@ -102,7 +102,8 @@ class MessageSender(QWidget):
             sent_message = f"ADMIN : {message}\n"
             print(f"Send -> {sent_message}")
 
-            self.rabbitmq_channels[current_user_id].basic_publish(exchange='', routing_key=str(current_user_id), body=sent_message)  # Use user ID as routing key
+            self.rabbitmq_channels[current_user_id].basic_publish(exchange='', routing_key=str(current_user_id), body=sent_message, properties=pika.BasicProperties(
+                delivery_mode=2),)  # Use user ID as routing key
 
             self.displayMessage(message_list, message, outgoing=True)  # Display sent message
             self.message_input.clear()

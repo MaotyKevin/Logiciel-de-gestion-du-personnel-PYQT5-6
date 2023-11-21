@@ -1,7 +1,7 @@
 #view/principale_view.py
 from pathlib import Path
 import sys , os
-from PyQt5.QtWidgets import QMessageBox,QLineEdit, QApplication,QDesktopWidget,QStackedWidget, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QSplitter 
+from PyQt5.QtWidgets import QMessageBox,QLineEdit, QApplication,QDesktopWidget,QStackedWidget, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QSplitter  , QMenu ,QAction
 from PyQt5.QtGui import QPalette, QColor  , QIcon
 from PyQt5.QtCore import Qt, QSize , QFile, QTextStream , QRect
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -39,10 +39,19 @@ class CustomHeader(QWidget):
         self.message_button.setCursor(Qt.PointingHandCursor)
         self.message_button.setStyleSheet("background-color: white; color: black; padding: 10px 20px; border: none; border-radius: 5px;")
 
+        self.profile_button = QPushButton()
+        self.profile_button.setIcon(QIcon("assets\pic\profile.svg"))
+        self.profile_button.setCursor(Qt.PointingHandCursor)
+        self.profile_button.setIconSize(QSize(40, 40))  # Set the size of the circular icon
+        self.profile_button.setFixedSize(50, 50)  # Set the fixed size for the circular button
+        self.profile_button.setStyleSheet("border: none; background-color: transparent;")
+        self.profile_button.clicked.connect(self.show_profile_menu)
+
         self.header_layout = QHBoxLayout()  # Horizontal layout for the header content
         self.header_layout.addWidget(self.toggle_button, alignment=Qt.AlignLeft)
         self.header_layout.addStretch(1)  # Add a stretch to push the message button to the right
         self.header_layout.addWidget(self.message_button)
+        self.header_layout.addWidget(self.profile_button)
         #self.header_layout.addWidget(self.header_label)
 
         centre = QWidget()
@@ -51,6 +60,20 @@ class CustomHeader(QWidget):
         layout = QVBoxLayout()  # Vertical layout for top alignment
         layout.addWidget(centre)
         self.setLayout(layout)
+
+    def show_profile_menu(self):
+        menu = QMenu(self)
+        
+        # Add actions for user information
+        user_name_action = QAction(f"Utilisateur actuel : {self.activeName}")
+
+        menu.addAction(user_name_action)
+        
+        menu_pos = self.profile_button.mapToGlobal(self.profile_button.rect().bottomLeft())
+        
+        # Add any other actions or options you want in the profile dropdown
+
+        menu.exec_(menu_pos)
 
 class CustomNavigationBar(QWidget):
     def __init__(self, main_window  , db_path):
@@ -173,6 +196,7 @@ class MainWindow(QMainWindow):
         # Update the UI elements with the user's info as needed
         # For example, you can set the header label text with the username
         self.header.header_label.setText(f"Logged in as {username}")
+        self.header.activeName = username
         print(f"Header : {username}")
 
      
