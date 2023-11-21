@@ -4,7 +4,11 @@ from PyQt5.QtGui import QImage, QPixmap, QFont, QPainter
 from PyQt5.QtCore import Qt , QDate, pyqtSignal , QRect , QSize 
 from reportlab.lib.pagesizes import letter
 from reportlab.lib import colors
+from reportlab.lib.utils import ImageReader
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
+from PIL import Image
+from io import BytesIO
+import io
 
 from controller.personnel_card_controller import PersonnelController
 
@@ -277,6 +281,11 @@ class EmployeeDetailsTabOneContent:
             # Add content to the PDF
             pdf_title = "Employee Details"
             pdf.drawString(100, 800, pdf_title)
+
+            if Photo:
+                image_data = self.convert_image(Photo)
+                pdf.drawImage(image_data, 400, 680, width=100, height=100)
+
             pdf.drawString(100, 780, f"Fonction: {Fonction}")
             pdf.drawString(100, 760, f"Badge: {Badge}")
             pdf.drawString(100, 740, f"Nom: {Nom}")
@@ -296,6 +305,21 @@ class EmployeeDetailsTabOneContent:
             # Draw the table on the PDF
             table.wrapOn(pdf, 0, 0)
             table.drawOn(pdf, 100, 450)
+
+    def convert_image(self, image_data):
+        # Convert image data to PIL Image
+        image = Image.open(BytesIO(image_data))
+
+        # Convert to RGB if not already in that mode
+        if image.mode != "RGB":
+            image = image.convert("RGB")
+
+        # Save the image to a BytesIO buffer in PNG format
+        buffer = BytesIO()
+        image.save(buffer, format="PNG")
+        buffer.seek(0)
+
+        return ImageReader(buffer)
 
             
 

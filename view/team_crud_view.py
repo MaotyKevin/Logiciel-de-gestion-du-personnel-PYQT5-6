@@ -17,7 +17,7 @@ class Team_crud(QWidget):
     def initUI(self):
 
         self.add_team_button = QPushButton("Nouvelle equipe")
-        self.add_team_button.setStyleSheet("background-color: #007BFF; color: white; padding: 10px 20px; border: none; border-radius: 5px;")
+        self.add_team_button.setStyleSheet("background-color: #102429; color: white; padding: 10px 20px; border: none; border-radius: 5px;")
         self.add_team_button.clicked.connect(self.show_add_team_dialog)
         
 

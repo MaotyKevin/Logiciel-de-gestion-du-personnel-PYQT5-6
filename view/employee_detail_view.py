@@ -95,11 +95,13 @@ class EmployeeDetailsForm(QWidget):
         container_layout = QVBoxLayout()
 
         export_pdf_button = QPushButton("Export PDF")
+        export_pdf_button.setCursor(Qt.PointingHandCursor)
         export_pdf_button.setStyleSheet("background-color: #7ed957; color: #102429; padding: 10px 20px; border: none; border-radius: 5px; font-weight:bold;")
         export_pdf_button.clicked.connect(self.export_pdf)
 
 
         previous_button = QPushButton("Retour a la liste")
+        previous_button.setCursor(Qt.PointingHandCursor)
         previous_button.setStyleSheet("background-color: #102429; color: white; padding: 10px 20px; border: none; border-radius: 5px;font-weight:bold;")
         previous_button.clicked.connect(self.show_previous_cards)
 
