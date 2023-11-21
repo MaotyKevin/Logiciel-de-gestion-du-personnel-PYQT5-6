@@ -26,10 +26,11 @@ class MessageSender(QWidget):
         self.message_input.setPlaceholderText("Ecrire ici.....")
         self.message_input.setStyleSheet("""
             QLineEdit {
-                border: 2px solid #734001; /* Blue border */
+                border: 2px solid #102429; /* Blue border */
                 border-radius: 10px; /* Rounded corners */
-                padding: 8px; /* Add padding */
-                background-color: #FFFFFF; /* White background */
+                padding: 10px 20px; /* Add padding */
+                background-color: #102429; /* White background */
+                color: white ; font-weight:bold;
             }
         """)
 
@@ -40,7 +41,7 @@ class MessageSender(QWidget):
         splitter.addWidget(self.user_list)
         for message_list in self.message_lists.values():
             splitter.addWidget(message_list)
-            message_list.setStyleSheet("margin: 5px; padding: 5px; font-weight:bolder;")
+            message_list.setStyleSheet("margin: 5px; padding: 5px; font-weight:bold;background-color:#102429;")
 
         layout = QVBoxLayout()
         layout.addWidget(splitter)
@@ -64,17 +65,17 @@ class MessageSender(QWidget):
         self.user_list.setStyleSheet(
                                   "QListWidget QScrollBar"
                                   "{"
-                                  "background : #734001;"
+                                  "background : #102429;"
                                   "}"
                                   "QListView::item"
                                   "{"
-                                  "font-weight: bolder;"
+                                  "border:none;"
+                                  "font-weight: bold;"
                                   "padding:5px;"
                                   "}"
                                   "QListView::item:selected"
                                   "{"
-                                  "border : 1px solid white;"
-                                  "background : #734001;"
+                                  "background : #7ed957;"
                                   "}"
                                   )
         
@@ -111,7 +112,7 @@ class MessageSender(QWidget):
         item.setText(message)
         if outgoing:
             item.setTextAlignment(Qt.AlignRight)
-            item.setForeground(Qt.blue)  # Customize the color for outgoing messages
+            item.setForeground(Qt.green)  # Customize the color for outgoing messages
         else:
             item.setTextAlignment(Qt.AlignLeft)
 
