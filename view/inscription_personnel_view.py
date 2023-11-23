@@ -1,6 +1,6 @@
 # view/inscription_personnel_view.py
 import sys , os
-from PyQt5.QtWidgets import QApplication,QStackedWidget, QDialog, QVBoxLayout, QWidget, QLabel, QLineEdit, QPushButton, QComboBox, QFileDialog,QScrollArea , QDateEdit , QMessageBox
+from PyQt5.QtWidgets import QApplication,QStackedWidget, QDialog, QVBoxLayout, QWidget, QLabel, QLineEdit, QPushButton, QComboBox, QFileDialog,QScrollArea , QDateEdit , QMessageBox , QHBoxLayout
 from PyQt5.QtGui import QImage, QPixmap, QFont, QPainter
 from PyQt5.QtCore import Qt , QDate, pyqtSignal
 
@@ -50,10 +50,12 @@ class InscriptionPersonnelForm(QWidget):
     def remplir_liste_equipe(self):
         equipe_data = self.db_model.recuperer_donnees_equipe()
         self.stepOne.equipe_combo.addItems(equipe_data)
+        self.stepOne.equipe_combo.setStyleSheet("QComboBox { padding: 5px; border:1px solid #CCCCCC; border-radius: 5px;background-color:#102429;color:white; } QComboBox::down-arrow {background-color: #7ed957;}")
 
     def remplir_liste_sous_categorie(self):
         sous_categorie_data = self.db_model.recuperer_donnees_sous_categorie()
         self.stepOne.sous_categorie_combo.addItems(sous_categorie_data)
+        self.stepOne.sous_categorie_combo.setStyleSheet("QComboBox { padding: 5px; border:1px solid #CCCCCC; border-radius: 5px;background-color:#102429;color:white; } QComboBox::down-arrow {background-color: #7ed957;}")
 
     def message_valide(self):
         
@@ -97,18 +99,24 @@ class InscriptionPersonnelForm(QWidget):
         self.step_widget.addWidget(self.stepThree)
 
         self.prev_button = QPushButton("Precedent")
+        self.prev_button.setCursor(Qt.PointingHandCursor)
+        self.prev_button.setStyleSheet("background-color: #7ed957; color: #102429; padding: 10px 20px; border: none; border-radius: 5px; font-weight:bold;")
         self.prev_button.clicked.connect(self.show_previous_step)
 
         self.next_button = QPushButton("Suivant")
+        self.next_button.setCursor(Qt.PointingHandCursor)
+        self.next_button.setStyleSheet("background-color: #102429; color: white; padding: 10px 20px; border: none; border-radius: 5px; font-weight:bold;")
         self.next_button.clicked.connect(self.show_next_step)
 
-        button_layout = QVBoxLayout()
-        button_layout.addWidget(self.prev_button)
-        button_layout.addWidget(self.next_button)
+        top_layout = QHBoxLayout()
+        top_layout.addStretch(1)
+        top_layout.addWidget(self.prev_button)
+        top_layout.addWidget(self.next_button)
 
         main_layout = QVBoxLayout()
+        main_layout.addLayout(top_layout)
         main_layout.addWidget(self.step_widget)
-        main_layout.addLayout(button_layout)
+        
 
         self.stepOne.photo_button.clicked.connect(self.stepOne.importer_photo)
         self.stepThree.enregistrer_button.clicked.connect(self.envoi)

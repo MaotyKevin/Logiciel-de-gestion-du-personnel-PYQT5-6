@@ -33,7 +33,7 @@ class StepOne(QScrollArea):
         self.badge_edit.setPlaceholderText("Badge")
         self.badge_edit.setStyleSheet("""
             QLineEdit {
-                border: 1px solid #734001; /* Blue border */
+                border: 1px solid #102429; /* Blue border */
                 border-radius: 10px; /* Rounded corners */
                 padding: 8px; /* Add padding */
                 background-color: #FFFFFF; /* White background */
@@ -43,13 +43,14 @@ class StepOne(QScrollArea):
 
         self.photo_label = QLabel()
         self.photo_button = QPushButton("Importer une photo")
+        self.photo_button.setStyleSheet("background-color: #102429; color: white; padding: 10px 20px; border: none; border-radius: 5px; font-weight:bold;")
         self.photo_data = None
 
         self.nom_edit = QLineEdit()
         self.nom_edit.setPlaceholderText("Nom")
         self.nom_edit.setStyleSheet("""
             QLineEdit {
-                border: 1px solid #734001; /* Blue border */
+                border: 1px solid #102429; /* Blue border */
                 border-radius: 10px; /* Rounded corners */
                 padding: 8px; /* Add padding */
                 background-color: #FFFFFF; /* White background */
@@ -60,7 +61,7 @@ class StepOne(QScrollArea):
         self.prenom_edit.setPlaceholderText("Prenoms")
         self.prenom_edit.setStyleSheet("""
             QLineEdit {
-                border: 1px solid #734001; /* Blue border */
+                border: 1px solid #102429; /* Blue border */
                 border-radius: 10px; /* Rounded corners */
                 padding: 8px; /* Add padding */
                 background-color: #FFFFFF; /* White background */
@@ -72,7 +73,7 @@ class StepOne(QScrollArea):
         self.cin_edit.setPlaceholderText("Numero de CIN")
         self.cin_edit.setStyleSheet("""
             QLineEdit {
-                border: 1px solid #734001; /* Blue border */
+                border: 1px solid #102429; /* Blue border */
                 border-radius: 10px; /* Rounded corners */
                 padding: 8px; /* Add padding */
                 background-color: #FFFFFF; /* White background */
@@ -82,13 +83,14 @@ class StepOne(QScrollArea):
         self.date_cin_edit = QDateEdit(QDate.currentDate())
         self.date_cin_edit.setStyleSheet("""
             QDateEdit {
-                border: 1px solid #734001; /* Blue border */
-                border-radius: 10px; /* Rounded corners */
+                border: 1px solid #CCCCCC; 
+                color:white;
+                border-radius: 5px; /* Rounded corners */
                 padding: 8px; /* Add padding */
-                background-color: #FFFFFF; /* White background */
+                background-color: #102429; /* White background */
             }
         
-            QDateEdit::down-arrow {background-color: #734001;}
+            QDateEdit::down-arrow {background-color: #7ed957;}
         """)
         #self.date_cin_edit.setDisplayFormat("dd/MM/yyyy")
         self.date_cin_edit.setCalendarPopup(True)
@@ -98,7 +100,7 @@ class StepOne(QScrollArea):
         self.lieu_cin_edit.setPlaceholderText("Lieu CIN")
         self.lieu_cin_edit.setStyleSheet("""
             QLineEdit {
-                border: 1px solid #734001; /* Blue border */
+                border: 1px solid #102429; /* Blue border */
                 border-radius: 10px; /* Rounded corners */
                 padding: 8px; /* Add padding */
                 background-color: #FFFFFF; /* White background */
@@ -109,7 +111,7 @@ class StepOne(QScrollArea):
         self.contact_edit.setPlaceholderText("Contact")
         self.contact_edit.setStyleSheet("""
             QLineEdit {
-                border: 1px solid #734001; /* Blue border */
+                border: 1px solid #102429; /* Blue border */
                 border-radius: 10px; /* Rounded corners */
                 padding: 8px; /* Add padding */
                 background-color: #FFFFFF; /* White background */
@@ -119,13 +121,14 @@ class StepOne(QScrollArea):
         self.date_naissance_edit = QDateEdit(QDate.currentDate())
         self.date_naissance_edit.setStyleSheet("""
             QDateEdit {
-                border: 1px solid #734001; /* Blue border */
-                border-radius: 10px; /* Rounded corners */
+                border: 1px solid #CCCCCC; 
+                color:white;
+                border-radius: 5px; /* Rounded corners */
                 padding: 8px; /* Add padding */
-                background-color: #FFFFFF; /* White background */
+                background-color: #102429; /* White background */
             }
         
-            QDateEdit::down-arrow {background-color: #734001;}
+            QDateEdit::down-arrow {background-color: #7ed957;}
         """)
         #self.date_naissance_edit.setDisplayFormat("dd/MM/yyyy")
         self.date_naissance_edit.setCalendarPopup(True)
@@ -135,7 +138,7 @@ class StepOne(QScrollArea):
         self.lieu_naissance_edit.setPlaceholderText("Lieu de naissance")
         self.lieu_naissance_edit.setStyleSheet("""
             QLineEdit {
-                border: 1px solid #734001; /* Blue border */
+                border: 1px solid #102429; /* Blue border */
                 border-radius: 10px; /* Rounded corners */
                 padding: 8px; /* Add padding */
                 background-color: #FFFFFF; /* White background */
@@ -146,7 +149,7 @@ class StepOne(QScrollArea):
         self.adresse_edit.setPlaceholderText("Adresse")
         self.adresse_edit.setStyleSheet("""
             QLineEdit {
-                border: 1px solid #734001; /* Blue border */
+                border: 1px solid #102429; /* Blue border */
                 border-radius: 10px; /* Rounded corners */
                 padding: 8px; /* Add padding */
                 background-color: #FFFFFF; /* White background */
@@ -155,13 +158,17 @@ class StepOne(QScrollArea):
 
         self.equipeLayout = QVBoxLayout()
         self.equipe_combo = QComboBox()
+
         self.equipeLayout.addWidget(QLabel("Equipe"))
         self.equipeLayout.addWidget(self.equipe_combo)
+        self.equipe_combo.setStyleSheet("QComboBox { padding: 5px; border:1px solid #CCCCCC; border-radius: 5px;background-color:#102429;color:white; } QComboBox::down-arrow {background-color: #7ed957;}")
 
         self.SCategLayout = QVBoxLayout()
         self.sous_categorie_combo = QComboBox()
+
         self.SCategLayout.addWidget(QLabel("Sous-categorie"))
         self.SCategLayout.addWidget(self.sous_categorie_combo)
+        self.sous_categorie_combo.setStyleSheet("QComboBox { padding: 5px; border:1px solid #CCCCCC; border-radius: 5px;background-color:#102429;color:white; } QComboBox::down-arrow {background-color: #7ed957;}")
 
 #__________________________LES FRAMES___________________________________________________
 
@@ -206,6 +213,7 @@ class StepOne(QScrollArea):
         Equipe_souscategorie_layout.addLayout(self.equipeLayout)
         #Equipe_souscategorie_layout.addWidget(self.equipe_combo)
         Equipe_souscategorie_layout.addLayout(self.SCategLayout)
+        Equipe_souscategorie_layout.addStretch(1)
         #Equipe_souscategorie_layout.addWidget(self.sous_categorie_combo)
 
         CIN_layout = QHBoxLayout()
@@ -222,7 +230,7 @@ class StepOne(QScrollArea):
         Info_perso_layout.addLayout(Date_lieu_naissance_layout)
 
         info_perso_label = QLabel("Informations personnelles")
-        info_perso_label.setStyleSheet("font-weight: bolder; color:black;")
+        info_perso_label.setStyleSheet("font-weight: bold; color:black;")
 
         info_perso = QVBoxLayout()
         info_perso.addWidget(info_perso_label)
@@ -234,7 +242,7 @@ class StepOne(QScrollArea):
         Coordonnees_layout.addWidget(self.adresse_edit)
 
         coordonnees_label = QLabel("Coordonnees")
-        coordonnees_label.setStyleSheet("font-weight: bolder; color:black;")
+        coordonnees_label.setStyleSheet("font-weight: bold; color:black;")
 
         coordonnees = QVBoxLayout()
         coordonnees.addWidget(coordonnees_label)
