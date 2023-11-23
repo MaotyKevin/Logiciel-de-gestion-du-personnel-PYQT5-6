@@ -84,6 +84,29 @@ class InscriptionPersonnelForm(QWidget):
         self.stepOne.photo_data = None 
         self.stepOne.selectedSexe = None
 
+    def reinitialiserForm(self):
+        for widget in self.stepOne.findChildren(QLineEdit):
+            widget.clear()
+        
+        for widget in self.stepTwo.findChildren(QLineEdit):
+            widget.clear() 
+
+        for widget in self.stepThree.findChildren(QLineEdit):
+            widget.clear()      
+
+        for widget in self.stepOne.findChildren(QDateEdit):
+            widget.clear()
+
+        for widget in self.stepTwo.findChildren(QDateEdit):
+            widget.clear()
+
+        for widget in self.stepThree.findChildren(QDateEdit):
+            widget.clear()
+
+        self.stepOne.photo_label.clear()
+        self.stepOne.photo_data = None 
+        self.stepOne.selectedSexe = None
+
 
 
     def initUI(self):
@@ -98,6 +121,10 @@ class InscriptionPersonnelForm(QWidget):
         self.step_widget.addWidget(self.stepTwo)
         self.step_widget.addWidget(self.stepThree)
 
+        self.reinitialiser = QPushButton("Reinitialiser")
+        self.reinitialiser.setCursor(Qt.PointingHandCursor)
+        self.reinitialiser.setStyleSheet("background-color: white; color: #102429; padding: 10px 20px; border: 1px solid #102429; border-radius: 5px;font-weight:bold;")
+
         self.prev_button = QPushButton("Precedent")
         self.prev_button.setCursor(Qt.PointingHandCursor)
         self.prev_button.setStyleSheet("background-color: #7ed957; color: #102429; padding: 10px 20px; border: none; border-radius: 5px; font-weight:bold;")
@@ -111,6 +138,7 @@ class InscriptionPersonnelForm(QWidget):
         top_layout = QHBoxLayout()
         top_layout.addStretch(1)
         top_layout.addWidget(self.prev_button)
+        top_layout.addWidget(self.reinitialiser)
         top_layout.addWidget(self.next_button)
 
         main_layout = QVBoxLayout()
@@ -120,6 +148,7 @@ class InscriptionPersonnelForm(QWidget):
 
         self.stepOne.photo_button.clicked.connect(self.stepOne.importer_photo)
         self.stepThree.enregistrer_button.clicked.connect(self.envoi)
+        self.reinitialiser.clicked.connect(self.reinitialiserForm)
 
         self.setLayout(main_layout) 
 

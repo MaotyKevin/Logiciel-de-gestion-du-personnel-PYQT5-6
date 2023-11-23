@@ -42,6 +42,8 @@ class StepOne(QScrollArea):
 
 
         self.photo_label = QLabel()
+        self.TitrePhotoLabel = QLabel("Photo")
+        self.TitrePhotoLabel.setStyleSheet("color:black;font-weight:bold;")
         self.photo_button = QPushButton("Importer une photo")
         self.photo_button.setStyleSheet("background-color: #102429; color: white; padding: 10px 20px; border: none; border-radius: 5px; font-weight:bold;")
         self.photo_data = None
@@ -172,14 +174,18 @@ class StepOne(QScrollArea):
         self.equipeLayout = QVBoxLayout()
         self.equipe_combo = QComboBox()
 
-        self.equipeLayout.addWidget(QLabel("Equipe"))
+        self.equipeLabel = QLabel("Equipe")
+        self.equipeLabel.setStyleSheet("color:black;font-weight:bold;")
+        self.equipeLayout.addWidget(self.equipeLabel)
         self.equipeLayout.addWidget(self.equipe_combo)
         self.equipe_combo.setStyleSheet("QComboBox { padding: 5px; border:1px solid #CCCCCC; border-radius: 5px;background-color:#102429;color:white; } QComboBox::down-arrow {background-color: #7ed957;}")
 
         self.SCategLayout = QVBoxLayout()
         self.sous_categorie_combo = QComboBox()
 
-        self.SCategLayout.addWidget(QLabel("Sous-categorie"))
+        self.SCLabel = QLabel("Sous-categorie")
+        self.SCLabel.setStyleSheet("color:black;font-weight:bold;")
+        self.SCategLayout.addWidget(self.SCLabel)
         self.SCategLayout.addWidget(self.sous_categorie_combo)
         self.sous_categorie_combo.setStyleSheet("QComboBox { padding: 5px; border:1px solid #CCCCCC; border-radius: 5px;background-color:#102429;color:white; } QComboBox::down-arrow {background-color: #7ed957;}")
 
@@ -269,13 +275,52 @@ class StepOne(QScrollArea):
         layout.addLayout(coordonnees)
         layout.addLayout(Equipe_souscategorie_layout)
 
-        layout.addWidget(QLabel("Photo:"))
+
+        layout.addWidget(self.TitrePhotoLabel)
         layout.addWidget(self.photo_label)
         layout.addWidget(self.photo_button)
         layout.setSpacing(15)
 
         self.setWidget(content_widget)
         self.setWidgetResizable(True)
+
+        self.setStyleSheet(
+            """
+            QScrollArea {
+                border: 1px solid #CCCCCC;
+            }
+            
+            QScrollBar:vertical {
+                border: 1px solid white;
+                background: #102429;
+                width: 12px;
+                margin: 0px;
+            }
+            
+            QScrollBar:horizontal {
+                border: 1px solid white;
+                background: #102429;
+                height: 12px;
+                margin: 0px;
+            }
+            
+            QScrollBar::handle:vertical {
+                background: #102429;
+                min-height: 20px;
+                border-radius: 6px;
+            }
+            
+            QScrollBar::handle:horizontal {
+                background: #102429;
+                min-width: 20px;
+                border-radius: 6px;
+            }
+            
+            QScrollBar::add-line, QScrollBar::sub-line {
+                background: none;
+            }
+            """
+        )
 
     
         

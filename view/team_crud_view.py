@@ -37,27 +37,27 @@ class Team_crud(QWidget):
             }
             
             QScrollBar:vertical {
-                border: 1px solid #734001;
-                background: #734001;
+                border: 1px solid white;
+                background: #102429;
                 width: 12px;
                 margin: 0px;
             }
             
             QScrollBar:horizontal {
-                border: 1px solid #734001;
-                background: #734001;
+                border: 1px solid white;
+                background: #102429;
                 height: 12px;
                 margin: 0px;
             }
             
             QScrollBar::handle:vertical {
-                background: #734001;
+                background: #102429;
                 min-height: 20px;
                 border-radius: 6px;
             }
             
             QScrollBar::handle:horizontal {
-                background: #734001;
+                background: #102429;
                 min-width: 20px;
                 border-radius: 6px;
             }

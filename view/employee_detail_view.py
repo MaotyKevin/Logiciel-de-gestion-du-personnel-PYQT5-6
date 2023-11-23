@@ -57,14 +57,14 @@ class EmployeeDetailsForm(QWidget):
             }
             
             QScrollBar:vertical {
-                border: 1px solid #734001;
+                border: 1px solid white;
                 background: #102429;
                 width: 12px;
                 margin: 0px;
             }
             
             QScrollBar:horizontal {
-                border: 1px solid #734001;
+                border: 1px solid white;
                 background: #102429;
                 height: 12px;
                 margin: 0px;
