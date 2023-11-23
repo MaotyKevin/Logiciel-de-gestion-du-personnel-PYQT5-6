@@ -123,49 +123,49 @@ class EmployeeDetailsTabOne(QWidget):
 
 #_________________________________________________________
 
-            Fonction_desired_width = self.FonctionLabel.fontMetrics().width(self.FonctionLabel.text()) + 20
+            Fonction_desired_width = self.FonctionLabel.fontMetrics().width(self.FonctionLabel.text()) + 40
             self.FonctionLabel.setFixedWidth(Fonction_desired_width)
 
-            Badge_desired_width = self.BadgeLabel.fontMetrics().width(self.BadgeLabel.text()) + 20
+            Badge_desired_width = self.BadgeLabel.fontMetrics().width(self.BadgeLabel.text()) + 40
             self.BadgeLabel.setFixedWidth(Badge_desired_width)
 
-            Nom_desired_width = self.NomLabel.fontMetrics().width(self.NomLabel.text()) + 20
+            Nom_desired_width = self.NomLabel.fontMetrics().width(self.NomLabel.text()) + 40
             self.NomLabel.setFixedWidth(Nom_desired_width)
 
-            Prenom_desired_width = self.prenomLabel.fontMetrics().width(self.prenomLabel.text()) + 20
+            Prenom_desired_width = self.prenomLabel.fontMetrics().width(self.prenomLabel.text()) + 40
             self.prenomLabel.setFixedWidth(Prenom_desired_width)
 
-            Date_Naissance_desired_width = self.DateNaissanceLabel.fontMetrics().width(self.DateNaissanceLabel.text()) + 20
+            Date_Naissance_desired_width = self.DateNaissanceLabel.fontMetrics().width(self.DateNaissanceLabel.text()) + 40
             self.DateNaissanceLabel.setFixedWidth(Date_Naissance_desired_width)
 
-            Lieu_Naissance_desired_width = self.LieuNaissanceLabel.fontMetrics().width(self.LieuNaissanceLabel.text()) + 20
+            Lieu_Naissance_desired_width = self.LieuNaissanceLabel.fontMetrics().width(self.LieuNaissanceLabel.text()) + 40
             self.LieuNaissanceLabel.setFixedWidth(Lieu_Naissance_desired_width)
 
-            CIN_desired_width = self.CINLabel.fontMetrics().width(self.CINLabel.text()) + 20
+            CIN_desired_width = self.CINLabel.fontMetrics().width(self.CINLabel.text()) + 40
             self.CINLabel.setFixedWidth(CIN_desired_width)
 
-            Date_CIN_desired_width = self.DateCINLabel.fontMetrics().width(self.DateCINLabel.text()) + 20
+            Date_CIN_desired_width = self.DateCINLabel.fontMetrics().width(self.DateCINLabel.text()) + 40
             self.DateCINLabel.setFixedWidth(Date_CIN_desired_width)
 
-            Lieu_CIN_desired_width = self.LieuCINLabel.fontMetrics().width(self.LieuCINLabel.text()) + 20
+            Lieu_CIN_desired_width = self.LieuCINLabel.fontMetrics().width(self.LieuCINLabel.text()) + 40
             self.LieuCINLabel.setFixedWidth(Lieu_CIN_desired_width)
 
-            Adresse_desired_width = self.AdresseLabel.fontMetrics().width(self.AdresseLabel.text()) + 20
+            Adresse_desired_width = self.AdresseLabel.fontMetrics().width(self.AdresseLabel.text()) + 40
             self.AdresseLabel.setFixedWidth(Adresse_desired_width)
 
-            Contact_desired_width = self.ContactLabel.fontMetrics().width(self.ContactLabel.text()) + 20
+            Contact_desired_width = self.ContactLabel.fontMetrics().width(self.ContactLabel.text()) + 40
             self.ContactLabel.setFixedWidth(Contact_desired_width)
 
-            DateDebut_desired_width = self.DateEntreeLabel.fontMetrics().width(self.DateEntreeLabel.text()) + 20
+            DateDebut_desired_width = self.DateEntreeLabel.fontMetrics().width(self.DateEntreeLabel.text()) + 40
             self.DateEntreeLabel.setFixedWidth(DateDebut_desired_width)
 
-            VE_OMSI_desired_width = self.VE_OMSILabel.fontMetrics().width(self.VE_OMSILabel.text()) + 20
+            VE_OMSI_desired_width = self.VE_OMSILabel.fontMetrics().width(self.VE_OMSILabel.text()) + 40
             self.VE_OMSILabel.setFixedWidth(VE_OMSI_desired_width)
 
-            DateFin_desired_width = self.DateFinLabel.fontMetrics().width(self.DateFinLabel.text()) + 20
+            DateFin_desired_width = self.DateFinLabel.fontMetrics().width(self.DateFinLabel.text()) + 40
             self.DateFinLabel.setFixedWidth(DateFin_desired_width)
 
-            CauseDepart_desired_width = self.CauseDepartLabel.fontMetrics().width(self.CauseDepartLabel.text()) + 20
+            CauseDepart_desired_width = self.CauseDepartLabel.fontMetrics().width(self.CauseDepartLabel.text()) + 40
             self.CauseDepartLabel.setFixedWidth(CauseDepart_desired_width)
 
 #__________________________________________________________
@@ -237,10 +237,11 @@ class EmployeeDetailsTabOne(QWidget):
             QLineEdit {
                 background-color: transparent;  /* Background color */
                 color:#102429;
+                font-weight:bold;
                 border : none;
                 border-bottom: 1px solid #102429;  /* Border color and thickness */
                 border-radius: 5px;         /* Rounded corners */
-                padding: 5px;               /* Padding inside the QLineEdit */
+                padding: 3px;               /* Padding inside the QLineEdit */
                 
                 
             }

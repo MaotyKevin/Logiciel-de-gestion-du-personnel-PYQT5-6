@@ -33,12 +33,6 @@ class CustomHeader(QWidget):
         self.header_label = QLabel()
         self.header_label.setStyleSheet("color: white; font-weight: bolder")
 
-        self.message_button = QPushButton("  CHAT")
-        self.message_button.setIcon(QIcon("assets\pic\chat.svg"))
-        self.message_button.setToolTip("Envoyer un message a un utilisateur")
-        self.message_button.setCursor(Qt.PointingHandCursor)
-        self.message_button.setStyleSheet("background-color: white; color: black; padding: 10px 20px; border: none; border-radius: 5px;")
-
         self.profile_button = QPushButton()
         self.profile_button.setIcon(QIcon("assets\pic\profile.svg"))
         self.profile_button.setCursor(Qt.PointingHandCursor)
@@ -50,7 +44,6 @@ class CustomHeader(QWidget):
         self.header_layout = QHBoxLayout()  # Horizontal layout for the header content
         self.header_layout.addWidget(self.toggle_button, alignment=Qt.AlignLeft)
         self.header_layout.addStretch(1)  # Add a stretch to push the message button to the right
-        self.header_layout.addWidget(self.message_button)
         self.header_layout.addWidget(self.profile_button)
         #self.header_layout.addWidget(self.header_label)
 
@@ -89,7 +82,7 @@ class CustomNavigationBar(QWidget):
 
         self.db_path = db_path
 
-        
+
         button = QPushButton("  Effectif")
         button.setToolTip("Gerer le personnel")
         button.setCursor(Qt.PointingHandCursor)
@@ -97,6 +90,8 @@ class CustomNavigationBar(QWidget):
         self.navigation_layout.addWidget(button)
         button.setIcon(QIcon("assets\pic\effectif.png"))
         button.setStyleSheet("border : none;background-color : white ;padding : 10px 20px ;color: #161c2a;border-radius: 5px;")
+
+        self.navigation_layout.addSpacing(10)
 
         button1 = QPushButton("  Admin")
         button1.setToolTip("Gestion des comptes , infrastructures....")
@@ -106,6 +101,8 @@ class CustomNavigationBar(QWidget):
         button1.setIcon(QIcon("assets/pic/admin.png"))
         button1.setStyleSheet("border : none;background-color : white;padding : 10px 20px ;color: #161c2a;border-radius: 5px;")
 
+        self.navigation_layout.addSpacing(10)
+
         button2 = QPushButton(f"  Recruter")
         button2.setToolTip("Ajouter un nouvel employee")
         button2.setCursor(Qt.PointingHandCursor)
@@ -114,6 +111,17 @@ class CustomNavigationBar(QWidget):
         button2.setIcon(QIcon("assets/pic/recruter.png"))  
         button2.setStyleSheet("border : none;background-color : white ;padding : 10px 20px ;color: #161c2a;border-radius: 5px;")
 
+        self.navigation_layout.addSpacing(10)
+
+        self.message_button = QPushButton("  CHAT")
+        self.message_button.setIcon(QIcon("assets\pic\chat.svg"))
+        self.message_button.setToolTip("Envoyer un message a un utilisateur")
+        self.message_button.setCursor(Qt.PointingHandCursor)
+        self.message_button.setStyleSheet("background-color: white; color: black; padding: 10px 20px; border: none; border-radius: 5px;")
+        self.navigation_buttons.append(self.message_button)
+        self.navigation_layout.addWidget(self.message_button)
+
+        self.navigation_layout.addStretch(1)
 
         self.logoutButton = QPushButton(F"  Logout")
         self.logoutButton.setToolTip("Se deconnecter du compte")
@@ -274,12 +282,12 @@ class MainWindow(QMainWindow):
         self.inscri_controller.view = self.inscription_form      
         self.stacked_widget.addWidget(self.inscription_form)
 
-        self.header.message_button.clicked.connect(self.show_sender)
         self.header.toggle_button.clicked.connect(self.toggle_navigation_bar)
 
         self.navigation_bar.navigation_buttons[0].clicked.connect(self.show_personnal_card_form)
         self.navigation_bar.navigation_buttons[1].clicked.connect(self.show_admin_crud)
         self.navigation_bar.navigation_buttons[2].clicked.connect(self.show_inscription_page)
+        self.navigation_bar.navigation_buttons[3].clicked.connect(self.show_sender)
 
         self.show_personnal_card_form()
 
