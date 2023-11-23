@@ -24,7 +24,7 @@ class CustomHeader(QWidget):
         super().__init__()
         self.setFixedHeight(80)
 
-        self.toggle_button = QPushButton("Fanahisoa ENTREPRISE")
+        self.toggle_button = QPushButton("FANAHISOA ENTREPRISE")
         self.toggle_button.setToolTip("Afficher/reduire la barre de navigation")
         self.toggle_button.setCursor(Qt.PointingHandCursor)
         self.toggle_button.setStyleSheet("border: none; background-color: transparent; color: white; padding: 10px 20px; border-radius: 5px;font-weight: bolder;")
@@ -56,6 +56,7 @@ class CustomHeader(QWidget):
 
     def show_profile_menu(self):
         menu = QMenu(self)
+        menu.setStyleSheet("background-color: black;color:white;font-weight:bold;")
         
         # Add actions for user information
         user_name_action = QAction(f"Utilisateur actuel : {self.activeName}")
