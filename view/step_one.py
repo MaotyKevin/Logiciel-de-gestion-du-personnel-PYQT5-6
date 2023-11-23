@@ -91,6 +91,13 @@ class StepOne(QScrollArea):
             }
         
             QDateEdit::down-arrow {background-color: #7ed957;}
+                                         
+            QCalendarWidget QWidget {
+                background-color: black;
+                alternate-background-color: black;
+                color:white;
+            }
+
         """)
         #self.date_cin_edit.setDisplayFormat("dd/MM/yyyy")
         self.date_cin_edit.setCalendarPopup(True)
@@ -129,6 +136,12 @@ class StepOne(QScrollArea):
             }
         
             QDateEdit::down-arrow {background-color: #7ed957;}
+                                               
+            QCalendarWidget QWidget {
+                background-color: black;
+                alternate-background-color: black;
+                color:white;
+            }
         """)
         #self.date_naissance_edit.setDisplayFormat("dd/MM/yyyy")
         self.date_naissance_edit.setCalendarPopup(True)

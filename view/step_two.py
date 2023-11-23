@@ -21,30 +21,147 @@ class StepTwo(QScrollArea):
         self.du_edit = QDateEdit(QDate.currentDate())
         #self.du_edit.setDisplayFormat("dd/MM/yyyy")
         self.du_edit.setCalendarPopup(True)
+        self.du_edit.setStyleSheet("""
+            QDateEdit {
+                border: 1px solid #CCCCCC; 
+                color:white;
+                border-radius: 5px; /* Rounded corners */
+                padding: 8px; /* Add padding */
+                background-color: #102429; /* White background */
+            }
+        
+            QDateEdit::down-arrow {background-color: #7ed957;}
+                                   
+            QCalendarWidget QWidget {
+                background-color: black;
+                alternate-background-color: black;
+                color:white;
+            }
+        """)
 
         self.date_visite_medicale_edit = QDateEdit(QDate.currentDate())
         #self.date_visite_medicale_edit.setDisplayFormat("dd/MM/yyyy")
         self.date_visite_medicale_edit.setCalendarPopup(True)
+        self.date_visite_medicale_edit.setStyleSheet("""
+            QDateEdit {
+                border: 1px solid #CCCCCC; 
+                color:white;
+                border-radius: 5px; /* Rounded corners */
+                padding: 8px; /* Add padding */
+                background-color: #102429; /* White background */
+            }
+        
+            QDateEdit::down-arrow {background-color: #7ed957;}
+            QCalendarWidget QWidget {
+                background-color: black;
+                alternate-background-color: black;
+                color:white;
+            }
+        """)
 
         self.date_accueil_securite_edit = QDateEdit(QDate.currentDate())
         #self.date_accueil_securite_edit.setDisplayFormat("dd/MM/yyyy")
         self.date_accueil_securite_edit.setCalendarPopup(True)
+        self.date_accueil_securite_edit.setStyleSheet("""
+            QDateEdit {
+                border: 1px solid #CCCCCC; 
+                color:white;
+                border-radius: 5px; /* Rounded corners */
+                padding: 8px; /* Add padding */
+                background-color: #102429; /* White background */
+            }
+        
+            QDateEdit::down-arrow {background-color: #7ed957;}
+            QCalendarWidget QWidget {
+                background-color: black;
+                alternate-background-color: black;
+                color:white;
+            }
+        """)
 
         self.msb_edit = QDateEdit(QDate.currentDate())
         #self.msb_edit.setDisplayFormat("dd/MM/yyyy")
         self.msb_edit.setCalendarPopup(True)
+        self.msb_edit.setStyleSheet("""
+            QDateEdit {
+                border: 1px solid #CCCCCC; 
+                color:white;
+                border-radius: 5px; /* Rounded corners */
+                padding: 8px; /* Add padding */
+                background-color: #102429; /* White background */
+            }
+        
+            QDateEdit::down-arrow {background-color: #7ed957;}
+                                    
+            QCalendarWidget QWidget {
+                background-color: black;
+                alternate-background-color: black;
+                color:white;
+            }
+        """)
 
         self.consignation_edit = QDateEdit(QDate.currentDate())
         #self.consignation_edit.setDisplayFormat("dd/MM/yyyy")
         self.consignation_edit.setCalendarPopup(True)
+        self.consignation_edit.setStyleSheet("""
+            QDateEdit {
+                border: 1px solid #CCCCCC; 
+                color:white;
+                border-radius: 5px; /* Rounded corners */
+                padding: 8px; /* Add padding */
+                background-color: #102429; /* White background */
+            }
+        
+            QDateEdit::down-arrow {background-color: #7ed957;}
+                                             
+            QCalendarWidget QWidget {
+                background-color: black;
+                alternate-background-color: black;
+                color:white;
+            }
+        """)
 
         self.ms_edit = QDateEdit(QDate.currentDate())
         #self.ms_edit.setDisplayFormat("dd/MM/yyyy")
         self.ms_edit.setCalendarPopup(True)
+        self.ms_edit.setStyleSheet("""
+            QDateEdit {
+                border: 1px solid #CCCCCC; 
+                color:white;
+                border-radius: 5px; /* Rounded corners */
+                padding: 8px; /* Add padding */
+                background-color: #102429; /* White background */
+            }
+        
+            QDateEdit::down-arrow {background-color: #7ed957;}
+                                   
+            QCalendarWidget QWidget {
+                background-color: black;
+                alternate-background-color: black;
+                color:white;
+            }
+        """)
 
         self.ve_omsi_edit = QDateEdit(QDate.currentDate())
         #self.ve_omsi_edit.setDisplayFormat("dd/MM/yyyy")
         self.ve_omsi_edit.setCalendarPopup(True)
+        self.ve_omsi_edit.setStyleSheet("""
+            QDateEdit {
+                border: 1px solid #CCCCCC; 
+                color:white;
+                border-radius: 5px; /* Rounded corners */
+                padding: 8px; /* Add padding */
+                background-color: #102429; /* White background */
+            }
+        
+            QDateEdit::down-arrow {background-color: #7ed957;}
+                                        
+            QCalendarWidget QWidget {
+                background-color: black;
+                alternate-background-color: black;
+                color:white;
+            }
+        """)
 
         layout.addWidget(QLabel("DU:"))
         layout.addWidget(self.du_edit)
