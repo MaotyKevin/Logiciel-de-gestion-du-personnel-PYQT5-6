@@ -49,11 +49,13 @@ class InscriptionPersonnelForm(QWidget):
 
     def remplir_liste_equipe(self):
         equipe_data = self.db_model.recuperer_donnees_equipe()
+        self.stepOne.equipe_combo.clear()
         self.stepOne.equipe_combo.addItems(equipe_data)
         self.stepOne.equipe_combo.setStyleSheet("QComboBox { padding: 5px; border:1px solid #CCCCCC; border-radius: 5px;background-color:#102429;color:white; } QComboBox::down-arrow {background-color: #7ed957;}")
 
     def remplir_liste_sous_categorie(self):
         sous_categorie_data = self.db_model.recuperer_donnees_sous_categorie()
+        self.stepOne.sous_categorie_combo.clear()
         self.stepOne.sous_categorie_combo.addItems(sous_categorie_data)
         self.stepOne.sous_categorie_combo.setStyleSheet("QComboBox { padding: 5px; border:1px solid #CCCCCC; border-radius: 5px;background-color:#102429;color:white; } QComboBox::down-arrow {background-color: #7ed957;}")
 
