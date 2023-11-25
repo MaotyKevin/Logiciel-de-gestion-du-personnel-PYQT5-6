@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import QComboBox,QHBoxLayout,QWidget, QVBoxLayout, QLabel, 
 from view.card_view import Card
 from controller.personnel_card_controller import PersonnelController
 from PyQt5 import QtCore
-from PyQt5.QtCore import QRect
+from PyQt5.QtCore import QRect , Qt
 
 class Personnal_Card(QWidget):
     def __init__(self, db_path , main_window):
@@ -20,6 +20,7 @@ class Personnal_Card(QWidget):
         self.initUI()
         
     def initUI(self):
+        self.cardCount = 0
         # Créez un layout pour les cartes avec QGridLayout
         self.page2_layout = QGridLayout()
         self.page2_layout.setAlignment(QtCore.Qt.AlignTop)  # Alignez les widgets en haut
@@ -70,10 +71,13 @@ class Personnal_Card(QWidget):
         # Créez un widget conteneur pour le layout
         container = QWidget()
         container.setLayout(self.page2_layout)
-        container.setStyleSheet("background-color: white")
+        container.setStyleSheet("background-color: white;")
         
         # Définissez le widget conteneur comme widget pour la zone défilante
         scroll_area.setWidget(container)
+
+        self.employee_count_label = QLabel()
+        self.employee_count_label.setStyleSheet("font-size: 14px; color: #333333;")
 
         # Create a combo box for team selection
         combo_container = QHBoxLayout()
@@ -81,7 +85,7 @@ class Personnal_Card(QWidget):
         self.search_field = QLineEdit()  # Champ de recherche
         self.search_field.textChanged.connect(self.perform_search)
         self.search_field.setPlaceholderText("Rechercher par Badge ou Nom...")
-        self.search_field.setStyleSheet("Background-color: #FFFFFF;border: 1px solid #CCCCCC; border-radius: 5px; padding: 5px;font-size: 14px;color: #333333;")
+        self.search_field.setStyleSheet("Background-color: #FFFFFF;border: 1px solid #CCCCCC; border-radius: 5px; padding: 5px;font-size: 14px;color: #333333;width : 250px;")
 
 
         self.team_filter = QComboBox()
@@ -90,8 +94,12 @@ class Personnal_Card(QWidget):
         self.SC_filter = QComboBox()
         self.SC_filter.addItem("All SC")
 
+        combo_container.addWidget(self.employee_count_label)
+        combo_container.addStretch(1)
         combo_container.addWidget(self.team_filter)
+        combo_container.addSpacing(10)
         combo_container.addWidget(self.SC_filter)
+        combo_container.addSpacing(10)
         combo_container.addWidget(self.search_field)
         
         self.team_filter.setStyleSheet("QComboBox { padding: 5px; border:1px solid #CCCCCC; border-radius: 5px; background-color:#102429;color:white;}     QComboBox::down-arrow {background-color: #7ed957;}")
@@ -107,14 +115,23 @@ class Personnal_Card(QWidget):
         self.SC_filter.currentIndexChanged.connect(self.filter_personnel_SC)
 
         #combo_container.setStretch(1000 , 1000)
-        combo_container.setSpacing(20)
+        #combo_container.setSpacing(20)
         #combo_container.addStretch(900)
-        combo_container.setContentsMargins(550 , 0 , 0 , 0)
+        #combo_container.setContentsMargins(550 , 0 , 0 , 0)
         #combo_container.setGeometry(QRect(1000 , 100 , 100 , 100))
         main_layout = QVBoxLayout()
         main_layout.addLayout(combo_container)
         main_layout.addWidget(scroll_area)
         self.setLayout(main_layout)
+
+        self.update_employee_count(self.cardCount)
+
+    def update_employee_count(self , card_count):
+        # Count the number of cards currently displayed
+        employee_count = card_count
+
+        # Update the count label text
+        self.employee_count_label.setText(f"Total : {employee_count}")
 
     def perform_search(self):
         #self.show_personnal_card_form()
@@ -178,6 +195,7 @@ class Personnal_Card(QWidget):
         else: 
                 data = self.controller.get_personnel_data()
     
+        self.cardCount = 0
         #data = self.controller.get_personnel_data or personnel_data
         if data is not None:
             for row_idx, row in enumerate(data):
@@ -187,6 +205,10 @@ class Personnal_Card(QWidget):
                 self.page2_layout.addWidget(card_container, row_idx // 3, row_idx % 3)
 
                 card_container.setStyleSheet(" border-radius: 2px; padding: 5px ; margin :5px ;")
+
+                self.cardCount = self.cardCount + 1
+
+            self.update_employee_count(self.cardCount)
 
                 # Actualisez l'affichage
             self.update()

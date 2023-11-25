@@ -211,6 +211,18 @@ class Admin_crud_model:
         result = self.cursor.execute(query, (password,)).fetchone()
         self.connection.commit()
         return result[0] > 0
+    
+#______________________________________________________________________________
+
+    def has_assigned_employees_Team(self, id_equipe):
+        # Check if there are employees assigned to the team with the given team_id
+        
+        query = "SELECT COUNT(*) FROM Personnel WHERE id_equipe = ?"
+        self.cursor.execute(query, (id_equipe,))
+        result = self.cursor.fetchone()[0]
+
+        # If there are assigned employees, return True; otherwise, return False
+        return result > 0
 
 # Example usage:
 if __name__ == "__main__":

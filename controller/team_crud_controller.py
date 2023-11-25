@@ -75,3 +75,6 @@ class AdminCrudController:
     
     def verifyAdminPassword(self , adminPassword):
         return self.model.AdminPasswordVerify(adminPassword)
+    
+    def verifyEmployeeTeam(self , id_equipe):
+        return self.model.has_assigned_employees_Team(id_equipe)

@@ -62,6 +62,11 @@ class TeamCard(QWidget):
 
     def confirm_delete(self):
         idTeamStr = str(self.id_equipe)
+
+        if self.controller.verifyEmployeeTeam(idTeamStr):
+            QMessageBox.warning(self, "Warning", "Cannot delete team with assigned employees. Delete employees first.")
+            return
+
         # Affichez une boîte de dialogue de confirmation
         confirmation = QMessageBox.question(self, "Confirmation", "Êtes-vous sûr de vouloir supprimer cette equipe ?",
                                              QMessageBox.Yes | QMessageBox.No)

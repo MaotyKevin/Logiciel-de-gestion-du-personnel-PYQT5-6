@@ -175,7 +175,7 @@ class MainWindow(QMainWindow):
     def __init__(self , db_path ):
         super().__init__()
         
-        self.setWindowTitle("RH MANAGEMENT - Kevin Copyright")
+        self.setWindowTitle("Gestion de personnel - FANAHISOA & Maoty Copyright")
         self.db_path = db_path
         self.last_displayed_page = None
         self.logged_username = None
