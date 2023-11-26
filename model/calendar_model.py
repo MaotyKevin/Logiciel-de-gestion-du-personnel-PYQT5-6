@@ -10,7 +10,7 @@ class Employee_VEOMSI_Model:
 
         # Joining Employee and Visit tables using the foreign key
         query = f"""
-            SELECT P.Badge, P.Nom , P.Prenom , P.CIN , A.Fonction , A.Categorie
+            SELECT P.Badge, P.Nom , P.Prenom , P.CIN , v.DU , A.Fonction , A.Categorie 
             FROM Personnel P
             LEFT JOIN Affectation A ON P.id_affectation = A.id_affectation
             LEFT JOIN Visite v ON P.id_visite = v.id_visite

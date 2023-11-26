@@ -1,5 +1,5 @@
 import sys , os
-from PyQt5.QtWidgets import QApplication,QStackedWidget, QDialog, QVBoxLayout, QWidget, QLabel, QLineEdit, QPushButton, QComboBox, QFileDialog,QScrollArea , QDateEdit , QMessageBox , QSizePolicy , QHBoxLayout , QTableWidget , QTableWidgetItem , QSpacerItem
+from PyQt5.QtWidgets import QApplication,QStackedWidget, QDialog, QVBoxLayout, QWidget, QLabel, QLineEdit, QPushButton, QComboBox, QFileDialog,QScrollArea , QDateEdit , QMessageBox , QSizePolicy , QHBoxLayout , QTableWidget , QTableWidgetItem , QSpacerItem , QHeaderView
 from PyQt5.QtGui import QImage, QPixmap, QFont, QPainter 
 from PyQt5.QtCore import Qt , QDate, pyqtSignal , QRect , QSize 
 from reportlab.lib.pagesizes import letter
@@ -115,6 +115,20 @@ class EmployeeDetailsTabOne(QWidget):
             headers = ["Date", "Chaussure", "Haut", "Casque", "Lunette"]
             self.tableWidget.setHorizontalHeaderLabels(headers)
 
+            header_style = """
+                QHeaderView::section {
+                    background-color: #102429;
+                    color: white;
+                    padding: 4px;
+                    border: 1px solid #7ed957;
+                    border-radius: 0px;
+                    font-weight:bold;
+                }
+            """
+            self.tableWidget.horizontalHeader().setStyleSheet(header_style)
+
+            self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+
             # Fill the table with data
             data = [DateEquipement, Chaussure, Haut, Casque, Lunette]
             for col, value in enumerate(data):
@@ -196,6 +210,7 @@ class EmployeeDetailsTabOne(QWidget):
             vertical2.addWidget(self.prenomLabel)
             vertical2.addWidget(self.DateNaissanceLabel)
             vertical2.addWidget(self.CINLabel)
+            vertical2.addSpacing(15)
             vertical2.addWidget(self.AdresseLabel)
             vertical2.addWidget(self.ContactLabel)
 
@@ -207,6 +222,7 @@ class EmployeeDetailsTabOne(QWidget):
             horizontal1 = QHBoxLayout()
             horizontal1.addLayout(vertical2)
             horizontal1.addItem(QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum))
+            horizontal1.addSpacing(15)
             horizontal1.addLayout(vertical3)
             horizontal1.addStretch(0)
             horizontal1.addSpacing(30)
@@ -223,6 +239,7 @@ class EmployeeDetailsTabOne(QWidget):
             mainLayout.addLayout(horizontal)
             mainLayout.addLayout(horizontal1)
             mainLayout.addLayout(vertical4)
+            mainLayout.addSpacing(15)
             mainLayout.addWidget(self.tableWidget)
             mainLayout.setSpacing(10)
             mainLayout.addStretch(0)

@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QCalendarWidget, QTableWidget, QTableWidgetItem
+from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QCalendarWidget, QTableWidget, QTableWidgetItem , QScrollArea , QSizePolicy , QHeaderView
 from PyQt5.QtCore import Qt, QDate
 import sqlite3
 
@@ -38,11 +38,72 @@ class Employee_VEOMSI_View(QWidget):
             }
         """)
 
+        scroll_area = QScrollArea(self)
+        layout.addWidget(scroll_area)
+
+        scroll_area.setStyleSheet(
+            """
+            QScrollArea {
+                border: 1px solid #CCCCCC;
+            }
+            
+            QScrollBar:vertical {
+                border: 1px solid white;
+                background: #102429;
+                width: 12px;
+                margin: 0px;
+            }
+            
+            QScrollBar:horizontal {
+                border: 1px solid white;
+                background: #102429;
+                height: 12px;
+                margin: 0px;
+            }
+            
+            QScrollBar::handle:vertical {
+                background: #102429;
+                min-height: 20px;
+                border-radius: 6px;
+            }
+            
+            QScrollBar::handle:horizontal {
+                background: #102429;
+                min-width: 20px;
+                border-radius: 6px;
+            }
+            
+            QScrollBar::add-line, QScrollBar::sub-line {
+                background: none;
+            }
+            """
+        )
+
         # Employee list table
         self.employee_table = QTableWidget(self)
-        self.employee_table.setColumnCount(6)
-        self.employee_table.setHorizontalHeaderLabels(['Badge', 'Nom' , 'Prenoms' , 'CIN' , 'Fonction' , 'Categorie'])
-        layout.addWidget(self.employee_table)
+        self.employee_table.setColumnCount(7)
+        self.employee_table.setHorizontalHeaderLabels(['Badge', 'Nom' , 'Prenoms' , 'CIN' , 'DU', 'Fonction' , 'Categorie'])
+
+        header_style = """
+            QHeaderView::section {
+                background-color: #102429;
+                color: white;
+                padding: 4px;
+                border: 1px solid #7ed957;
+                border-radius: 0px;
+                font-weight:bold;
+            }
+        """
+        self.employee_table.horizontalHeader().setStyleSheet(header_style)
+
+        scroll_area.setWidget(self.employee_table)
+        scroll_area.setWidgetResizable(True)
+
+        scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)  # Disable horizontal scrollbar
+        scroll_area.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+
+        self.employee_table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+
 
         # Connect signals to slots
         self.calendar.clicked.connect(self.update_employee_list)
