@@ -94,7 +94,7 @@ class EmployeeDetailsForm(QWidget):
         container = QWidget()
         container_layout = QVBoxLayout()
 
-        export_pdf_button = QPushButton("Export PDF")
+        export_pdf_button = QPushButton("Exporter en PDF")
         export_pdf_button.setCursor(Qt.PointingHandCursor)
         export_pdf_button.setStyleSheet("background-color: #7ed957; color: #102429; padding: 10px 20px; border: none; border-radius: 5px; font-weight:bold;")
         export_pdf_button.clicked.connect(self.export_pdf)
@@ -130,7 +130,7 @@ class EmployeeDetailsForm(QWidget):
         employee_data = self.controller.get_employee_details(self.badge)
         tab_one_content = EmployeeDetailsTabOneContent(employee_data)
 
-        file_path, _ = QFileDialog.getSaveFileName(self, "Save PDF", f"{self.badge}.pdf", "PDF files (*.pdf)")
+        file_path, _ = QFileDialog.getSaveFileName(self, "Sauvegarder", f"{self.badge}.pdf", "PDF files (*.pdf)")
 
         if file_path:
             
@@ -142,7 +142,7 @@ class EmployeeDetailsForm(QWidget):
                 pdf.save()
                 pdf
 
-            QMessageBox.information(self, "Export Successful", "PDF exported successfully!")
+            QMessageBox.information(self, "Exportation reussie", "PDF imprimee avec succes!")
 
             self.show_pdf(file_path)
 

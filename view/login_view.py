@@ -103,8 +103,8 @@ class LoginWindow(QWidget):
 
     def show_error_dialog(self):
         error_dialog = QMessageBox()
-        error_dialog.setWindowTitle("Login Error")
-        error_dialog.setText("Invalid username or password. Please try again.")
+        error_dialog.setWindowTitle("Erreur de connexion")
+        error_dialog.setText("Pseudo ou mot de passe invalide , reessayez.")
         error_dialog.setIcon(QMessageBox.Warning)
         error_dialog.exec_()
 

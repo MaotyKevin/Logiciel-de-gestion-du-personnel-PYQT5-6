@@ -77,7 +77,7 @@ class Card(QWidget):
     def confirm_delete(self):
         badge_str = str(self.badge)
         # Affichez une boîte de dialogue de confirmation
-        confirmation = QMessageBox.question(self, "Confirmation", "Êtes-vous sûr de vouloir supprimer cette carte ?",
+        confirmation = QMessageBox.question(self, "Confirmation", "Êtes-vous sûr de vouloir supprimer cet employee ?",
                                              QMessageBox.Yes | QMessageBox.No)
         if confirmation == QMessageBox.Yes:
             self.controller.delete_data(badge_str)

@@ -77,7 +77,7 @@ class Personnal_Card(QWidget):
         scroll_area.setWidget(container)
 
         self.employee_count_label = QLabel()
-        self.employee_count_label.setStyleSheet("font-size: 14px; color: #333333;")
+        self.employee_count_label.setStyleSheet("font-size: 14px; color: #333333;font-weight:bold;")
 
         # Create a combo box for team selection
         combo_container = QHBoxLayout()

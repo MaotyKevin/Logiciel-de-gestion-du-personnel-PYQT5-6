@@ -114,7 +114,7 @@ class CustomNavigationBar(QWidget):
 
         self.navigation_layout.addSpacing(10)
 
-        self.message_button = QPushButton("  CHAT")
+        self.message_button = QPushButton("  Message")
         self.message_button.setIcon(QIcon("assets\pic\chat.svg"))
         self.message_button.setToolTip("Envoyer un message a un utilisateur")
         self.message_button.setCursor(Qt.PointingHandCursor)
@@ -124,7 +124,7 @@ class CustomNavigationBar(QWidget):
 
         self.navigation_layout.addStretch(1)
 
-        self.logoutButton = QPushButton(F"  Logout")
+        self.logoutButton = QPushButton(F"  Deconnexion")
         self.logoutButton.setToolTip("Se deconnecter du compte")
         self.logoutButton.setCursor(Qt.PointingHandCursor)
         self.logoutButton.setIcon(QIcon("assets\pic\logout.png"))
