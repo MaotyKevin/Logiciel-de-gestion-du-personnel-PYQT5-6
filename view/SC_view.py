@@ -18,7 +18,7 @@ class SC_crud(QWidget):
 
 
         self.add_SC_button = QPushButton("Nouveau sous-categorie")
-        self.add_SC_button.setStyleSheet("background-color: #007BFF; color: white; padding: 10px 20px; border: none; border-radius: 5px;")
+        self.add_SC_button.setStyleSheet("background-color: #102429; color: white; padding: 10px 20px; border: none; border-radius: 5px;")
         self.add_SC_button.clicked.connect(self.show_add_SC_dialog)
         
 

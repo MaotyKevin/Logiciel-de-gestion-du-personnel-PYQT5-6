@@ -41,13 +41,13 @@ class AdminAccountCard(QWidget):
 
         self.save_button = QPushButton("Enregistrer")
         self.save_button.setObjectName("save-button")
-        self.save_button.setStyleSheet("#save-button { background-color: green; color: white; }")
+        self.save_button.setStyleSheet("#save-button { background-color: white; color: #102429; border: 1px solid #102429 }")
         self.save_button.clicked.connect(self.save_changes)
         self.save_button.hide()  # Initially hide the "Save" button
 
         self.cancel_button = QPushButton("Annuler")
         self.cancel_button.setObjectName("cancel-button")
-        self.cancel_button.setStyleSheet("#cancel-button { background-color: #007BFF; color: white; }")
+        self.cancel_button.setStyleSheet("#cancel-button { background-color: #7ed957; color: #102429; }")
         self.cancel_button.clicked.connect(self.cancel_changes)
         self.cancel_button.hide()  # Initially hide the "Cancel" button
 
