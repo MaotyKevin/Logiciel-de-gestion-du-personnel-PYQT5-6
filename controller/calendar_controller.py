@@ -12,6 +12,9 @@ class Employee_VEOMSI_Controller:
 
     def get_employees_for_date(self , formatted_date):
         return self.model.get_employees_for_date(formatted_date)
+    
+    def get_all_VE_OMSI_visits(self):
+        return self.model.get_all_VE_OMSI_visits()
        
 
 

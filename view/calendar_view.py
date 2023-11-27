@@ -1,6 +1,7 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QCalendarWidget, QTableWidget, QTableWidgetItem , QScrollArea , QSizePolicy , QHeaderView
-from PyQt5.QtCore import Qt, QDate
+from PyQt5.QtCore import Qt, QDate 
+from PyQt5.QtGui import QTextCharFormat , QColor
 import sqlite3
 
 import sys , os
@@ -117,6 +118,7 @@ class Employee_VEOMSI_View(QWidget):
         employees = self.controller.get_employees_for_date(formatted_date)
 
         self.populate_employee_table(employees)
+        self.highlight_dates_with_data()
 
     def populate_employee_table(self, employees):
         self.employee_table.setRowCount(0)  # Clear existing rows
@@ -127,6 +129,19 @@ class Employee_VEOMSI_View(QWidget):
                 item = QTableWidgetItem(str(value))
                 item.setFlags(Qt.ItemIsEnabled)  # Make cells read-only
                 self.employee_table.setItem(row, col, item)
+
+    def highlight_dates_with_data(self):
+        highlighted_format = QTextCharFormat()
+        highlighted_format.setBackground(QColor("#7ed957"))  # Green background color
+        
+
+        all_visits = self.controller.get_all_VE_OMSI_visits()
+
+        for visit_date in all_visits:
+            date = QDate.fromString(visit_date, "ddd MMM dd yyyy")  # Adjust the date format
+
+            if not date.isNull():
+                self.calendar.setDateTextFormat(date, highlighted_format)
 
 
 
