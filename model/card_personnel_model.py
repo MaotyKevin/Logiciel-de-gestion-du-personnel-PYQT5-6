@@ -79,9 +79,10 @@ class PersonnelCardModel:
 
 
             query = f'''
-                    SELECT P.Badge, P.Nom, COALESCE(A.Categorie, 'Aucun') AS Categorie, COALESCE(A.Fonction, 'Aucun') AS Fonction, COALESCE(S.sousCategorie, 'Aucun') AS sousCategorie
+                    SELECT P.Badge, P.Nom, COALESCE(C.nom_categorie, 'Aucun') AS nom_categorie , COALESCE(A.Fonction, 'Aucun') AS Fonction, COALESCE(S.sousCategorie, 'Aucun') AS sousCategorie
                     FROM Personnel P
                     LEFT JOIN Affectation A ON P.id_affectation = A.id_affectation
+                    LEFT JOIN Categorie C ON A.id_categorie = C.id_categorie
                     LEFT JOIN SousCategorie S ON A.id_sousCategorie = S.id_sousCategorie
                     LEFT JOIN Equipe E ON P.id_equipe = E.id_equipe
                     WHERE E.nom_equipe = '{team_name}'  -- Filter by the selected team
@@ -105,12 +106,13 @@ class PersonnelCardModel:
             cursor = self.conn.cursor()
             query = """SELECT 
             P.Badge, P.Nom, 
-            COALESCE(A.Categorie, 'Aucun') AS Categorie,
+            COALESCE(C.nom_categorie, 'Aucun') AS nom_categorie,
             COALESCE(A.Fonction, 'Aucun') AS Fonction,
             COALESCE(S.sousCategorie, 'Aucun') AS sousCategorie 
 
             FROM Personnel P 
             LEFT JOIN Affectation A ON P.id_affectation = A.id_affectation 
+            LEFT JOIN Categorie C ON A.id_categorie = C.id_categorie
             LEFT JOIN SousCategorie S ON A.id_sousCategorie = S.id_sousCategorie"""
             
             cursor.execute(query)
@@ -150,9 +152,10 @@ class PersonnelCardModel:
 
 
             query = f'''
-                    SELECT P.Badge, P.Nom, COALESCE(A.Categorie, 'Aucun') AS Categorie, COALESCE(A.Fonction, 'Aucun') AS Fonction, COALESCE(S.sousCategorie, 'Aucun') AS sousCategorie
+                    SELECT P.Badge, P.Nom, COALESCE(C.nom_categorie, 'Aucun') AS nom_categorie, COALESCE(A.Fonction, 'Aucun') AS Fonction, COALESCE(S.sousCategorie, 'Aucun') AS sousCategorie
                     FROM Personnel P
                     LEFT JOIN Affectation A ON P.id_affectation = A.id_affectation
+                    LEFT JOIN Categorie C ON A.id_categorie = C.id_categorie
                     LEFT JOIN SousCategorie S ON A.id_sousCategorie = S.id_sousCategorie
                     WHERE S.sousCategorie = '{sousCategorie}'  -- Filter by the selected SC
                     ORDER BY S.sousCategorie

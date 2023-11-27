@@ -26,8 +26,13 @@ class InscriptionPersonnelForm(QWidget):
         self.controller = controller
        
         self.remplir_liste_equipe()
+        self.remplir_liste_categorie()
         self.remplir_liste_sous_categorie()
-            
+
+    def obtenir_id_categorie(self):
+        selected_categorie = self.stepOne.categorie_combo.currentText()
+        id_categorie = self.db_model.recuperer_id_categorie(selected_categorie)
+        return id_categorie
 
     def obtenir_id_equipe(self):
         selected_equipe = self.stepOne.equipe_combo.currentText()
@@ -45,6 +50,12 @@ class InscriptionPersonnelForm(QWidget):
         id_sous_categorie = self.db_model.recuperer_id_sous_categorie(selected_sous_categorie)
 
         return id_sous_categorie
+    
+    def remplir_liste_categorie(self):
+        categorie_data = self.db_model.recuperer_donnees_categorie()
+        self.stepOne.categorie_combo.clear()
+        self.stepOne.categorie_combo.addItems(categorie_data)
+        self.stepOne.categorie_combo.setStyleSheet("QComboBox { padding: 5px; border:1px solid #CCCCCC; border-radius: 5px;background-color:#102429;color:white; } QComboBox::down-arrow {background-color: #7ed957;}")
     
 
     def remplir_liste_equipe(self):
@@ -204,7 +215,6 @@ class InscriptionPersonnelForm(QWidget):
         
         fonction = self.stepThree.fonction_edit.text()
         deuxieme_fonction = self.stepThree.deuxieme_fonction_edit.text()
-        categorie = self.stepThree.categorie_edit.text()
         date_debut = self.stepThree.date_debut_edit.date().toString()
         date_fin = self.stepThree.date_fin_edit.date().toString()
         cause_depart = self.stepThree.cause_depart_edit.text()
@@ -215,10 +225,12 @@ class InscriptionPersonnelForm(QWidget):
         lunette = self.stepThree.lunette_edit.text()
         chaussure = self.stepThree.chaussure_edit.text()
 
-        sous_categorie_id = self.obtenir_id_sous_categorie()
         equipe_id = self.obtenir_id_equipe()
+        categorie_id = self.obtenir_id_categorie()
+        sous_categorie_id = self.obtenir_id_sous_categorie()
+        
 
-        affectation_id = self.db_model.inserer_affectation(fonction , deuxieme_fonction , categorie , date_debut , date_fin , cause_depart , sous_categorie_id)
+        affectation_id = self.db_model.inserer_affectation(fonction , deuxieme_fonction , date_debut , date_fin , cause_depart , categorie_id,sous_categorie_id)
 
             
 

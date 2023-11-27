@@ -10,16 +10,17 @@ class Employee_VEOMSI_Model:
 
         # Joining Employee and Visit tables using the foreign key
         query = f"""
-            SELECT P.Badge, P.Nom , P.Prenom , P.CIN , v.DU , A.Fonction , A.Categorie 
+            SELECT P.Badge, P.Nom , P.Prenom , P.CIN , v.DU , A.Fonction , C.nom_categorie 
             FROM Personnel P
             LEFT JOIN Affectation A ON P.id_affectation = A.id_affectation
+            LEFT JOIN Categorie C ON A.id_categorie = C.id_categorie
             LEFT JOIN Visite v ON P.id_visite = v.id_visite
             WHERE v.VE_OMSI = '{selected_date}'
         """
         cursor.execute(query)
 
         employees = cursor.fetchall()
-
+        
 
         return employees
     
@@ -28,7 +29,7 @@ if __name__ == '__main__':
     model = Employee_VEOMSI_Model("data\my_database.sqlite")
 
 
-    date = "sam. nov. 25 2023"
+    date = "lun. nov. 20 2023"
     result = model.get_employees_for_date(date)
     for results in result:
         print(results)

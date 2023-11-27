@@ -24,6 +24,8 @@ class CustomHeader(QWidget):
         super().__init__()
         self.setFixedHeight(80)
 
+        self.activeName = ""
+
         self.toggle_button = QPushButton("FANAHISOA ENTREPRISE")
         self.toggle_button.setToolTip("Afficher/reduire la barre de navigation")
         self.toggle_button.setCursor(Qt.PointingHandCursor)

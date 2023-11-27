@@ -10,6 +10,18 @@ class Databases:
         self.connection = sqlite3.connect(self.db_path)
         self.cursor = self.connection.cursor()
 
+    def recuperer_id_categorie(self,categorie):
+        try:
+            self.cursor.execute("SELECT id_categorie FROM Categorie WHERE nom_categorie = ?" , (categorie,))
+            row = self.cursor.fetchone()
+            if row :
+                return row[0]
+            else :
+                return None
+        except sqlite3.Error as e:
+            print(f"Erreur lors de la récupération de l'ID de la categorie : {str(e)}")
+            return None
+
     def recuperer_id_equipe(self,equipe):
         try:
             self.cursor.execute("SELECT id_equipe FROM Equipe WHERE nom_equipe = ?" , (equipe,))
@@ -35,6 +47,15 @@ class Databases:
             print(f"Erreur lors de la récupération de l'ID de sous-catégorie : {str(e)}")
             return None
         
+    def recuperer_donnees_categorie(self):
+        try:
+            
+            self.cursor.execute("SELECT nom_categorie FROM Categorie")
+            categorie_data = [row[0] for row in self.cursor.fetchall()]
+            return categorie_data
+        except sqlite3.Error as e:
+            print(f"Erreur lors de la récupération des données de categorie : {str(e)}")
+            return []    
 
 
     def recuperer_donnees_equipe(self):
@@ -68,13 +89,13 @@ class Databases:
         self.connection.commit()
         return self.cursor.lastrowid
 
-    def inserer_affectation(self, fonction, deuxieme_fonction, categorie, date_debut, date_fin, cause_depart, id_sous_categorie):
+    def inserer_affectation(self, fonction, deuxieme_fonction, date_debut, date_fin, cause_depart,id_categorie, id_sous_categorie):
         # Insérer les données dans la table "Affectation" et récupérer l'ID inséré
         insert_query = """
-            INSERT INTO Affectation (Fonction, DeuxiemeFonction, Categorie, DateDebut, DateFin, CauseDepart, id_sousCategorie)
+            INSERT INTO Affectation (Fonction, DeuxiemeFonction, DateDebut, DateFin, CauseDepart,id_categorie, id_sousCategorie)
             VALUES (?, ?, ?, ?, ?, ?, ?)
         """
-        self.cursor.execute(insert_query, (fonction, deuxieme_fonction, categorie, date_debut, date_fin, cause_depart, id_sous_categorie))
+        self.cursor.execute(insert_query, (fonction, deuxieme_fonction, date_debut, date_fin, cause_depart,id_categorie, id_sous_categorie))
         self.connection.commit()
         return self.cursor.lastrowid
 

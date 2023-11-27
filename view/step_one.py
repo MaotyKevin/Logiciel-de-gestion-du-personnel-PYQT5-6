@@ -101,7 +101,7 @@ class StepOne(QScrollArea):
             }
 
         """)
-        #self.date_cin_edit.setDisplayFormat("dd/MM/yyyy")
+        self.date_cin_edit.setDisplayFormat("dd/MM/yyyy")
         self.date_cin_edit.setCalendarPopup(True)
       
 
@@ -145,7 +145,7 @@ class StepOne(QScrollArea):
                 color:white;
             }
         """)
-        #self.date_naissance_edit.setDisplayFormat("dd/MM/yyyy")
+        self.date_naissance_edit.setDisplayFormat("dd/MM/yyyy")
         self.date_naissance_edit.setCalendarPopup(True)
         
 
@@ -179,6 +179,16 @@ class StepOne(QScrollArea):
         self.equipeLayout.addWidget(self.equipeLabel)
         self.equipeLayout.addWidget(self.equipe_combo)
         self.equipe_combo.setStyleSheet("QComboBox { padding: 5px; border:1px solid #CCCCCC; border-radius: 5px;background-color:#102429;color:white; } QComboBox::down-arrow {background-color: #7ed957;}")
+
+        self.CategorieLayout = QVBoxLayout()
+        self.categorie_combo = QComboBox()
+
+        self.categorieLabel = QLabel("Categorie")
+        self.categorieLabel.setStyleSheet("color:black;font-weight:bold;")
+        self.CategorieLayout.addWidget(self.categorieLabel)
+        self.CategorieLayout.addWidget(self.categorie_combo)
+        self.categorie_combo.setStyleSheet("QComboBox { padding: 5px; border:1px solid #CCCCCC; border-radius: 5px;background-color:#102429;color:white; } QComboBox::down-arrow {background-color: #7ed957;}")
+
 
         self.SCategLayout = QVBoxLayout()
         self.sous_categorie_combo = QComboBox()
@@ -230,7 +240,7 @@ class StepOne(QScrollArea):
 
         Equipe_souscategorie_layout = QHBoxLayout()
         Equipe_souscategorie_layout.addLayout(self.equipeLayout)
-        #Equipe_souscategorie_layout.addWidget(self.equipe_combo)
+        Equipe_souscategorie_layout.addLayout(self.CategorieLayout)
         Equipe_souscategorie_layout.addLayout(self.SCategLayout)
         Equipe_souscategorie_layout.addStretch(1)
         #Equipe_souscategorie_layout.addWidget(self.sous_categorie_combo)

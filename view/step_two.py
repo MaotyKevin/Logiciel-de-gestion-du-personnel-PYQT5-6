@@ -19,7 +19,7 @@ class StepTwo(QScrollArea):
         
         # Add the remaining input fields here
         self.du_edit = QDateEdit(QDate.currentDate())
-        #self.du_edit.setDisplayFormat("dd/MM/yyyy")
+        self.du_edit.setDisplayFormat("dd/MM/yyyy")
         self.du_edit.setCalendarPopup(True)
         self.du_edit.setStyleSheet("""
             QDateEdit {
@@ -40,7 +40,7 @@ class StepTwo(QScrollArea):
         """)
 
         self.date_visite_medicale_edit = QDateEdit(QDate.currentDate())
-        #self.date_visite_medicale_edit.setDisplayFormat("dd/MM/yyyy")
+        self.date_visite_medicale_edit.setDisplayFormat("dd/MM/yyyy")
         self.date_visite_medicale_edit.setCalendarPopup(True)
         self.date_visite_medicale_edit.setStyleSheet("""
             QDateEdit {
@@ -60,7 +60,7 @@ class StepTwo(QScrollArea):
         """)
 
         self.date_accueil_securite_edit = QDateEdit(QDate.currentDate())
-        #self.date_accueil_securite_edit.setDisplayFormat("dd/MM/yyyy")
+        self.date_accueil_securite_edit.setDisplayFormat("dd/MM/yyyy")
         self.date_accueil_securite_edit.setCalendarPopup(True)
         self.date_accueil_securite_edit.setStyleSheet("""
             QDateEdit {
@@ -80,7 +80,7 @@ class StepTwo(QScrollArea):
         """)
 
         self.msb_edit = QDateEdit(QDate.currentDate())
-        #self.msb_edit.setDisplayFormat("dd/MM/yyyy")
+        self.msb_edit.setDisplayFormat("dd/MM/yyyy")
         self.msb_edit.setCalendarPopup(True)
         self.msb_edit.setStyleSheet("""
             QDateEdit {
@@ -101,7 +101,7 @@ class StepTwo(QScrollArea):
         """)
 
         self.consignation_edit = QDateEdit(QDate.currentDate())
-        #self.consignation_edit.setDisplayFormat("dd/MM/yyyy")
+        self.consignation_edit.setDisplayFormat("dd/MM/yyyy")
         self.consignation_edit.setCalendarPopup(True)
         self.consignation_edit.setStyleSheet("""
             QDateEdit {
@@ -122,7 +122,7 @@ class StepTwo(QScrollArea):
         """)
 
         self.ms_edit = QDateEdit(QDate.currentDate())
-        #self.ms_edit.setDisplayFormat("dd/MM/yyyy")
+        self.ms_edit.setDisplayFormat("dd/MM/yyyy")
         self.ms_edit.setCalendarPopup(True)
         self.ms_edit.setStyleSheet("""
             QDateEdit {
@@ -143,7 +143,7 @@ class StepTwo(QScrollArea):
         """)
 
         self.ve_omsi_edit = QDateEdit(QDate.currentDate())
-        #self.ve_omsi_edit.setDisplayFormat("dd/MM/yyyy")
+        self.ve_omsi_edit.setDisplayFormat("dd/MM/yyyy")
         self.ve_omsi_edit.setCalendarPopup(True)
         self.ve_omsi_edit.setStyleSheet("""
             QDateEdit {

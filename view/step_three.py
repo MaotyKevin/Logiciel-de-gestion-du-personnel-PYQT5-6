@@ -39,19 +39,8 @@ class StepTree(QScrollArea):
             }
         """)
 
-        self.categorie_edit = QLineEdit()
-        self.categorie_edit.setPlaceholderText("Categorie")
-        self.categorie_edit.setStyleSheet("""
-            QLineEdit {
-                border: 1px solid #102429; /* Blue border */
-                border-radius: 10px; /* Rounded corners */
-                padding: 8px; /* Add padding */
-                background-color: #FFFFFF; /* White background */
-            }
-        """)
-
         self.date_debut_edit = QDateEdit(QDate.currentDate())
-        #self.date_debut_edit.setDisplayFormat("dd/MM/yyyy")
+        self.date_debut_edit.setDisplayFormat("dd/MM/yyyy")
         self.date_debut_edit.setCalendarPopup(True)
         self.date_debut_edit.setStyleSheet("""
             QDateEdit {
@@ -73,7 +62,7 @@ class StepTree(QScrollArea):
         """)
 
         self.date_fin_edit = QDateEdit(QDate.currentDate())
-        #self.date_fin_edit.setDisplayFormat("dd/MM/yyyy")
+        self.date_fin_edit.setDisplayFormat("dd/MM/yyyy")
         self.date_fin_edit.setCalendarPopup(True)
         self.date_fin_edit.setStyleSheet("""
             QDateEdit {
@@ -107,7 +96,7 @@ class StepTree(QScrollArea):
         """)
 
         self.date_equipement_edit = QDateEdit(QDate.currentDate())
-        #self.date_equipement_edit.setDisplayFormat("dd/MM/yyyy")
+        self.date_equipement_edit.setDisplayFormat("dd/MM/yyyy")
         self.date_equipement_edit.setCalendarPopup(True)
         self.date_equipement_edit.setStyleSheet("""
             QDateEdit {
@@ -184,8 +173,6 @@ class StepTree(QScrollArea):
         layout.addWidget(self.fonction_edit)
         layout.addWidget(QLabel("Deuxième fonction:"))
         layout.addWidget(self.deuxieme_fonction_edit)
-        layout.addWidget(QLabel("Catégorie:"))
-        layout.addWidget(self.categorie_edit)
         layout.addWidget(QLabel("Date début:"))
         layout.addWidget(self.date_debut_edit)
         layout.addWidget(QLabel("Date fin:"))
