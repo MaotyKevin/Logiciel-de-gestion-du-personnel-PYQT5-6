@@ -165,6 +165,7 @@ class StepTree(QScrollArea):
         
       
         self.enregistrer_button = QPushButton("Enregistrer")
+        self.enregistrer_button.setCursor(Qt.PointingHandCursor)
         self.enregistrer_button.setStyleSheet("background-color: #7ed957; color: #102429; padding: 10px 20px; border: none; border-radius: 5px; font-weight:bold;")
 
 

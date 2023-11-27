@@ -21,24 +21,28 @@ class TeamCard(QWidget):
         self.equipe_label.setStyleSheet("font-weight: semi-bold;")
 
         self.edit_button = QPushButton("Modifier")
+        self.edit_button.setCursor(Qt.PointingHandCursor)
         self.edit_button.setObjectName("edit-button")
         self.edit_button.setStyleSheet("#edit-button { background-color: #7ed957; color: #102429; }")
         self.edit_button.clicked.connect(self.toggle_editable)
 
 
         self.save_button = QPushButton("Enregistrer")
+        self.save_button.setCursor(Qt.PointingHandCursor)
         self.save_button.setObjectName("save-button")
         self.save_button.setStyleSheet("#save-button { background-color: white; color: #102429; border: 1px solid #102429 }")
         self.save_button.clicked.connect(self.save_changes)
         self.save_button.hide()  # Initially hide the "Save" button
 
         self.cancel_button = QPushButton("Annuler")
+        self.cancel_button.setCursor(Qt.PointingHandCursor)
         self.cancel_button.setObjectName("cancel-button")
         self.cancel_button.setStyleSheet("#cancel-button { background-color: #7ed957; color: #102429; }")
         self.cancel_button.clicked.connect(self.cancel_changes)
         self.cancel_button.hide()  # Initially hide the "Cancel" button
 
         self.delete_button = QPushButton("Supprimer")
+        self.delete_button.setCursor(Qt.PointingHandCursor)
         self.delete_button.setObjectName("delete-button")
         self.delete_button.setStyleSheet("#delete-button { background-color: #404040; color: white; }")
         self.delete_button.clicked.connect(self.confirm_delete)

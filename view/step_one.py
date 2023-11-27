@@ -45,6 +45,7 @@ class StepOne(QScrollArea):
         self.TitrePhotoLabel = QLabel("Photo")
         self.TitrePhotoLabel.setStyleSheet("color:black;font-weight:bold;")
         self.photo_button = QPushButton("Importer une photo")
+        self.photo_button.setCursor(Qt.PointingHandCursor)
         self.photo_button.setStyleSheet("background-color: #102429; color: white; padding: 10px 20px; border: none; border-radius: 5px; font-weight:bold;")
         self.photo_data = None
 
