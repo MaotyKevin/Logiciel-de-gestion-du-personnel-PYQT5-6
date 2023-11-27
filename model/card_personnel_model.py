@@ -22,15 +22,18 @@ class PersonnelCardModel:
         try:
             self.connect()
             cursor = self.conn.cursor()
-            
-            #var = f"\"{Badge}\""
-            #print(var)
-            # Print the cleaned Badge value for debugging
-            #print("Deleting card with ", cleaned_badge)
-            #print(type(cleaned_badge))
-            # Execute the DELETE query to remove the card from the database
-      
+
+            AffectationNettoyage = ("DELETE FROM Affectation WHERE id_affectation = (SELECT id_affectation FROM Personnel WHERE Badge = ?)")
+
+            VisiteNettoyage = ("DELETE FROM Visite WHERE id_visite = (SELECT id_visite FROM Personnel WHERE Badge = ?)")
+
+            EquipementNettoyage = ("DELETE FROM Equipement WHERE id_equipement = (SELECT id_equipement FROM Personnel WHERE Badge = ?)")
+
             query = ("DELETE FROM Personnel WHERE Badge = ? ")
+
+            cursor.execute(AffectationNettoyage , (Badge,))
+            cursor.execute(VisiteNettoyage , (Badge,))
+            cursor.execute(EquipementNettoyage , (Badge,))
             cursor.execute(query , (Badge,))
             self.conn.commit()
 

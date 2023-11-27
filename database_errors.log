@@ -4,3 +4,5 @@
 2023-09-29 21:29:45,322 - ERROR - Erreur lors de l'exécution de la requête SQL : Incorrect number of bindings supplied. The current statement uses 0, and there are 1 supplied.
 2023-09-29 21:29:50,090 - ERROR - Erreur lors de l'exécution de la requête SQL : Incorrect number of bindings supplied. The current statement uses 0, and there are 1 supplied.
 2023-09-29 21:34:46,813 - ERROR - Erreur lors de l'exécution de la requête SQL : Incorrect number of bindings supplied. The current statement uses 0, and there are 1 supplied.
+2023-11-27 15:09:53,868 - ERROR - Erreur lors de l'exécution de la requête SQL : no such column: badge_id
+2023-11-27 15:10:32,095 - ERROR - Erreur lors de l'exécution de la requête SQL : no such column: badge_id
