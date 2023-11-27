@@ -5,20 +5,20 @@ from PyQt5.QtGui import QImage, QPixmap, QFont, QPainter
 from PyQt5.QtCore import Qt
 from controller.team_crud_controller import AdminCrudController
 
-class SCCard(QWidget):
-    def __init__(self , id_sousCategorie, sousCategorie):
+class CategorieCard(QWidget):
+    def __init__(self , id_categorie, nom_categorie):
         super().__init__()
 
-        self.id_sousCategorie = id_sousCategorie
-        self.sousCategorie = sousCategorie
+        self.id_categorie = id_categorie
+        self.nom_categorie = nom_categorie
 
         self.container = QWidget()
         self.container.setObjectName("card-container")
         self.container.setStyleSheet("#card-container { border: 1px solid black; border-radius: 5px; margin: 10px; padding: 10px; }")
         self.controller = AdminCrudController(db_path='data/my_database.sqlite')
 
-        self.SC_label = QLineEdit(f"{self.sousCategorie}")
-        self.SC_label.setStyleSheet("font-weight: semi-bold;")
+        self.Categorie_label = QLineEdit(f"{self.nom_categorie}")
+        self.Categorie_label.setStyleSheet("font-weight: semi-bold;")
 
         self.edit_button = QPushButton("Modifier")
         self.edit_button.setCursor(Qt.PointingHandCursor)
@@ -56,7 +56,7 @@ class SCCard(QWidget):
         top_right_layout.addWidget(self.delete_button)
         
         card_layout = QVBoxLayout()
-        card_layout.addWidget(self.SC_label)
+        card_layout.addWidget(self.Categorie_label)
         card_layout.addLayout(top_right_layout)
         self.container.setLayout(card_layout)
 
@@ -65,35 +65,35 @@ class SCCard(QWidget):
         self.setLayout(layout)
 
     def confirm_delete(self):
-        idSCStr = str(self.id_sousCategorie)
+        idCategorieStr = str(self.id_categorie)
 
-        if self.controller.verifyEmployeeSC(idSCStr):
-            QMessageBox.warning(self, "Attention", "Impossible d'effacer la Sous-categorie car des employés y sont encore.")
+        if self.controller.verifyEmployeeCategorie(idCategorieStr):
+            QMessageBox.warning(self, "Attention", "Impossible d'effacer la categorie car des employés y sont encore.")
             return
 
         # Affichez une boîte de dialogue de confirmation
-        confirmation = QMessageBox.question(self, "Confirmation", "Êtes-vous sûr de vouloir supprimer cette sous-categorie ?",
+        confirmation = QMessageBox.question(self, "Confirmation", "Êtes-vous sûr de vouloir supprimer cette categorie ?",
                                              QMessageBox.Yes | QMessageBox.No)
         if confirmation == QMessageBox.Yes:
-            self.controller.deleteSC(idSCStr)
+            self.controller.deleteCategorie(idCategorieStr)
             self.deleteLater()
 
     def toggle_editable(self):
-        self.SC_label.setReadOnly(False)
+        self.Categorie_label.setReadOnly(False)
         self.edit_button.hide()
         self.save_button.show()
         self.cancel_button.show()
 
     def save_changes(self):
-        newSC = self.SC_label.text()
+        newC = self.Categorie_label.text()
 
-        if newSC != self.sousCategorie:
-            self.controller.updateSC(self.id_sousCategorie, newSC)
-            self.sousCategorie = newSC
+        if newC != self.nom_categorie:
+            self.controller.updateCategorie(self.id_categorie, newC)
+            self.nom_categorie = newC
 
 
         # Restore the original view
-        self.SC_label.setReadOnly(True)
+        self.Categorie_label.setReadOnly(True)
       
         self.edit_button.show()
         self.save_button.hide()
@@ -101,9 +101,9 @@ class SCCard(QWidget):
 
     def cancel_changes(self):
         # Restore the original data and view
-        self.SC_label.setText(self.sousCategorie)
+        self.Categorie_label.setText(self.nom_categorie)
        
-        self.SC_label.setReadOnly(True)
+        self.Categorie_label.setReadOnly(True)
    
         self.edit_button.show()
         self.save_button.hide()

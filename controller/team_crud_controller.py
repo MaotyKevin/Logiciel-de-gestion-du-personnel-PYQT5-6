@@ -13,11 +13,17 @@ class AdminCrudController:
     def getAdminData(self):
         return self.model.getAdminData()
     
+    def getCategorieData(self):
+        return self.model.getCategorieData()
+    
     def getSCData(self):
         return self.model.getSCData()
 
     def add_team(self, nom_equipe):
         self.model.addTeam(nom_equipe)
+
+    def addCategorie(self , nom_categorie):
+        self.model.addCategorie(nom_categorie)    
 
     def addSC(self , sousCategorie):
         self.model.addSC(sousCategorie)
@@ -25,12 +31,18 @@ class AdminCrudController:
     def delete_team(self, id_equipe):
         self.model.deleteTeam(id_equipe)
 
+    def deleteCategorie( self , id_categorie):
+        self.model.deleteCategorie(id_categorie)
+
     def deleteSC( self , id_sousCategorie):
         self.model.deleteSC(id_sousCategorie)
 
     def update_team(self, id_equipe, new_team_name):
         return self.model.updateTeam(id_equipe, new_team_name)
-    
+
+    def updateCategorie(self , id_categorie , nom_categorie):
+        return self.model.updateCategorie(id_categorie , nom_categorie)    
+
     def updateSC(self , id_sousCategorie , sousCategorie):
         return self.model.updateSC(id_sousCategorie , sousCategorie)
 
@@ -61,6 +73,9 @@ class AdminCrudController:
     def verifyTeam(self , nom_equipe):
         return self.model.teamVerify(nom_equipe)
     
+    def verifyCategorie(self , nom_categorie):
+        return self.model.categorieerify(nom_categorie)
+
     def verifySC(self , sousCategorie):
         return self.model.SCVerify(sousCategorie)
     
@@ -78,3 +93,9 @@ class AdminCrudController:
     
     def verifyEmployeeTeam(self , id_equipe):
         return self.model.has_assigned_employees_Team(id_equipe)
+    
+    def verifyEmployeeCategorie(self , id_categorie):
+        return self.model.has_assigned_employees_Categorie(id_categorie)
+    
+    def verifyEmployeeSC(self , id_sousCategorie):
+        return self.model.has_assigned_employees_SC(id_sousCategorie)

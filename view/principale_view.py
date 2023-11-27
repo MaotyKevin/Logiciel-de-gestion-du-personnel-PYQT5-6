@@ -335,6 +335,7 @@ class MainWindow(QMainWindow):
     def show_inscription_page(self):
         self.stacked_widget.setCurrentWidget(self.inscription_form)
         self.inscription_form.remplir_liste_equipe()
+        self.inscription_form.remplir_liste_categorie()
         self.inscription_form.remplir_liste_sous_categorie()
         self.inscription_form.updateButtonVisibility()
 

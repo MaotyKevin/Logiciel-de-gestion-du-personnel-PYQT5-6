@@ -176,6 +176,12 @@ class Admin_crud_model:
         
 #___________________________________________________
 
+    def categorieerify(self , nom_categorie):
+        query = "SELECT COUNT(*) FROM Categorie WHERE nom_categorie = ?"
+        result = self.cursor.execute(query, (nom_categorie,)).fetchone()
+        self.connection.commit()
+        return result[0] > 0
+
     def teamVerify(self , nom_equipe):
         query = "SELECT COUNT(*) FROM Equipe WHERE nom_equipe = ?"
         result = self.cursor.execute(query, (nom_equipe,)).fetchone()
@@ -214,11 +220,78 @@ class Admin_crud_model:
     
 #______________________________________________________________________________
 
+    def getCategorieData(self):
+        query = """
+            SELECT id_categorie , nom_categorie FROM Categorie
+        """
+
+        self.cursor.execute(query)
+        self.connection.commit()
+
+        CategorieData = self.cursor.fetchall()
+        return CategorieData
+
+    def addCategorie(self , categorie):
+        insert_query = """
+            INSERT INTO Categorie (nom_categorie) VALUES (?)
+        """
+        self.cursor.execute(insert_query , (categorie,))
+        self.connection.commit()
+
+    def deleteCategorie(self , id_categorie):
+        delete_query = """
+            DELETE FROM Categorie WHERE id_categorie = ?
+        """
+        self.cursor.execute(delete_query , (id_categorie,))
+        self.connection.commit()
+
+    def updateCategorie(self , id_categorie , nom_categorie):
+        try:
+            update_query = "UPDATE Categorie SET nom_categorie = ? WHERE id_categorie = ?"
+            self.cursor.execute(update_query, (nom_categorie, id_categorie))
+            self.connection.commit()
+            return True  # Return True to indicate success
+        except sqlite3.Error as e:
+            print(f"Error updating categorie: {e}")
+            return False
+
+#______________________________________________________________________________
+
     def has_assigned_employees_Team(self, id_equipe):
         # Check if there are employees assigned to the team with the given team_id
         
         query = "SELECT COUNT(*) FROM Personnel WHERE id_equipe = ?"
         self.cursor.execute(query, (id_equipe,))
+        result = self.cursor.fetchone()[0]
+
+        # If there are assigned employees, return True; otherwise, return False
+        return result > 0
+    
+    def has_assigned_employees_Categorie(self, id_categorie):
+        # Check if there are employees assigned to the team with the given team_id
+        
+        query = """
+        SELECT COUNT(*)
+        FROM Personnel e
+        JOIN Affectation a ON e.id_affectation = a.id_affectation
+        WHERE a.id_categorie = ?
+        """
+        self.cursor.execute(query, (id_categorie,))
+        result = self.cursor.fetchone()[0]
+
+        # If there are assigned employees, return True; otherwise, return False
+        return result > 0
+    
+    def has_assigned_employees_SC(self, id_sousCategorie):
+        # Check if there are employees assigned to the team with the given team_id
+        
+        query = """
+        SELECT COUNT(*)
+        FROM Personnel e
+        JOIN Affectation a ON e.id_affectation = a.id_affectation
+        WHERE a.id_sousCategorie = ?
+        """
+        self.cursor.execute(query, (id_sousCategorie,))
         result = self.cursor.fetchone()[0]
 
         # If there are assigned employees, return True; otherwise, return False
