@@ -42,3 +42,7 @@ class Employee_VEOMSI_Model:
 
         return employees
     
+if __name__ == '__main__':
+    model = Employee_VEOMSI_Model("data\my_database.sqlite")
+    all_visits = model.get_all_VE_OMSI_visits()
+    print(all_visits)

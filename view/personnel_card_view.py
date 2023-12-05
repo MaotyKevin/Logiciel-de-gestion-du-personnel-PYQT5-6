@@ -144,6 +144,12 @@ class Personnal_Card(QWidget):
         # Parcourez vos données existantes pour la recherche
         for row in self.donnee:
             badge, nom, categorie, fonction, sous_categorie = row
+
+            if isinstance(badge, int):
+                badge = str(badge)
+            if isinstance(nom, int):
+                nom = str(nom)
+
             if search_text in badge.lower() or search_text in nom.lower():
                 personnel_data.append(row)
         

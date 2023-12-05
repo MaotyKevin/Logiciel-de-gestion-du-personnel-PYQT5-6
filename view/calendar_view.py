@@ -1,4 +1,4 @@
-import sys
+
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QCalendarWidget, QTableWidget, QTableWidgetItem , QScrollArea , QSizePolicy , QHeaderView
 from PyQt5.QtCore import Qt, QDate 
 from PyQt5.QtGui import QTextCharFormat , QColor
@@ -109,11 +109,12 @@ class Employee_VEOMSI_View(QWidget):
         # Connect signals to slots
         self.calendar.clicked.connect(self.update_employee_list)
         self.update_employee_list()  # Initial update based on the current date
+        self.highlight_dates_with_data()
 
     def update_employee_list(self):
         selected_date = self.calendar.selectedDate()
 
-        formatted_date = selected_date.toString("ddd MMM dd yyyy")
+        formatted_date = selected_date.toString("dd-MM-yyyy")
         print(formatted_date)
         employees = self.controller.get_employees_for_date(formatted_date)
 
@@ -133,12 +134,16 @@ class Employee_VEOMSI_View(QWidget):
     def highlight_dates_with_data(self):
         highlighted_format = QTextCharFormat()
         highlighted_format.setBackground(QColor("#7ed957"))  # Green background color
-        
+
+        empty_format = QTextCharFormat()  # Format for dates without data
+        empty_format.setBackground(QColor("#102429"))
 
         all_visits = self.controller.get_all_VE_OMSI_visits()
 
+        self.calendar.setDateTextFormat(QDate(1900, 1, 1), empty_format)
+
         for visit_date in all_visits:
-            date = QDate.fromString(visit_date, "ddd MMM dd yyyy")  # Adjust the date format
+            date = QDate.fromString(visit_date, "dd-MM-yyyy")  # Adjust the date format
 
             if not date.isNull():
                 self.calendar.setDateTextFormat(date, highlighted_format)
