@@ -26,7 +26,7 @@ class DonutChartView(QWidget):
 
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update_chart)
-        self.timer.start(3000) 
+        self.timer.start(7000) 
 
     def init_ui(self):
         layout = QVBoxLayout(self)
@@ -42,7 +42,7 @@ class DonutChartView(QWidget):
             self.ax.clear()
 
         self.ax = self.figure.add_subplot(111)
-        self.ax.pie(sizes, labels=[f'{label}\n({size})' for label, size in zip(labels, sizes)],autopct='%1.1f%%', startangle=90, pctdistance=0.85)
+        self.ax.pie(sizes, labels=[f'{label}\n({size})' for label, size in zip(labels, sizes)],autopct='%1.1f%%', startangle=90, pctdistance=0.85 )
         center_circle = Circle((0, 0), 0.70, fc='white')  # Use Circle from matplotlib.patches
         self.ax.add_patch(center_circle)
         self.ax.axis('equal')
