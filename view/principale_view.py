@@ -16,7 +16,7 @@ from view.employee_detail_view import EmployeeDetailsForm
 from view.admin_crud_view import Admin_crud
 from view.sender_view import MessageSender
 from view.receiver_view import MessageReceiver
-
+from view.stats_view import Stats_view
 
 
 class CustomHeader(QWidget):
@@ -123,6 +123,16 @@ class CustomNavigationBar(QWidget):
         self.message_button.setStyleSheet("background-color: white; color: black; padding: 10px 20px; border: none; border-radius: 5px;")
         self.navigation_buttons.append(self.message_button)
         self.navigation_layout.addWidget(self.message_button)
+
+        self.navigation_layout.addSpacing(10)
+
+        self.stats_button = QPushButton("  Stats")
+        self.stats_button.setIcon(QIcon("assets\pic\stats.svg"))
+        self.stats_button.setToolTip("Voir les donnees de l'entreprise.")
+        self.stats_button.setCursor(Qt.PointingHandCursor)
+        self.stats_button.setStyleSheet("background-color: white; color: black; padding: 10px 20px; border: none; border-radius: 5px;")
+        self.navigation_buttons.append(self.stats_button)
+        self.navigation_layout.addWidget(self.stats_button)
 
         self.navigation_layout.addStretch(1)
 
@@ -280,6 +290,9 @@ class MainWindow(QMainWindow):
         self.personnal_card_form = Personnal_Card(self.db_path , self)
         self.stacked_widget.addWidget(self.personnal_card_form)
 
+        self.stats_view = Stats_view(self.db_path)
+        self.stacked_widget.addWidget(self.stats_view)
+
         self.inscri_controller = InscriptionPersonnelController()
         self.inscription_form = InscriptionPersonnelForm(self.db_path , self.inscri_controller) 
         self.inscri_controller.view = self.inscription_form      
@@ -291,6 +304,8 @@ class MainWindow(QMainWindow):
         self.navigation_bar.navigation_buttons[1].clicked.connect(self.show_admin_crud)
         self.navigation_bar.navigation_buttons[2].clicked.connect(self.show_inscription_page)
         self.navigation_bar.navigation_buttons[3].clicked.connect(self.show_sender)
+        self.navigation_bar.navigation_buttons[4].clicked.connect(self.show_stats_view)
+
 
         self.show_personnal_card_form()
 
@@ -305,6 +320,9 @@ class MainWindow(QMainWindow):
         self.stacked_widget.addWidget(employee_details_form)
         self.stacked_widget.setCurrentWidget(employee_details_form)
         self.last_displayed_page = employee_details_form
+
+    def show_stats_view(self):
+        self.stacked_widget.setCurrentWidget(self.stats_view)
 
     def show_principal_view(self):
         self.setupUI()
