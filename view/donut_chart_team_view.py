@@ -42,10 +42,12 @@ class DonutChartView(QWidget):
             self.ax.clear()
 
         self.ax = self.figure.add_subplot(111)
-        self.ax.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90, pctdistance=0.85)
+        self.ax.pie(sizes, labels=[f'{label}\n({size})' for label, size in zip(labels, sizes)],autopct='%1.1f%%', startangle=90, pctdistance=0.85)
         center_circle = Circle((0, 0), 0.70, fc='white')  # Use Circle from matplotlib.patches
         self.ax.add_patch(center_circle)
         self.ax.axis('equal')
+        self.ax.axis('off')
+        self.ax.tick_params(axis='both', which='both', bottom=False, top=False, left=False, right=False)
 
         self.canvas.draw()
 

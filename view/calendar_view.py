@@ -115,7 +115,6 @@ class Employee_VEOMSI_View(QWidget):
         selected_date = self.calendar.selectedDate()
 
         formatted_date = selected_date.toString("dd-MM-yyyy")
-        print(formatted_date)
         employees = self.controller.get_employees_for_date(formatted_date)
 
         self.populate_employee_table(employees)

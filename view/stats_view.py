@@ -1,6 +1,7 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTabWidget, QWidget, QVBoxLayout, QLabel
 
+from view.calendar_view import Employee_VEOMSI_View
 from view.donut_chart_team_view import DonutChartView
 
 class Stats_view(QTabWidget):
@@ -8,11 +9,14 @@ class Stats_view(QTabWidget):
         super().__init__()
         db_path = db_path
 
-        tabTeamDonut = DonutChartView(db_path)
-
+        self.tabTeamDonut = DonutChartView(db_path)
+        self.calendarViewOMSI = Employee_VEOMSI_View(db_path)
+        
+        self.Calendar_VEOMSI_Header = "Visite OMSI"
         self.teamDonutHeader = "Nos equipes"
 
-        self.addTab(tabTeamDonut , self.teamDonutHeader)
+        self.addTab(self.calendarViewOMSI , self.Calendar_VEOMSI_Header)
+        self.addTab(self.tabTeamDonut , self.teamDonutHeader)
 
         self.setStyleSheet(
             "QTabBar::tab {"
