@@ -3,7 +3,7 @@
 import sys
 from PyQt5.QtWidgets import QApplication,QSplitter, QWidget, QHBoxLayout,QVBoxLayout, QLineEdit, QPushButton, QLabel, QMessageBox 
 from PyQt5 import QtGui
-from PyQt5.QtCore import QRect 
+from PyQt5.QtCore import QRect  , QTimer
 from PyQt5 import QtCore 
 from PyQt5.QtGui import QIcon
 
@@ -43,7 +43,7 @@ class LoginWindow(QWidget):
 
         self.username_input = QLineEdit()
         self.username_input.setStyleSheet("width : 200; height: 30;color:white;font-weight:bold; background-color:#102429;border-radius:5px;padding: 10px 20px;border:1px solid white;")
-        self.username_input.setPlaceholderText("Username")
+        self.username_input.setPlaceholderText("Pseudo")
 
 
         self.toggle_button = QPushButton()
@@ -54,7 +54,7 @@ class LoginWindow(QWidget):
         self.password_input = QLineEdit()
         self.password_input.setEchoMode(QLineEdit.Password)
         self.password_input.returnPressed.connect(self.login)
-        self.password_input.setPlaceholderText("password")
+        self.password_input.setPlaceholderText("mot de passe")
         self.password_input.setStyleSheet("width : 200; height: 30;color:white;font-weight:bold;background-color:#102429;border-radius:5px;padding: 10px 20px;border:1px solid white;")
 
         self.username_input.returnPressed.connect(self.password_input.setFocus)
@@ -71,7 +71,18 @@ class LoginWindow(QWidget):
         right_layout.addWidget(self.password_input)
         right_layout.addWidget(self.toggle_button)
         #right_layout.addWidget(self.login_button)
-        right_widget.setLayout(right_layout)
+
+        welcome = QLabel("")
+        welcome.setStyleSheet("color: #7ed957; font-size: 16px; font-weight: bold;")
+
+
+        vertical = QVBoxLayout()
+        vertical.addStretch(1)
+        vertical.addWidget(welcome)
+        vertical.addLayout(right_layout)
+        vertical.addStretch(1)
+
+        right_widget.setLayout(vertical)
 
         splitter.addWidget(left_widget)
         splitter.addWidget(right_widget)
@@ -82,6 +93,20 @@ class LoginWindow(QWidget):
         self.setLayout(main_layout)
 
         self.password_shown = False
+
+        self.welcome_text = "Bienvenue à vous ,"
+        self.current_index = 0
+        self.welcome_timer = QTimer(self)
+        self.welcome_timer.timeout.connect(self.update_welcome_label)
+        self.welcome_timer.start(100)  # Set the interval (milliseconds) between letters
+
+    def update_welcome_label(self):
+        if self.current_index < len(self.welcome_text):
+            current_letter = self.welcome_text[self.current_index]
+            self.findChild(QLabel).setText(self.findChild(QLabel).text() + current_letter)
+            self.current_index += 1
+        else:
+            self.welcome_timer.stop()
 
     def login(self):
         username = self.username_input.text()
