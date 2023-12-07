@@ -1,0 +1,89 @@
+import sys , os
+from PyQt5.QtWidgets import QApplication,QStackedWidget, QDialog, QVBoxLayout, QWidget, QLabel, QLineEdit, QPushButton, QComboBox, QFileDialog,QScrollArea , QDateEdit , QMessageBox , QSizePolicy , QHBoxLayout , QTableWidget , QTableWidgetItem , QSpacerItem , QHeaderView
+from PyQt5.QtGui import QImage, QPixmap, QFont, QPainter 
+from PyQt5.QtCore import Qt , QDate, pyqtSignal , QRect , QSize 
+
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+sys.path.append(parent_dir)
+
+from controller.personnel_complete_controller import Complete_controller
+
+class EmployeeCompleteTabTwo(QWidget):
+    def __init__(self , badge):
+        super().__init__()
+        self.badge = badge
+        self.controller = Complete_controller(db_path='data\my_database.sqlite')
+        self.perso , self.equipe , self.categ , self.sc , self.affect , self.equipement , self.visite = self.controller.get_complete_info(self.badge)
+
+        self.trio = (self.equipe , self.categ , self.sc)
+
+        self.UI()
+
+    def UI(self):
+        persoHeader = (["Nom" , "Prenom" , "Sexe" , "CIN" , "Date CIN" , "Lieu CIN" , "Contact" , "Date de naissance" , "Lieu de naissance" , "Adresse"])
+
+        EquipeCategorieSCHeader = (["Equipe" , "Categorie" , "Sous-categorie"])
+
+        EquipementHeader = (["DateEquipement" , "Casque" , "Haut" , "Lunette" , "Chaussure"])
+
+        VisiteHeader = (["DU" , "Visite medicale" , "MSB" , "Consignation" , "MS" , "VE_OMSI"])
+
+        AffectationHeader = (["Fonction" , "2e fonction" , "Debut" , "Fin" , "Cause de depart"])
+
+        self.persoTable = self.createTable(self.perso , persoHeader)
+
+        self.EquipeCategorieSC = self.createTable(self.trio , EquipeCategorieSCHeader )
+
+        self.equipementTable = self.createTable(self.equipement , EquipementHeader)
+
+        self.visiteTable = self.createTable(self.visite , VisiteHeader)
+
+        self.affectationTable = self.createTable(self.affect , AffectationHeader)
+
+        main_layout = QVBoxLayout()
+        main_layout.addWidget(self.persoTable)
+        main_layout.addWidget(self.EquipeCategorieSC)
+        main_layout.addWidget(self.equipementTable)
+        main_layout.addWidget(self.visiteTable)
+        main_layout.addWidget(self.affectationTable)
+
+        self.setLayout(main_layout)
+
+
+    def createTable(self , tableData , headers):
+        table_widget = QTableWidget(self)
+        self.populateTable(table_widget, tableData , headers)
+        return table_widget 
+
+    def populateTable(self , table , tableData , headers):
+        table.setRowCount(0)
+        table.setColumnCount(len(tableData))
+        table.setHorizontalHeaderLabels(headers)
+        header_style = """
+            QHeaderView::section {
+                background-color: #102429;
+                color: white;
+                padding: 4px;
+                border: 1px solid #7ed957;
+                border-radius: 0px;
+                font-weight:bold;
+            }
+        """
+        table.horizontalHeader().setStyleSheet(header_style)
+
+        table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        table.insertRow(0)
+        for col_num, item in enumerate(tableData):
+            if isinstance(item, tuple):
+                for sub_col_num, sub_item in enumerate(item):
+                    table.setItem(0, col_num + sub_col_num, QTableWidgetItem(str(sub_item)))
+            else:
+                table.setItem(0, col_num, QTableWidgetItem(str(item)))
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    badge = "5443"  # Replace with an actual badge value
+    employee_complete_tab = EmployeeCompleteTabTwo(badge)
+    employee_complete_tab.show()
+    sys.exit(app.exec_())

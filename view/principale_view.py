@@ -206,9 +206,8 @@ class MainWindow(QMainWindow):
         self.setStyleSheet("background-color: white;")
 
     def setLoggedUserInfo(self, username):
-        print(f"TESTTTTT : {username}")
+
         self.logged_username = username
-        print(f"LOGGED AS {self.logged_username}")
      
         # You can also perform additional actions, like updating the UI with the user's info
         self.updateUserInfoInUI(self.logged_username)
@@ -221,7 +220,7 @@ class MainWindow(QMainWindow):
         # For example, you can set the header label text with the username
         self.header.header_label.setText(f"Logged in as {username}")
         self.header.activeName = username
-        print(f"Header : {username}")
+     
 
      
     def setupUI(self):    

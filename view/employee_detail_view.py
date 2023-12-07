@@ -10,7 +10,7 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from controller.personnel_card_controller import PersonnelController
 from view.employeeDetailTabOne_view import EmployeeDetailsTabOne , EmployeeDetailsTabOneContent
-
+from view.personnel_complete_view import EmployeeCompleteTabTwo
 
 class EmployeeTabForm(QTabWidget):
     def __init__(self , badge):
@@ -18,7 +18,7 @@ class EmployeeTabForm(QTabWidget):
         
         self.badge = badge
         self.tab1 = EmployeeDetailsTabOne(self.badge)
-        self.tab2 = QWidget()
+        self.tab2 = EmployeeCompleteTabTwo(self.badge)
 
         self.addTab(self.tab1 , "Fiche Individuelle")
         self.addTab(self.tab2 , "Fiche Complete")
