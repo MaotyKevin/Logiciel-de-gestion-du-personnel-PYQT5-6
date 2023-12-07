@@ -73,7 +73,7 @@ class LoginWindow(QWidget):
         #right_layout.addWidget(self.login_button)
 
         welcome = QLabel("")
-        welcome.setStyleSheet("color: #7ed957; font-size: 16px; font-weight: bold;")
+        welcome.setStyleSheet("color: #7ed957; font-size: 16px; font-weight: light;")
 
 
         vertical = QVBoxLayout()
@@ -94,7 +94,7 @@ class LoginWindow(QWidget):
 
         self.password_shown = False
 
-        self.welcome_text = "Bienvenue à vous ,"
+        self.welcome_text = "Welcome , please log In here...."
         self.current_index = 0
         self.welcome_timer = QTimer(self)
         self.welcome_timer.timeout.connect(self.update_welcome_label)

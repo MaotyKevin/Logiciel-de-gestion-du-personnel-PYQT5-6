@@ -188,6 +188,9 @@ class MainWindow(QMainWindow):
         super().__init__()
         
         self.setWindowTitle("Gestion de personnel - FANAHISOA & Maoty Copyright")
+
+        self.setWindowIcon(QIcon('assets\pic\Fanahisoa1.ico'))
+
         self.db_path = db_path
         self.last_displayed_page = None
         self.logged_username = None

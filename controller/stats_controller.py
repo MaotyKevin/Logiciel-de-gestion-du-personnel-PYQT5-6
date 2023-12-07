@@ -7,3 +7,9 @@ class Stats_controller:
 
     def display_donut_chart_team(self):
         return self.model.display_donut_chart_team()
+    
+    def display_donut_chart_category(self):
+        return self.model.display_donut_chart_Category()
+    
+    def display_donut_chart_SC(self):
+        return self.model.display_donut_chart_SC()
