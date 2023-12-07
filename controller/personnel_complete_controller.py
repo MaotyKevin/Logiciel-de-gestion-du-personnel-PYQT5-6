@@ -21,6 +21,9 @@ class Complete_controller:
 
         return personnelInfo , equipeInfo , categorieInfo , SCInfo , affectationInfo , equipementInfo , visiteInfo
     
+    def update_personnelTable(self , badge , field , value):
+        return self.model.update_personnel_model(badge , field , value)
+
 if __name__ == "__main__":
     db_path = 'data\my_database.sqlite'
     controller = Complete_controller(db_path)

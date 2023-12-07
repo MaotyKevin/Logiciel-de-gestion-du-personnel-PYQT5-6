@@ -1,5 +1,5 @@
 import sys , os
-from PyQt5.QtWidgets import QApplication,QStackedWidget, QDialog, QVBoxLayout, QWidget, QLabel, QLineEdit, QPushButton, QComboBox, QFileDialog,QScrollArea , QDateEdit , QMessageBox , QSizePolicy , QHBoxLayout , QTableWidget , QTableWidgetItem , QSpacerItem , QHeaderView
+from PyQt5.QtWidgets import QApplication,QStackedWidget, QDialog, QVBoxLayout, QWidget, QLabel, QLineEdit, QPushButton, QComboBox, QFileDialog,QScrollArea , QDateEdit , QMessageBox , QSizePolicy , QHBoxLayout , QTableWidget , QTableWidgetItem , QSpacerItem , QHeaderView , QInputDialog
 from PyQt5.QtGui import QImage, QPixmap, QFont, QPainter 
 from PyQt5.QtCore import Qt , QDate, pyqtSignal , QRect , QSize 
 
@@ -27,7 +27,7 @@ class EmployeeCompleteTabTwo(QWidget):
 
         EquipementHeader = (["DateEquipement" , "Casque" , "Haut" , "Lunette" , "Chaussure"])
 
-        VisiteHeader = (["DU" , "Visite medicale" , "MSB" , "Consignation" , "MS" , "VE_OMSI"])
+        VisiteHeader = (["DU" , "Visite medicale", "Accueil securite" , "MSB" , "Consignation" , "MS" , "VE_OMSI"])
 
         AffectationHeader = (["Fonction" , "2e fonction" , "Debut" , "Fin" , "Cause de depart"])
 
@@ -49,6 +49,10 @@ class EmployeeCompleteTabTwo(QWidget):
         main_layout.addWidget(self.affectationTable)
 
         self.setLayout(main_layout)
+
+        self.persoTable.setEditTriggers(QTableWidget.DoubleClicked | QTableWidget.EditKeyPressed)
+        self.persoTable.cellDoubleClicked.connect(self.edit_cell_personnel)
+
 
 
     def createTable(self , tableData , headers):
@@ -80,6 +84,25 @@ class EmployeeCompleteTabTwo(QWidget):
                     table.setItem(0, col_num + sub_col_num, QTableWidgetItem(str(sub_item)))
             else:
                 table.setItem(0, col_num, QTableWidgetItem(str(item)))
+
+    def edit_cell_personnel(self, row, col):
+        if col < len(self.perso):
+            current_item = self.persoTable.item(row, col)
+            if current_item is not None and current_item.flags() & Qt.ItemIsEditable:
+                new_value, ok = QInputDialog.getText(self, 'Edit Cell', f'Edit {current_item.text()}:')
+                if ok:
+                    current_item.setText(new_value)
+                    self.register_update_personnel(row, col, new_value)
+
+    def register_update_personnel(self, row, col, new_value):
+        field_names = ["Nom", "Prenom", "Sexe", "CIN", "Date_CIN", "Lieu_CIN", "Contact",
+                       "Date_Naissance", "Lieu_Naissance", "Adresse"]
+
+        field_name = field_names[col]
+        self.controller.update_personnelTable(self.badge, field_name, new_value)
+
+#_____________________________________________
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

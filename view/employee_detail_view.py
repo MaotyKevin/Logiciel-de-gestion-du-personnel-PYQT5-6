@@ -117,6 +117,7 @@ class EmployeeDetailsForm(QWidget):
         layout.addWidget(container)  # Add the container widget to the layout
         self.setLayout(layout)
 
+
     def show_previous_cards(self):
         # Use the reference to the main window to switch back to the list of cards
         if self.main_window:

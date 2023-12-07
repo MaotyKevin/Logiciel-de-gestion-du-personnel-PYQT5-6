@@ -4,6 +4,17 @@ class Complete_model:
     def __init__(self, database_name):
         self.database_name = database_name
 
+    def update_personnel_model(self , badge , field , value):
+        conn = sqlite3.connect(self.database_name)
+        cursor = conn.cursor()
+
+        query = f"UPDATE Personnel SET {field} = ? WHERE Badge = ?"
+
+        cursor.execute(query , (value , badge) )
+        conn.commit()
+        return True
+    
+
     def get_EquipeInfo_table(self , Badge):
         conn = sqlite3.connect(self.database_name)
         cursor = conn.cursor()
@@ -107,5 +118,6 @@ if __name__ == "__main__":
     db_path = 'data\my_database.sqlite'
     Databasess = Complete_model(db_path)
     badge = 5443
-    datas = Databasess.getSCTable(badge)
-    print(datas)
+    field = "Nom"
+    value = "POKAHONTAS"
+    Databasess.update_personnel_model(badge , field , value)
