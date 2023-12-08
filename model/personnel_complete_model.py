@@ -4,6 +4,87 @@ class Complete_model:
     def __init__(self, database_name):
         self.database_name = database_name
 
+    def recuperer_id_categorie(self,categorie):
+        try:
+            conn = sqlite3.connect(self.database_name)
+            cursor = conn.cursor()            
+            cursor.execute("SELECT id_categorie FROM Categorie WHERE nom_categorie = ?" , (categorie,))
+            row = cursor.fetchone()
+            if row :
+                return row[0]
+            else :
+                return None
+        except sqlite3.Error as e:
+            print(f"Erreur lors de la récupération de l'ID de la categorie : {str(e)}")
+            return None
+
+    def recuperer_id_equipe(self,equipe):
+        try:
+            conn = sqlite3.connect(self.database_name)
+            cursor = conn.cursor()            
+            cursor.execute("SELECT id_equipe FROM Equipe WHERE nom_equipe = ?" , (equipe,))
+            row = cursor.fetchone()
+            if row :
+                return row[0]
+            else :
+                return None
+        except sqlite3.Error as e:
+            print(f"Erreur lors de la récupération de l'ID de l'equipe : {str(e)}")
+            return None
+        
+    def recuperer_id_sous_categorie(self, sous_categorie):
+        try:
+            conn = sqlite3.connect(self.database_name)
+            cursor = conn.cursor()         
+            cursor.execute("SELECT id_sousCategorie FROM SousCategorie WHERE sousCategorie = ?", (sous_categorie,))
+            row = cursor.fetchone()
+            if row:
+                return row[0]
+            else:
+                return None
+        except sqlite3.Error as e:
+            print(f"Erreur lors de la récupération de l'ID de sous-catégorie : {str(e)}")
+            return None
+        
+    def recuperer_donnees_categorie(self):
+        try:
+            conn = sqlite3.connect(self.database_name)
+            cursor = conn.cursor()            
+            cursor.execute("SELECT nom_categorie FROM Categorie")
+            categorie_data = [row[0] for row in cursor.fetchall()]
+            return categorie_data
+        except sqlite3.Error as e:
+            print(f"Erreur lors de la récupération des données de categorie : {str(e)}")
+            return []    
+
+
+    def recuperer_donnees_equipe(self):
+        try:
+            conn = sqlite3.connect(self.database_name)
+            cursor = conn.cursor()            
+            cursor.execute("SELECT nom_equipe FROM Equipe")
+            equipe_data = [row[0] for row in cursor.fetchall()]
+            return equipe_data
+        except sqlite3.Error as e:
+            print(f"Erreur lors de la récupération des données d'équipe : {str(e)}")
+            return []
+
+    def recuperer_donnees_sous_categorie(self):
+        try:
+
+            conn = sqlite3.connect(self.database_name)
+            cursor = conn.cursor()
+          
+            cursor.execute("SELECT sousCategorie FROM SousCategorie")
+            sous_categorie_data = ["Aucun"]  # Option "Aucun"
+            sous_categorie_data += [row[0] for row in cursor.fetchall()]
+            return sous_categorie_data
+        except sqlite3.Error as e:
+            print(f"Erreur lors de la récupération des données de sous-catégorie : {str(e)}")
+            return []
+
+#__________________________________________________
+
     def update_personnel_model(self , badge , field , value):
         conn = sqlite3.connect(self.database_name)
         cursor = conn.cursor()
@@ -13,7 +94,35 @@ class Complete_model:
         cursor.execute(query , (value , badge) )
         conn.commit()
         return True
+    def update_equipement_model(self , badge , field , value):
+        conn = sqlite3.connect(self.database_name)
+        cursor = conn.cursor()
+
+        query = f"UPDATE Equipement SET {field} = ? WHERE id_equipement = (SELECT id_equipement FROM Personnel WHERE Badge = ?)"
+
+        cursor.execute(query , (value , badge) )
+        conn.commit()
+        return True 
     
+    def update_visite_model(self , badge , field , value):
+        conn = sqlite3.connect(self.database_name)
+        cursor = conn.cursor()
+
+        query = f"UPDATE Visite SET {field} = ? WHERE id_visite = (SELECT id_visite FROM Personnel WHERE Badge = ?)"
+
+        cursor.execute(query , (value , badge) )
+        conn.commit()
+        return True 
+    
+    def update_affectation_model(self , badge , field , value):
+        conn = sqlite3.connect(self.database_name)
+        cursor = conn.cursor()
+
+        query = f"UPDATE Affectation SET {field} = ? WHERE id_affectation = (SELECT id_affectation FROM Personnel WHERE Badge = ?)"
+
+        cursor.execute(query , (value , badge) )
+        conn.commit()
+        return True 
 
     def get_EquipeInfo_table(self , Badge):
         conn = sqlite3.connect(self.database_name)
@@ -117,7 +226,6 @@ class Complete_model:
 if __name__ == "__main__":
     db_path = 'data\my_database.sqlite'
     Databasess = Complete_model(db_path)
-    badge = 5443
-    field = "Nom"
-    value = "POKAHONTAS"
-    Databasess.update_personnel_model(badge , field , value)
+    categ = "USINE"
+    data = Databasess.recuperer_id_categorie(categ)
+    print(data)

@@ -53,6 +53,15 @@ class EmployeeCompleteTabTwo(QWidget):
         self.persoTable.setEditTriggers(QTableWidget.DoubleClicked | QTableWidget.EditKeyPressed)
         self.persoTable.cellDoubleClicked.connect(self.edit_cell_personnel)
 
+        self.equipementTable.setEditTriggers(QTableWidget.DoubleClicked | QTableWidget.EditKeyPressed)
+        self.equipementTable.cellDoubleClicked.connect(self.edit_cell_equipement)
+
+        self.visiteTable.setEditTriggers(QTableWidget.DoubleClicked | QTableWidget.EditKeyPressed)
+        self.visiteTable.cellDoubleClicked.connect(self.edit_cell_visite)
+
+        self.affectationTable.setEditTriggers(QTableWidget.DoubleClicked | QTableWidget.EditKeyPressed)
+        self.affectationTable.cellDoubleClicked.connect(self.edit_cell_affectation)
+
 
 
     def createTable(self , tableData , headers):
@@ -103,6 +112,56 @@ class EmployeeCompleteTabTwo(QWidget):
 
 #_____________________________________________
 
+    def edit_cell_equipement(self, row, col):
+        if col < len(self.equipement):
+            current_item = self.equipementTable.item(row, col)
+            if current_item is not None and current_item.flags() & Qt.ItemIsEditable:
+                new_value, ok = QInputDialog.getText(self, 'Edit Cell', f'Edit {current_item.text()}:')
+                if ok:
+                    current_item.setText(new_value)
+                    self.register_update_equipement(row, col, new_value)
+
+    def register_update_equipement(self, row, col, new_value):
+        field_names = ["DateEquipement", "Casque", "Haut", "Lunette", "Chaussure"]
+
+        field_name = field_names[col]
+        self.controller.update_EquipementTable(self.badge, field_name, new_value)
+
+#_______________________________________________
+
+    def edit_cell_visite(self, row, col):
+        if col < len(self.visite):
+            current_item = self.visiteTable.item(row, col)
+            if current_item is not None and current_item.flags() & Qt.ItemIsEditable:
+                new_value, ok = QInputDialog.getText(self, 'Edit Cell', f'Edit {current_item.text()}:')
+                if ok:
+                    current_item.setText(new_value)
+                    self.register_update_visite(row, col, new_value)
+
+    def register_update_visite(self, row, col, new_value):
+        field_names = ["DU", "DateVisiteMedicale", "DateAccueilSecurite", "MSB", "Consignation" , "MS" , "VE_OMSI"]
+
+        field_name = field_names[col]
+        self.controller.update_visiteTable(self.badge, field_name, new_value)
+
+#_________________________________________
+
+    def edit_cell_affectation(self, row, col):
+        if col < len(self.affect):
+            current_item = self.affectationTable.item(row, col)
+            if current_item is not None and current_item.flags() & Qt.ItemIsEditable:
+                new_value, ok = QInputDialog.getText(self, 'Edit Cell', f'Edit {current_item.text()}:')
+                if ok:
+                    current_item.setText(new_value)
+                    self.register_update_affectation(row, col, new_value)
+
+    def register_update_affectation(self, row, col, new_value):
+        field_names = ["Fonction", "DeuxiemeFonction", "DateDebut", "DateFin", "CauseDepart"]
+
+        field_name = field_names[col]
+        self.controller.update_affectationTable(self.badge, field_name, new_value)
+
+#_________________________________________
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
