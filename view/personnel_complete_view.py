@@ -102,7 +102,7 @@ class EmployeeCompleteTabTwo(QWidget):
         if col < len(self.perso):
             current_item = self.persoTable.item(row, col)
             if current_item is not None and current_item.flags() & Qt.ItemIsEditable:
-                new_value, ok = QInputDialog.getText(self, 'Edit Cell', f'Edit {current_item.text()}:')
+                new_value, ok = QInputDialog.getText(self, 'Fenetre de modification', f'Valeur actuelle :  {current_item.text()}')
                 if ok:
                     current_item.setText(new_value)
                     self.register_update_personnel(row, col, new_value)
@@ -120,7 +120,7 @@ class EmployeeCompleteTabTwo(QWidget):
         if col < len(self.equipement):
             current_item = self.equipementTable.item(row, col)
             if current_item is not None and current_item.flags() & Qt.ItemIsEditable:
-                new_value, ok = QInputDialog.getText(self, 'Edit Cell', f'Edit {current_item.text()}:')
+                new_value, ok = QInputDialog.getText(self, 'Fenetre de modification', f'Valeur actuelle :  {current_item.text()}')
                 if ok:
                     current_item.setText(new_value)
                     self.register_update_equipement(row, col, new_value)
@@ -137,7 +137,7 @@ class EmployeeCompleteTabTwo(QWidget):
         if col < len(self.visite):
             current_item = self.visiteTable.item(row, col)
             if current_item is not None and current_item.flags() & Qt.ItemIsEditable:
-                new_value, ok = QInputDialog.getText(self, 'Edit Cell', f'Edit {current_item.text()}:')
+                new_value, ok = QInputDialog.getText(self, 'Fenetre de modification', f'Valeur actuelle :  {current_item.text()}')
                 if ok:
                     current_item.setText(new_value)
                     self.register_update_visite(row, col, new_value)
@@ -154,7 +154,7 @@ class EmployeeCompleteTabTwo(QWidget):
         if col < len(self.affect):
             current_item = self.affectationTable.item(row, col)
             if current_item is not None and current_item.flags() & Qt.ItemIsEditable:
-                new_value, ok = QInputDialog.getText(self, 'Edit Cell', f'Edit {current_item.text()}:')
+                new_value, ok = QInputDialog.getText(self, 'Fenetre de modification', f'Valeur actuelle :  {current_item.text()}')
                 if ok:
                     current_item.setText(new_value)
                     self.register_update_affectation(row, col, new_value)
