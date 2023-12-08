@@ -4,6 +4,23 @@ class Complete_model:
     def __init__(self, database_name):
         self.database_name = database_name
 
+    def update_generic_table(self , tableName , fieldName , NewValueID , badge):
+            conn = sqlite3.connect(self.database_name)
+            cursor = conn.cursor()   
+
+            if tableName == "Personnel":
+                query = f"UPDATE Personnel SET {fieldName} = ? WHERE Badge = ?"
+
+                cursor.execute(query , (NewValueID , badge))
+                conn.commit()    
+            else:
+                query = f"UPDATE Affectation SET {fieldName} = ? WHERE id_affectation = (SELECT id_affectation FROM Personnel WHERE Badge = ?)"
+
+                cursor.execute(query , (NewValueID , badge))
+                conn.commit()
+
+#___________________________________________
+
     def recuperer_id_categorie(self,categorie):
         try:
             conn = sqlite3.connect(self.database_name)

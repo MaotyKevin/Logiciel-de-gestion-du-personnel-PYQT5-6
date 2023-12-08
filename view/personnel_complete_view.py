@@ -62,6 +62,10 @@ class EmployeeCompleteTabTwo(QWidget):
         self.affectationTable.setEditTriggers(QTableWidget.DoubleClicked | QTableWidget.EditKeyPressed)
         self.affectationTable.cellDoubleClicked.connect(self.edit_cell_affectation)
 
+        self.EquipeCategorieSC.setEditTriggers(QTableWidget.DoubleClicked | QTableWidget.EditKeyPressed)
+        self.EquipeCategorieSC.cellDoubleClicked.connect(self.edit_cell_equipe_categorie_sc)
+
+
 
 
     def createTable(self , tableData , headers):
@@ -162,6 +166,54 @@ class EmployeeCompleteTabTwo(QWidget):
         self.controller.update_affectationTable(self.badge, field_name, new_value)
 
 #_________________________________________
+
+    def edit_cell_equipe_categorie_sc(self, row, col):
+        if col < len(self.trio):
+            current_item = self.EquipeCategorieSC.item(row, col)
+            if current_item is not None and current_item.flags() & Qt.ItemIsEditable:
+                combo_box = QComboBox(self)
+                combo_box.addItems(self.get_data_from_database(col))  # Update this line to fetch data from the database
+                combo_box.setCurrentText(current_item.text())
+
+                self.EquipeCategorieSC.setCellWidget(row, col, combo_box)
+
+                # Connect the combo box's currentIndexChanged signal to a slot function
+                combo_box.currentIndexChanged.connect(
+                    lambda index, row=row, col=col, combo_box=combo_box: self.combo_box_changed(row, col, combo_box.currentText()))
+
+    def get_data_from_database(self, col):
+        # Implement a method to fetch data from the database based on the column (col)
+        # Return a list of options for the QComboBox
+        # Example:
+        if col == 0:  # Equipe column
+            return self.controller.recuperer_donnees_equipe()  # Replace with the actual method to fetch equipe names
+        elif col == 1:  # Categorie column
+            return self.controller.recuperer_donnees_categorie()  # Replace with the actual method to fetch categorie names
+        elif col == 2:  # Sous-categorie column
+            return self.controller.recuperer_donnees_SC()  # Replace with the actual method to fetch sous-categorie names
+        else:
+            return []
+        
+    def combo_box_changed(self, row, col, new_value):
+        # Handle the combo box value change
+        # Update the database, print a message, or perform any other desired actions
+        self.EquipeCategorieSC.setItem(row, col, QTableWidgetItem(new_value))
+        field_names = ["id_equipe", "id_categorie", "id_sousCategorie"]
+        field_name = field_names[col]
+        table_name = ["Personnel", "Affectation", "Affectation"][col]
+
+        if col == 0 :
+            new_valueID = self.controller.recuperer_id_equipe(new_value)
+            self.controller.update_generic_table(table_name , field_name , new_valueID , badge=self.badge)
+
+        elif col == 1 :
+            new_valueID = self.controller.recuperer_id_categorie(new_value)
+            self.controller.update_generic_table(table_name , field_name , new_valueID , badge=self.badge)
+
+        elif col == 2:
+            new_valueID = self.controller.recuperer_id_SC(new_value)
+            self.controller.update_generic_table(table_name , field_name , new_valueID , badge=self.badge)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

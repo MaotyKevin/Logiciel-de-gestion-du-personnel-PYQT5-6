@@ -52,6 +52,11 @@ class Complete_controller:
     
     def recuperer_donnees_SC(self):
         return self.model.recuperer_donnees_sous_categorie()
+    
+#__________________________________________
+
+    def update_generic_table(self , tableName , fieldName , NewValueID , badge):
+        return self.model.update_generic_table(tableName , fieldName , NewValueID , badge)
 
 
 if __name__ == "__main__":
