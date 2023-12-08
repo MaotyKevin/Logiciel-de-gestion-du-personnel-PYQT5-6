@@ -91,6 +91,9 @@ class Personnal_Card(QWidget):
         self.team_filter = QComboBox()
         self.team_filter.addItem("All Teams")
 
+        self.Categ_filter = QComboBox()
+        self.Categ_filter.addItem("All Categ")
+
         self.SC_filter = QComboBox()
         self.SC_filter.addItem("All SC")
 
@@ -98,11 +101,14 @@ class Personnal_Card(QWidget):
         combo_container.addStretch(1)
         combo_container.addWidget(self.team_filter)
         combo_container.addSpacing(10)
+        combo_container.addWidget(self.Categ_filter)
+        combo_container.addSpacing(10)
         combo_container.addWidget(self.SC_filter)
         combo_container.addSpacing(10)
         combo_container.addWidget(self.search_field)
         
         self.team_filter.setStyleSheet("QComboBox { padding: 5px; border:1px solid #CCCCCC; border-radius: 5px; background-color:#102429;color:white;}     QComboBox::down-arrow {background-color: #7ed957;}")
+        self.Categ_filter.setStyleSheet("QComboBox { padding: 5px; border:1px solid #CCCCCC; border-radius: 5px; background-color:#102429;color:white;}     QComboBox::down-arrow {background-color: #7ed957;}")
         self.SC_filter.setStyleSheet("QComboBox { padding: 5px; border:1px solid #CCCCCC; border-radius: 5px;background-color:#102429;color:white; } QComboBox::down-arrow {background-color: #7ed957;}")
 
          # Initial option
@@ -113,6 +119,10 @@ class Personnal_Card(QWidget):
         self.SC_name = self.controller.get_SC_names()
         self.SC_filter.addItems(self.SC_name)  # Implement this method to get team names
         self.SC_filter.currentIndexChanged.connect(self.filter_personnel_SC)
+
+        self.Categ_name = self.controller.get_categ_names()
+        self.Categ_filter.addItems(self.Categ_name)  # Implement this method to get team names
+        self.Categ_filter.currentIndexChanged.connect(self.filter_personnel_Categorie)
 
         #combo_container.setStretch(1000 , 1000)
         #combo_container.setSpacing(20)
@@ -172,19 +182,29 @@ class Personnal_Card(QWidget):
         #self.update_combo_box_items()
         self.refresh_personnel_cards(personnel_data)
 
+    def filter_personnel_Categorie(self, index):
+        selected_Categorie = self.Categ_filter.currentText()
+        personnel_datas = self.controller.get_personnel_by_Categ(selected_Categorie)
+        #self.update_combo_box_items()
+        self.refresh_personnel_cards(personnel_datas)
+
     def update_combo_box_items(self):
         # Clear the existing items
         self.team_filter.clear()
+        self.Categ_filter.clear()
         self.SC_filter.clear()
         # Add the initial option
         self.team_filter.addItem("All Teams")
+        self.Categ_filter.addItem("All Categ")
         self.SC_filter.addItem("All SC")
 
         # Fetch and add the updated team names
         equipe_name = self.controller.get_team_names()
+        Categ_name = self.controller.get_categ_names()
         SC_name = self.controller.get_SC_names()
 
         self.team_filter.addItems(equipe_name)
+        self.Categ_filter.addItems(Categ_name)
         self.SC_filter.addItems(SC_name)
 
     def refresh_personnel_cards(self, personnel_data=None):

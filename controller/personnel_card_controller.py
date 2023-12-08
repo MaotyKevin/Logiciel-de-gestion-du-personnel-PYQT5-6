@@ -37,6 +37,15 @@ class PersonnelController:
         else:
            return  self.model.get_personnel_by_SC(sousCategorie)
 
+    def get_categ_names(self):
+        return self.model.get_Categorie_names()
+    
+    def get_personnel_by_Categ(self , Categorie):
+        if Categorie == "All Categ":
+            return self.model.get_personnel_data()
+        else:
+           return  self.model.get_personnel_by_Categorie(Categorie)
+
 if __name__ == "__main__":
     contro = PersonnelController('data\my_database.sqlite')
     contro.get_employee_details("Batman")
